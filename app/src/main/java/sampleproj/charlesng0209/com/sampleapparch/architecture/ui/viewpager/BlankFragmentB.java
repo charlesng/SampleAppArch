@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import sampleproj.charlesng0209.com.sampleapparch.R;
 import sampleproj.charlesng0209.com.sampleapparch.architecture.viewModel.viewpager.PagerAgentViewModel;
-import sampleproj.charlesng0209.com.sampleapparch.src.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +30,7 @@ public class BlankFragmentB extends LifecycleFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private TextView textViewB;
+    private TextView textView;
 
 
     public BlankFragmentB() {
@@ -68,26 +67,29 @@ public class BlankFragmentB extends LifecycleFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ViewModelProviders.of(getActivity()).get(PagerAgentViewModel.class).getUserInfo().observe(this, new Observer<User>() {
+        //setup the listener for the fragment B
+        Observer<String> observer = new Observer<String>() {
             @Override
-            public void onChanged(@Nullable User user) {
-                textViewB.setText(user.getName());
+            public void onChanged(@Nullable String msg) {
+                textView.setText(msg);
 
             }
-        });
+        };
+        ViewModelProviders.of(getActivity()).get(PagerAgentViewModel.class).getMessageContainerB().observe(this, observer);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_blank_fragment_b, container, false);
-        textViewB = (TextView) view.findViewById(R.id.fragment_textB);
+        View view = inflater.inflate(R.layout.fragment_blank_b, container, false);
+        textView = (TextView) view.findViewById(R.id.fragment_textB);
+        //set the on click listener
         Button button = (Button) view.findViewById(R.id.btnB);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewModelProviders.of(getActivity()).get(PagerAgentViewModel.class).setNewName("Hello A");
+                ViewModelProviders.of(getActivity()).get(PagerAgentViewModel.class).sendMessageToA("Hello A");
 
             }
         });

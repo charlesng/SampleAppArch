@@ -9,12 +9,12 @@
         android:id="@+id/fragment_textB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fragment B" />
+        android:text="@string/default_msg_containerB" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send to A"
+        android:text="btnB_text"
         android:id="@+id/btnB"
         />
 

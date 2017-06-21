@@ -63,7 +63,6 @@ public class PagerActivity extends LifecycleActivity {
             {
                 case FRAGMENT_A_POS :
                     return BlankFragmentA.newInstance("Test","Test1");
-
                 case FRAGMENT_B_POS:
                     return BlankFragmentB.newInstance("Test","Test2");
                 default:
