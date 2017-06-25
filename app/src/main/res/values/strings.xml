@@ -10,4 +10,6 @@
     <string name="default_msg_containerB">Fragment B</string>
     <string name="btnA_text">Send to B</string>
     <string name="default_msg_containerA">Fragment A</string>
+    <string name="title_email_list">Emails</string>
+    <string name="title_email_detail">Email Detail</string>
 </resources>
