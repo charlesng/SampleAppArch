@@ -9,7 +9,7 @@ import android.arch.lifecycle.ViewModel;
  */
 
 public class MasterDetailShareViewModel extends ViewModel{
-    private MutableLiveData<String> selectedEmailName;
+    private MutableLiveData<String> selectedEmailName = new MutableLiveData<>();
 
     public void init()
     {

@@ -66,7 +66,7 @@ public class EmailListActivity extends LifecycleActivity {
             mTwoPane = true;
             //setup the share view model
             masterDetailShareViewModel  = ViewModelProviders.of(this).get(MasterDetailShareViewModel.class);
-            masterDetailShareViewModel.init();
+//            masterDetailShareViewModel.init();
 
 
         }

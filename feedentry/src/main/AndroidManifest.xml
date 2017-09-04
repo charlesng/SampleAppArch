@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.example.feedentry">
+
+  <application>
+    <activity
+      android:label="@string/title_activity_feed"
+      android:name=".FeedActivity"
+      android:theme="@style/AppTheme.NoActionBar"></activity>
+  </application>
+
+</manifest>
