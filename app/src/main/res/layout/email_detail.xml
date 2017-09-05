@@ -6,4 +6,4 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:textIsSelectable="true"
-    tools:context="sampleproj.charlesng0209.com.sampleapparch.architecture.ui.masterdetail.EmailDetailFragment" />
+    tools:context=".architecture.ui.masterdetail.EmailDetailFragment" />

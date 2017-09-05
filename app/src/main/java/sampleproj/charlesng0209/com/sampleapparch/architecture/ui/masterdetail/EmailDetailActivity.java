@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
-
 import sampleproj.charlesng0209.com.sampleapparch.R;
 
 /**

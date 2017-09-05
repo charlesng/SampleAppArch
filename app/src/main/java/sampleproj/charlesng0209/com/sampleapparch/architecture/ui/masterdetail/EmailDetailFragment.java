@@ -11,10 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import sampleproj.charlesng0209.com.sampleapparch.R;
 import sampleproj.charlesng0209.com.sampleapparch.architecture.ui.masterdetail.dummy.DummyContent;
-import sampleproj.charlesng0209.com.sampleapparch.architecture.viewModel.masterdetail.MasterDetailShareViewModel;
+import sampleproj.charlesng0209.com.sampleapparch.architecture.viewmodel.masterdetail.MasterDetailShareViewModel;
+
 
 /**
  * A fragment representing a single Email detail screen.

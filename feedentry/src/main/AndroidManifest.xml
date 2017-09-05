@@ -5,7 +5,7 @@
   <application>
     <activity
       android:label="@string/title_activity_feed"
-      android:name=".FeedActivity"
+      android:name=".ui.FeedActivity"
       android:theme="@style/AppTheme.NoActionBar"></activity>
   </application>
 

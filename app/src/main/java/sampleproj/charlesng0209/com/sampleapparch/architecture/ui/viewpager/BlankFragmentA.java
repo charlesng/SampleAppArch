@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import sampleproj.charlesng0209.com.sampleapparch.R;
-import sampleproj.charlesng0209.com.sampleapparch.architecture.viewModel.viewpager.PagerAgentViewModel;
+import sampleproj.charlesng0209.com.sampleapparch.architecture.viewmodel.viewpager.PagerAgentViewModel;
+
 
 /**
  * A simple {@link Fragment} subclass.

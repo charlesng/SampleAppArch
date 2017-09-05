@@ -1,4 +1,4 @@
-package sampleproj.charlesng0209.com.sampleapparch.architecture.viewModel.viewpager;
+package sampleproj.charlesng0209.com.sampleapparch.architecture.viewmodel.viewpager;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;

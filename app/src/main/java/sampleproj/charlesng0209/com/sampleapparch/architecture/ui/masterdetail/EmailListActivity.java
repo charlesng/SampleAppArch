@@ -15,10 +15,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
-
 import sampleproj.charlesng0209.com.sampleapparch.R;
 import sampleproj.charlesng0209.com.sampleapparch.architecture.ui.masterdetail.dummy.DummyContent;
-import sampleproj.charlesng0209.com.sampleapparch.architecture.viewModel.masterdetail.MasterDetailShareViewModel;
+import sampleproj.charlesng0209.com.sampleapparch.architecture.ui.masterdetail.dummy.DummyContent.DummyItem;
+import sampleproj.charlesng0209.com.sampleapparch.architecture.viewmodel.masterdetail.MasterDetailShareViewModel;
+
 
 /**
  * An activity representing a list of Emails. This activity
@@ -79,7 +80,7 @@ public class EmailListActivity extends LifecycleActivity {
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<DummyItem> mValues;
 
         public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
             mValues = items;

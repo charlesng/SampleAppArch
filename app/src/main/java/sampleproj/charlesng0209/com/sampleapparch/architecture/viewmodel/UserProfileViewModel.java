@@ -1,4 +1,4 @@
-package sampleproj.charlesng0209.com.sampleapparch.architecture.viewModel;
+package sampleproj.charlesng0209.com.sampleapparch.architecture.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;

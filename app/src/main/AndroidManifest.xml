@@ -15,11 +15,13 @@
     <activity
       android:label="@string/title_activity_pager"
       android:name=".architecture.ui.viewpager.PagerActivity"
-      android:theme="@style/AppTheme.NoActionBar"></activity>
+      android:theme="@style/AppTheme.NoActionBar">
+    </activity>
     <activity
       android:label="@string/title_email_list"
       android:name=".architecture.ui.masterdetail.EmailListActivity"
       android:theme="@style/AppTheme.NoActionBar">
+
     </activity>
     <activity
       android:label="@string/title_email_detail"
@@ -28,7 +30,7 @@
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="sampleproj.charlesng0209.com.sampleapparch.architecture.ui.masterdetail.EmailListActivity" />
+        android:value=".architecture.ui.masterdetail.EmailListActivity" />
     </activity>
     <activity
       android:label="@string/title_activity_app_arch_navigation_drawer"

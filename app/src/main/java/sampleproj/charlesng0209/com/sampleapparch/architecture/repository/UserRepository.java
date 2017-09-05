@@ -21,20 +21,18 @@ import sampleproj.charlesng0209.com.sampleapparch.src.model.User;
 @Singleton
 public class UserRepository {
 
-    public LiveData<User> getUser(int userId) {
-        // This is not an optimal implementation, we'll fix it below
-        final MutableLiveData<User> data = new MutableLiveData<>();
-        Observable.interval(0,2, TimeUnit.SECONDS).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread()).map(new Function<Long, Object>() {
-            @Override
-            public Object apply(@NonNull Long aLong) throws Exception {
-                User value = new User();
-                value.setName(String.format("ABCD %d " , aLong ));
-                data.setValue(value);
-                return aLong;
-            }
-        }).subscribe();
+  public LiveData<User> getUser(int userId) {
+    // This is not an optimal implementation, we'll fix it below
+    final MutableLiveData<User> data = new MutableLiveData<>();
+    Observable.interval(0, 2, TimeUnit.SECONDS).subscribeOn(Schedulers.newThread())
+        .observeOn(AndroidSchedulers.mainThread()).map((Function<Long, Object>) aLong -> {
+      User value = new User();
+      value.setName(String.format("ABCD %d ", aLong));
+      data.setValue(value);
 
-        return data;
-    }
+      return aLong;
+    }).subscribe();
+
+    return data;
+  }
 }

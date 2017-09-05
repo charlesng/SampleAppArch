@@ -12,6 +12,14 @@
       android:id="@+id/nav_storage"
       android:icon="@drawable/ic_menu_manage"
       android:title="Storage ROOM" />
+    <item
+      android:id="@+id/nav_connectivity"
+      android:icon="@drawable/ic_menu_manage"
+      android:title="Connectivity" />
+    <item
+      android:id="@+id/nav_location"
+      android:icon="@drawable/ic_menu_manage"
+      android:title="Location" />
   </group>
 
 </menu>

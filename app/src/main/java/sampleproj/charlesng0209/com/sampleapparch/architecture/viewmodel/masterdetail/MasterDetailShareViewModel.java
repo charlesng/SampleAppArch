@@ -1,4 +1,4 @@
-package sampleproj.charlesng0209.com.sampleapparch.architecture.viewModel.masterdetail;
+package sampleproj.charlesng0209.com.sampleapparch.architecture.viewmodel.masterdetail;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;

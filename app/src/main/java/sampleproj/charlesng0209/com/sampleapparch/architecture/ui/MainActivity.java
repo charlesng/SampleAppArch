@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import sampleproj.charlesng0209.com.sampleapparch.R;
-import sampleproj.charlesng0209.com.sampleapparch.architecture.viewModel.UserProfileViewModel;
+import sampleproj.charlesng0209.com.sampleapparch.architecture.viewmodel.UserProfileViewModel;
 import sampleproj.charlesng0209.com.sampleapparch.src.model.User;
 
 public class MainActivity extends LifecycleActivity {

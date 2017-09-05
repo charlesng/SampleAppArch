@@ -9,7 +9,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="sampleproj.charlesng0209.com.sampleapparch.architecture.ui.masterdetail.EmailListActivity">
+    tools:context=".architecture.ui.masterdetail.EmailListActivity">
 
     <!--
     This layout is a two-pane layout for the Emails
@@ -26,7 +26,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="sampleproj.charlesng0209.com.sampleapparch.architecture.ui.masterdetail.EmailListActivity"
+        tools:context="com.example.communitcation_fragments.ui.masterdetail.EmailListActivity"
         tools:listitem="@layout/email_list_content" />
 
     <FrameLayout

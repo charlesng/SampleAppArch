@@ -11,9 +11,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
 import sampleproj.charlesng0209.com.sampleapparch.R;
-import sampleproj.charlesng0209.com.sampleapparch.architecture.viewModel.viewpager.PagerAgentViewModel;
+import sampleproj.charlesng0209.com.sampleapparch.architecture.viewmodel.viewpager.PagerAgentViewModel;
+
 
 public class PagerActivity extends LifecycleActivity {
     /**
