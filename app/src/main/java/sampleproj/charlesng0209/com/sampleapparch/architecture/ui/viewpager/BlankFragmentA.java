@@ -68,12 +68,7 @@ public class BlankFragmentA extends LifecycleFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //setup the listener for the fragment A
-        Observer<String> observer = new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String msg) {
-                textView.setText(msg);
-            }
-        };
+        Observer<String> observer = msg -> textView.setText(msg);
         ViewModelProviders.of(getActivity()).get(PagerAgentViewModel.class).getMessageContainerA().observe(this, observer);
         ViewModelProviders.of(getActivity()).get(PagerAgentViewModel.class).getMessageContainerA().removeObserver(observer);
 
@@ -84,15 +79,11 @@ public class BlankFragmentA extends LifecycleFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_blank_a, container, false);
-        textView = (TextView) view.findViewById(R.id.fragment_textA);
+        textView = view.findViewById(R.id.fragment_textA);
         // set the onclick listener
-        Button button = (Button) view.findViewById(R.id.btnA);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ViewModelProviders.of(getActivity()).get(PagerAgentViewModel.class).sendMessageToB("Hello B");
-            }
-        });
+        Button button = view.findViewById(R.id.btnA);
+        button.setOnClickListener(
+            v -> ViewModelProviders.of(getActivity()).get(PagerAgentViewModel.class).sendMessageToB("Hello B"));
         return view;
     }
 

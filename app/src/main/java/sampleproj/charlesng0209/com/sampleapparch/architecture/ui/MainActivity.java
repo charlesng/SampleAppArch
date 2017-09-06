@@ -1,18 +1,15 @@
 package sampleproj.charlesng0209.com.sampleapparch.architecture.ui;
 
 import android.arch.lifecycle.LifecycleActivity;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import sampleproj.charlesng0209.com.sampleapparch.R;
 import sampleproj.charlesng0209.com.sampleapparch.architecture.viewmodel.UserProfileViewModel;
-import sampleproj.charlesng0209.com.sampleapparch.src.model.User;
 
 public class MainActivity extends LifecycleActivity {
 
@@ -43,18 +40,13 @@ public class MainActivity extends LifecycleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         userProfileViewModel = ViewModelProviders.of(this).get(UserProfileViewModel.class);
         userProfileViewModel.init("Test");
-        userProfileViewModel.getUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(@Nullable User user) {
-                mTextMessage.setText(user.getName());
-            }
-         });
+        userProfileViewModel.getUser().observe(this, user -> mTextMessage.setText(user.getName()));
 
     }
 }

@@ -24,7 +24,7 @@ ui (UI Controllers , Fragments & Activities)
 
 viewmodel 
 -
-- Prepares & keeps the data for the UI
+- Prepares  keeps the data for the UI
 - Includes LiveData, Observable etc
 - Survives Configuration changes 
 - The gateway for the UI Controller 

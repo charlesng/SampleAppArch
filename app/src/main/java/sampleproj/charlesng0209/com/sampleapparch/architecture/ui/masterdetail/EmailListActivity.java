@@ -46,14 +46,9 @@ public class EmailListActivity extends LifecycleActivity {
 //        setSupportActionBar(toolbar);
 //        toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
 
         View recyclerView = findViewById(R.id.email_list);
         assert recyclerView != null;
@@ -99,35 +94,32 @@ public class EmailListActivity extends LifecycleActivity {
             holder.mIdView.setText(mValues.get(position).id);
             holder.mContentView.setText(mValues.get(position).content);
 
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mTwoPane) {
-                        //check if the fragment is added or not first
-                        if(getSupportFragmentManager().getFragments().size() > 0)
-                        {
-                            Bundle arguments = new Bundle();
-                            arguments.putString(EmailDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-                            EmailDetailFragment fragment = new EmailDetailFragment();
-                            fragment.setArguments(arguments);
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.email_detail_container, fragment)
-                                    .commit();
-                        }
-                        else
-                        {
-                            //if the fragment is used, used the masterdetail shareviewmodel to send data
-                            masterDetailShareViewModel.selectEmail("Test Email");
-
-                        }
-
-                    } else {
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, EmailDetailActivity.class);
-                        intent.putExtra(EmailDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-
-                        context.startActivity(intent);
+            holder.mView.setOnClickListener(v -> {
+                if (mTwoPane) {
+                    //check if the fragment is added or not first
+                    if(getSupportFragmentManager().getFragments().size() > 0)
+                    {
+                        Bundle arguments = new Bundle();
+                        arguments.putString(EmailDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        EmailDetailFragment fragment = new EmailDetailFragment();
+                        fragment.setArguments(arguments);
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.email_detail_container, fragment)
+                                .commit();
                     }
+                    else
+                    {
+                        //if the fragment is used, used the masterdetail shareviewmodel to send data
+                        masterDetailShareViewModel.selectEmail("Test Email");
+
+                    }
+
+                } else {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, EmailDetailActivity.class);
+                    intent.putExtra(EmailDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+
+                    context.startActivity(intent);
                 }
             });
         }
@@ -146,8 +138,8 @@ public class EmailListActivity extends LifecycleActivity {
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mIdView = view.findViewById(R.id.id);
+                mContentView = view.findViewById(R.id.title);
             }
 
             @Override

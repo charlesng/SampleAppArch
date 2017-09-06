@@ -42,18 +42,10 @@ public class FeedEntry {
     this.uid = uid;
   }
 
-  public final String id;
-  public final String content;
-  public final String details;
 
-  public FeedEntry(String id, String content, String details) {
-    this.id = id;
-    this.content = content;
-    this.details = details;
+  public FeedEntry(String title,String subTitle) {
+    this.title = title;
+    this.subTitle = subTitle;
   }
 
-  @Override
-  public String toString() {
-    return content;
-  }
 }

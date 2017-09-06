@@ -2,10 +2,8 @@ package sampleproj.charlesng0209.com.sampleapparch.architecture.ui.masterdetail;
 
 import android.app.Activity;
 import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,13 +63,10 @@ public class EmailDetailFragment extends LifecycleFragment {
                     But if it is triggered from EmailDetailActivity. It will be firstly get the default view model profile (which is empty but not null)
                     It cannot identify which one is empty.
                  */
-                masterDetailShareViewModel.getSelectedEmail().observe(this, new Observer<String>() {
-                    @Override
-                    public void onChanged(@Nullable String s) {
-                        appBarLayout.setTitle(s);
-
-                    }
-                });
+                if (appBarLayout != null) {
+                    masterDetailShareViewModel.getSelectedEmail().observe(this,
+                        appBarLayout::setTitle);
+                }
             }
 
         }

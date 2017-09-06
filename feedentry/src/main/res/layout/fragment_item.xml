@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <data>
+    <variable
+      name="feedEntry"
+      type="com.example.feedentry.repository.bean.FeedEntry" />
 
-  <TextView
-    android:id="@+id/id"
+  </data>
+  <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/text_margin"
-    android:textAppearance="?attr/textAppearanceListItem" />
+    android:orientation="vertical">
 
-  <TextView
-    android:id="@+id/content"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/text_margin"
-    android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+    <TextView
+      android:id="@+id/id"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/text_margin"
+      android:textAppearance="?attr/textAppearanceListItem"
+      tools:text="ewewe" />
+
+    <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/text_margin"
+      android:text="@{feedEntry.title}"
+      tools:text="Title"
+      android:textAppearance="?attr/textAppearanceListItem" />
+    <TextView
+      android:id="@+id/subTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/text_margin"
+      android:text="@{feedEntry.subTitle}"
+      tools:text="SubTitle"
+      android:textAppearance="?attr/textAppearanceListItem" />
+  </LinearLayout>
+</layout>

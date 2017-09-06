@@ -1,5 +1,6 @@
 package com.example.feedentry.datasources.room;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -15,7 +16,7 @@ import java.util.List;
 public interface FeedEntryDAO {
 
   @Query("SELECT * FROM feedEntrys")
-  List<FeedEntry> getAll();
+  LiveData<List<FeedEntry>> getAll();
 
   @Query("SELECT * FROM feedEntrys WHERE uid IN (:userIds)")
   List<FeedEntry> loadAllByIds(int[] userIds);
