@@ -13,7 +13,7 @@ import java.util.List;
  * TODO: Replace the implementation with code for your data type.
  */
 public class FeedEntryRecyclerViewRecyclerViewAdapter extends
-    BaseRecyclerViewAdapter<FeedEntry,FragmentItemBinding> {
+    BaseRecyclerViewAdapter<FeedEntry, FragmentItemBinding> {
 
   private final List<FeedEntry> mValues;
 

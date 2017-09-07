@@ -7,10 +7,10 @@ import android.arch.persistence.room.PrimaryKey;
 /**
  * Created by Charles Ng on 5/9/2017.
  */
-@Entity(tableName="feedEntrys")
+@Entity(tableName = "feedEntrys")
 public class FeedEntry {
 
-  @PrimaryKey
+  @PrimaryKey(autoGenerate = true)
   private int uid;
 
   @ColumnInfo(name = "title")
@@ -43,9 +43,17 @@ public class FeedEntry {
   }
 
 
-  public FeedEntry(String title,String subTitle) {
+  public FeedEntry(String title, String subTitle) {
     this.title = title;
     this.subTitle = subTitle;
   }
 
+  @Override
+  public String toString() {
+    return "FeedEntry{" +
+        "uid=" + uid +
+        ", title='" + title + '\'' +
+        ", subTitle='" + subTitle + '\'' +
+        '}';
+  }
 }

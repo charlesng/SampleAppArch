@@ -3,9 +3,9 @@ package com.example.feedentry.ui;
 
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.feedentry.R;
 import com.example.feedentry.databinding.FragmentItemListBinding;
-import com.example.feedentry.repository.bean.FeedEntryDBRepository;
-import com.example.feedentry.viewmodel.FeedEntryFragmentViewModel;
+import com.example.feedentry.viewmodel.FeedEntryListViewModel;
 
 /**
  * A fragment representing a list of Items.
@@ -50,22 +49,29 @@ public class FeedEntryFragment extends LifecycleFragment {
     return fragment;
   }
 
+
+  @Override
+  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    //get the view model from the activity
+    FeedEntryListViewModel viewModel = ViewModelProviders.of(getActivity())
+        .get(FeedEntryListViewModel.class);
+    viewModel.getFeedEntrys().observe(this, entries -> {
+      RecyclerView recyclerView = binding.list;
+      //update the data
+      adapter = new FeedEntryRecyclerViewRecyclerViewAdapter(entries,
+          item -> Toast.makeText(getActivity(), item.getTitle(), Toast.LENGTH_SHORT).show());
+      recyclerView.setAdapter(adapter);
+    });
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     if (getArguments() != null) {
       mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
     }
-    FeedEntryFragmentViewModel viewModel = ViewModelProviders.of(getActivity())
-        .get(FeedEntryFragmentViewModel.class);
-    viewModel.init(getActivity());
-    viewModel.getFeedEntrys().observe(this, entries -> {
-      RecyclerView recyclerView = binding.list;
-      adapter = new FeedEntryRecyclerViewRecyclerViewAdapter(entries,
-          item -> Toast.makeText(getActivity(), item.getTitle(), Toast.LENGTH_SHORT).show());
 
-      recyclerView.setAdapter(adapter);
-    });
   }
 
   @Override
@@ -83,15 +89,5 @@ public class FeedEntryFragment extends LifecycleFragment {
     return binding.getRoot();
   }
 
-
-  @Override
-  public void onAttach(Context context) {
-    super.onAttach(context);
-  }
-
-  @Override
-  public void onDetach() {
-    super.onDetach();
-  }
 
 }

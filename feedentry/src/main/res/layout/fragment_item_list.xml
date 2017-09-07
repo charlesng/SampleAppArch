@@ -5,9 +5,7 @@
 
 
   <data>
-    <variable
-      name="abs"
-      type="String" />
+
   </data>
   <android.support.v7.widget.RecyclerView
     android:id="@+id/list"

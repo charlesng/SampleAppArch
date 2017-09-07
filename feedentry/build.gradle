@@ -17,6 +17,7 @@ android {
                                      "$projectDir/schemas".toString()]
             }
         }
+        multiDexEnabled true
     }
     dataBinding {
         enabled = true
@@ -51,5 +52,6 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha8"
     testImplementation 'android.arch.persistence.room:testing:1.0.0-alpha8'
     api 'android.arch.persistence.room:rxjava2:1.0.0-alpha8'
-
+    implementation project(':common')
+    compile 'com.android.support:multidex:1.0.2'
 }

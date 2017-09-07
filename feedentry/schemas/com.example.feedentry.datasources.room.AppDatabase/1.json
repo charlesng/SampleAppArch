@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "79ab267c51373b7c82ac14ad65a37e74",
+    "identityHash": "52b012e7e9e43a8fd4cc79e6ced36594",
     "entities": [
       {
         "tableName": "feedEntrys",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER NOT NULL, `title` TEXT, `subtitle` TEXT, PRIMARY KEY(`uid`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `subtitle` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -31,7 +31,7 @@
           "columnNames": [
             "uid"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -39,7 +39,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"79ab267c51373b7c82ac14ad65a37e74\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"52b012e7e9e43a8fd4cc79e6ced36594\")"
     ]
   }
 }
