@@ -44,6 +44,7 @@ public class FeedActivity extends AppCompatActivity {
               @Override
               protected Void doInBackground(FeedEntry... feedEntries) {
                 viewModel.insert(feedEntries);
+
                 return null;
               }
             }.execute(inputFeedEntry);

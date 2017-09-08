@@ -7,13 +7,12 @@ android {
 
     defaultConfig {
         applicationId "sampleproj.charlesng0209.com.sampleapparch"
-        minSdkVersion 21
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        multiDexEnabled true
     }
     dataBinding {
         enabled = true
@@ -55,7 +54,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 //    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
     implementation project(':feedentry')
+    implementation 'com.facebook.stetho:stetho:1.5.0'
 
-    compile project(path: ':location')
-    compile 'com.android.support:multidex:1.0.2'
+//    implementation project(':location')
+//    implementation project(':communitcation-fragments')
 }

@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">Communitcation-fragments</string>
+  <string name="title_feedentry_list">FeedEntrys</string>
+  <string name="title_feedentry_detail">FeedEntry Detail</string>
 </resources>

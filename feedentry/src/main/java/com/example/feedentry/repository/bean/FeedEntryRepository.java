@@ -25,7 +25,7 @@ public class FeedEntryRepository extends LiveData<List<FeedEntry>> {
 
   public void insert(FeedEntry... feedEntries)
   {
-    feedEntryDAO.insertAll();
+    feedEntryDAO.insertAll(feedEntries);
   }
 
 }

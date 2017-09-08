@@ -12,7 +12,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
     }
     dataBinding {
         enabled = true
@@ -42,6 +41,5 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:1.0.0-alpha9"
     implementation "android.arch.lifecycle:extensions:1.0.0-alpha9"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha9"
-    implementation project(':common')
-    compile 'com.android.support:multidex:1.0.2'
+    api project(':common')
 }

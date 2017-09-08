@@ -1,9 +1,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
   <data>
+
     <variable
       name="location"
       type="android.location.Location" />
+
+    <variable
+      name="Converter"
+      type="com.example.common.components.binding.Converter" />
 
   </data>
   <LinearLayout
@@ -14,12 +19,20 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:text="@{Double.toString(location.latitude)}" />
+      android:id="@+id/total"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@={Converter.fromDouble(location.latitude)}"/>
     <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@{Converter.fromDouble(location.longitude)}" />
+    <Button
+      android:id="@+id/btn_location"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:text="@{Double.toString(location.longitude)}" />
+      android:layout_height="wrap_content"
+      android:text="Get the lat and long" />
+
+
   </LinearLayout>
 </layout>

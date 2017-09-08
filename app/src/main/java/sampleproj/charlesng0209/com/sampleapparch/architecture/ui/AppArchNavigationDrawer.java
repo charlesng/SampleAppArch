@@ -14,9 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.feedentry.ui.FeedActivity;
-import com.example.location.ui.LocationActivity;
 import sampleproj.charlesng0209.com.sampleapparch.R;
-import sampleproj.charlesng0209.com.sampleapparch.architecture.ui.masterdetail.EmailListActivity;
 
 public class AppArchNavigationDrawer extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -84,7 +82,8 @@ public class AppArchNavigationDrawer extends AppCompatActivity
     switch (item.getItemId())
     {
       case R.id.nav_fragment_communication:
-        startActivity(new Intent(this, EmailListActivity.class));
+//        startActivity(new Intent(this, EmailListActivity.class));
+//        startActivity(new Intent(this, FeedEntryListActivity.class));
         break;
       case R.id.nav_storage:
         startActivity(new Intent(this, FeedActivity.class));
@@ -92,7 +91,7 @@ public class AppArchNavigationDrawer extends AppCompatActivity
       case R.id.nav_connectivity:
         break;
       case R.id.nav_location:
-        startActivity(new Intent(this,LocationActivity.class));
+//        startActivity(new Intent(this,LocationActivity.class));
         break;
 
 

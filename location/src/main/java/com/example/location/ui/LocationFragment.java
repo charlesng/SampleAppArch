@@ -7,10 +7,10 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,20 +21,11 @@ import com.example.location.databinding.FragmentLocationBinding;
 import com.example.location.viewmodel.LastLocationViewModel;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link LocationFragment#newInstance} factory method to
+ * Use the {@link LocationFragment#} factory method to
  * create an instance of this fragment.
  */
 public class LocationFragment extends LifecycleFragment {
 
-  // TODO: Rename parameter arguments, choose names that match
-  // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
-
-  // TODO: Rename and change types of parameters
-  private String mParam1;
-  private String mParam2;
   private FragmentLocationBinding binding;
 
 
@@ -42,32 +33,6 @@ public class LocationFragment extends LifecycleFragment {
     // Required empty public constructor
   }
 
-  /**
-   * Use this factory method to create a new instance of
-   * this fragment using the provided parameters.
-   *
-   * @param param1 Parameter 1.
-   * @param param2 Parameter 2.
-   * @return A new instance of fragment LocationFragment.
-   */
-  // TODO: Rename and change types and number of parameters
-  public static LocationFragment newInstance(String param1, String param2) {
-    LocationFragment fragment = new LocationFragment();
-    Bundle args = new Bundle();
-    args.putString(ARG_PARAM1, param1);
-    args.putString(ARG_PARAM2, param2);
-    fragment.setArguments(args);
-    return fragment;
-  }
-
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-      mParam1 = getArguments().getString(ARG_PARAM1);
-      mParam2 = getArguments().getString(ARG_PARAM2);
-    }
-  }
 
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -95,12 +60,12 @@ public class LocationFragment extends LifecycleFragment {
         // result of the request.
       }
     }
-
+    //get the viewmodel from activity
     LastLocationViewModel lastLocationViewModel = ViewModelProviders.of(getActivity())
         .get(LastLocationViewModel.class);
-    lastLocationViewModel.getLastKnowLocation().observe(this, location -> {
-      binding.setLocation(location);
-    });
+    lastLocationViewModel.getLastKnowLocation().observe(this, location ->
+        binding.setLocation(location));
+
   }
 
   @Override
@@ -114,9 +79,7 @@ public class LocationFragment extends LifecycleFragment {
           Toast.makeText(getActivity(), "Rights Granted", Toast.LENGTH_SHORT).show();
           // permission was granted, yay! Do the
           // contacts-related task you need to do.
-
         } else {
-
           // permission denied, boo! Disable the
           // functionality that depends on this permission.
         }
@@ -134,6 +97,15 @@ public class LocationFragment extends LifecycleFragment {
     // Inflate the layout for this fragment
     binding = DataBindingUtil
         .inflate(LayoutInflater.from(getActivity()), R.layout.fragment_location, null, false);
+
+    binding.btnLocation.setOnClickListener(view -> {
+      Location location = binding.getLocation();
+      if (location != null) {
+        Toast.makeText(getActivity(),
+            String.format("Lat : %f, Long : %f", location.getLatitude(), location.getLongitude()),
+            Toast.LENGTH_SHORT).show();
+      }
+    });
     return binding.getRoot();
   }
 

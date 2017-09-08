@@ -1,2 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.example.communitcation_fragments" />
+  package="com.example.communitcation_fragments">
+
+  <application>
+    <activity
+      android:label="@string/title_feedentry_list"
+      android:name=".ui.FeedEntryListActivity"
+      android:theme="@style/AppTheme.NoActionBar"></activity>
+    <activity
+      android:label="@string/title_feedentry_detail"
+      android:name=".ui.FeedEntryDetailActivity"
+      android:parentActivityName=".ui.FeedEntryListActivity"
+      android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.example.communitcation_fragments.ui.FeedEntryListActivity" />
+    </activity>
+  </application>
+
+</manifest>

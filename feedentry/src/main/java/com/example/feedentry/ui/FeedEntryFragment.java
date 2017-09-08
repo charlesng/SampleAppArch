@@ -25,8 +25,6 @@ import com.example.feedentry.viewmodel.FeedEntryListViewModel;
  */
 public class FeedEntryFragment extends LifecycleFragment {
 
-  // TODO: Customize parameter argument names
-  private static final String ARG_COLUMN_COUNT = "column-count";
   // TODO: Customize parameters
   private int mColumnCount = 2;
   private FragmentItemListBinding binding;
@@ -39,21 +37,12 @@ public class FeedEntryFragment extends LifecycleFragment {
   public FeedEntryFragment() {
   }
 
-  // TODO: Customize parameter initialization
-  @SuppressWarnings("unused")
-  public static FeedEntryFragment newInstance(int columnCount) {
-    FeedEntryFragment fragment = new FeedEntryFragment();
-    Bundle args = new Bundle();
-    args.putInt(ARG_COLUMN_COUNT, columnCount);
-    fragment.setArguments(args);
-    return fragment;
-  }
-
 
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     //get the view model from the activity
+
     FeedEntryListViewModel viewModel = ViewModelProviders.of(getActivity())
         .get(FeedEntryListViewModel.class);
     viewModel.getFeedEntrys().observe(this, entries -> {
@@ -65,14 +54,6 @@ public class FeedEntryFragment extends LifecycleFragment {
     });
   }
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-      mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-    }
-
-  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
