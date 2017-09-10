@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  xmlns:card_view="http://schemas.android.com/apk/res-auto"
-  >
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
   <data>
     <variable
       name="feedEntry"
       type="com.example.feedentry.repository.bean.FeedEntry" />
+
+    <variable
+        name="imageUrl"
+        type="String" />
+
+    <variable
+        name="errorMsg"
+        type="String" />
+
 
   </data>
   <android.support.v7.widget.CardView
@@ -47,6 +57,17 @@
         android:textAppearance="?attr/textAppearanceListItem"
         tools:text="SubTitle" />
 
+
+
+      <ImageView
+          android:id="@+id/imageView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+
+
+          />
+
     </LinearLayout>
+
   </android.support.v7.widget.CardView>
 </layout>
