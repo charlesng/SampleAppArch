@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 
@@ -39,12 +38,7 @@ public abstract class BaseRecyclerViewAdapter<T, B extends  ViewDataBinding>
   public void onBindViewHolder(BaseRecyclerViewAdapter<T,B>.MyViewHolder<B> holder,
       int position) {
     final T item = getItemForPosition(position);
-    holder.itemView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        itemClickListener.onItemClick(item);
-      }
-    });
+    holder.itemView.setOnClickListener(v -> itemClickListener.onItemClick(item));
     bind(holder.binding,item);
 //    holder.bind(holder.binding,item);
   }

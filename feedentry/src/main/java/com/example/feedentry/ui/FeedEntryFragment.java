@@ -4,22 +4,24 @@ package com.example.feedentry.ui;
 import android.Manifest;
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.example.feedentry.R;
 import com.example.feedentry.databinding.FragmentItemListBinding;
+import com.example.feedentry.repository.bean.FeedEntry;
 import com.example.feedentry.viewmodel.FeedEntryListViewModel;
 
 /**
@@ -48,11 +50,11 @@ public class FeedEntryFragment extends LifecycleFragment {
     super.onActivityCreated(savedInstanceState);
     //get the view model from the activity
     if (ContextCompat.checkSelfPermission(getActivity(),
-            Manifest.permission.INTERNET)
-            != PackageManager.PERMISSION_GRANTED) {
+        Manifest.permission.INTERNET)
+        != PackageManager.PERMISSION_GRANTED) {
       // Should we show an explanation?
       if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-              Manifest.permission.INTERNET)) {
+          Manifest.permission.INTERNET)) {
         // Show an explanation to the user *asynchronously* -- don't block
         // this thread waiting for the user's response! After the user
         // sees the explanation, try again to request the permission.
@@ -62,8 +64,8 @@ public class FeedEntryFragment extends LifecycleFragment {
         // No explanation needed, we can request the permission.
 
         ActivityCompat.requestPermissions(getActivity(),
-                new String[]{Manifest.permission.INTERNET},
-                200);
+            new String[]{Manifest.permission.INTERNET},
+            200);
 
         // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
         // app-defined int constant. The callback method gets the
@@ -73,22 +75,44 @@ public class FeedEntryFragment extends LifecycleFragment {
     FeedEntryListViewModel viewModel = ViewModelProviders.of(getActivity())
         .get(FeedEntryListViewModel.class);
     viewModel.getFeedEntrys().observe(this, entries -> {
-      RecyclerView recyclerView = binding.list;
       //update the data
       adapter = new FeedEntryRecyclerViewRecyclerViewAdapter(entries,
-          item -> Toast.makeText(getActivity(), item.getTitle(), Toast.LENGTH_SHORT).show());
-      recyclerView.setAdapter(adapter);
+          item -> {
+            Intent intent = new Intent(getActivity(), FeedEntryDetailActivity.class);
+            intent.putExtra(FeedEntryDetailActivity.EXTRA_POSITION, item.getUid());
+            startActivity(intent);
+          }, item -> {
+        int menuId = item.getItemId();
+        if (menuId == R.id.action_entry_delete) {
+          new Builder(binding.getRoot().getContext())
+              .setTitle("Warning").setMessage("Are you sure to delete the Feed Entry?")
+              .setPositiveButton("OK", (dialogInterface, j) -> {
+                new AsyncTask<FeedEntry,Void,Void>()
+                {
+
+                  @Override
+                  protected Void doInBackground(FeedEntry... feedEntries) {
+                    return null;
+                  }
+                }.execute();
+              }).create()
+              .show();
+        } else if (menuId == R.id.action_entry_favourite) {
+        }
+        return false;
+      });
+      binding.list.setAdapter(adapter);
     });
   }
 
   @Override
   public void onRequestPermissionsResult(int requestCode,
-                                         String permissions[], int[] grantResults) {
+      String permissions[], int[] grantResults) {
     switch (requestCode) {
       case 200: {
         // If request is cancelled, the result arrays are empty.
         if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
           Toast.makeText(getActivity(), "Rights Granted", Toast.LENGTH_SHORT).show();
           // permission was granted, yay! Do the
           // contacts-related task you need to do.
@@ -110,12 +134,10 @@ public class FeedEntryFragment extends LifecycleFragment {
     binding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_item_list, null, false);
     // Set the adapter
-
-    RecyclerView recyclerView = binding.list;
     if (mColumnCount <= 1) {
-      recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+      binding.list.setLayoutManager(new LinearLayoutManager(getActivity()));
     } else {
-      recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), mColumnCount));
+      binding.list.setLayoutManager(new GridLayoutManager(getActivity(), mColumnCount));
     }
     return binding.getRoot();
   }

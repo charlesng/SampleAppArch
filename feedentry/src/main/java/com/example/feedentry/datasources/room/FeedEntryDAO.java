@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 import com.example.feedentry.repository.bean.FeedEntry;
 import java.util.List;
 
@@ -25,9 +26,15 @@ public interface FeedEntryDAO {
       + "subTitle LIKE :subTitle LIMIT 1")
   FeedEntry findByName(String title, String subTitle);
 
+  @Query("SELECT * FROM feedEntrys WHERE uid = :uid LIMIT 1")
+  LiveData<FeedEntry> findByUid(int uid);
+
   @Insert
   void insertAll(FeedEntry... feedEntries);
 
   @Delete
   void delete(FeedEntry feedEntry);
+
+  @Update
+  int update(FeedEntry feedEntry);
 }

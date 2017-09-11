@@ -17,6 +17,7 @@ android {
                                      "$projectDir/schemas".toString()]
             }
         }
+        vectorDrawables.useSupportLibrary = true
 
     }
     dataBinding {
@@ -53,7 +54,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha8"
     testImplementation 'android.arch.persistence.room:testing:1.0.0-alpha8'
     api 'android.arch.persistence.room:rxjava2:1.0.0-alpha8'
-    compile project(':common')
+    api project(':common')
     compile 'com.squareup.picasso:picasso:2.5.2'
 
 }

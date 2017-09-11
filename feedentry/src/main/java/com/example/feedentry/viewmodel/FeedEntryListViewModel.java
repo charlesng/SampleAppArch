@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import com.example.feedentry.repository.bean.FeedEntry;
 import com.example.feedentry.repository.bean.FeedEntryRepository;
-import java.security.KeyStore.Entry;
 import java.util.List;
 
 /**
@@ -14,6 +13,7 @@ import java.util.List;
  */
 
 public class FeedEntryListViewModel extends ViewModel {
+
   private MutableLiveData<List<FeedEntry>> feedEntries = new MutableLiveData<>();
   private final FeedEntryRepository feedEntryDBRepository = new FeedEntryRepository();
 
@@ -22,13 +22,16 @@ public class FeedEntryListViewModel extends ViewModel {
   }
 
   public LiveData<List<FeedEntry>> getFeedEntrys() {
-    return feedEntryDBRepository.getAllFeedEntry();
+    return feedEntryDBRepository.getAll();
   }
 
   public LiveData<List<FeedEntry>> insert(FeedEntry... feedEntries) {
-    feedEntryDBRepository.insert(feedEntries);
-    return feedEntryDBRepository.getAllFeedEntry();
+    feedEntryDBRepository.insertAll(feedEntries);
+    return feedEntryDBRepository.getAll();
   }
 
+  public void delete(FeedEntry feedEntry) {
+    feedEntryDBRepository.delete(feedEntry);
+  }
 
 }

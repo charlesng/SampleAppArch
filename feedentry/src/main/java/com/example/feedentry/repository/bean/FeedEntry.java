@@ -18,6 +18,9 @@ public class FeedEntry {
   @ColumnInfo(name = "subtitle")
   private String subTitle;
 
+  @ColumnInfo(name = "imageUrl")
+  private String imageUrl;
+
   public String getTitle() {
     return title;
   }
@@ -42,18 +45,29 @@ public class FeedEntry {
     this.uid = uid;
   }
 
-
-  public FeedEntry(String title, String subTitle) {
-    this.title = title;
-    this.subTitle = subTitle;
-  }
-
   @Override
   public String toString() {
     return "FeedEntry{" +
         "uid=" + uid +
         ", title='" + title + '\'' +
         ", subTitle='" + subTitle + '\'' +
+        ", imageUrl='" + imageUrl + '\'' +
         '}';
   }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public FeedEntry(String title, String subTitle) {
+    this.title = title;
+    this.subTitle = subTitle;
+  }
+
+
+
 }

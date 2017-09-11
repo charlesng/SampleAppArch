@@ -64,9 +64,9 @@ android {
         // heap size to enable dex-in-process. To learm more, read the next section.
         // javaMaxHeapSize "2048m"
     }
-    aaptOptions {
-        cruncherEnabled false
-    }
+//    aaptOptions {
+//        cruncherEnabled false
+//    }
 }
 
 dependencies {
