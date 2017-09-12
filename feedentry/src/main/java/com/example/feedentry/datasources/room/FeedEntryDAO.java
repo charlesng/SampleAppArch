@@ -37,4 +37,5 @@ public interface FeedEntryDAO {
 
   @Update
   int update(FeedEntry feedEntry);
+
 }

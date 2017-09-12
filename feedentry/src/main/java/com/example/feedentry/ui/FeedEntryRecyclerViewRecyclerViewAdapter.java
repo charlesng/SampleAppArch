@@ -1,7 +1,10 @@
 package com.example.feedentry.ui;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
+import android.view.MenuItem;
 import com.example.feedentry.R;
 import com.example.feedentry.databinding.FragmentItemCardBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
@@ -16,15 +19,20 @@ import java.util.List;
 public class FeedEntryRecyclerViewRecyclerViewAdapter extends
     BaseRecyclerViewAdapter<FeedEntry, FragmentItemCardBinding> {
 
-  private final List<FeedEntry> mValues;
-  private OnMenuItemClickListener onMenuItemClickListener;
+  private List<FeedEntry> mValues;
+  private MyMenuItemClickListener myMenuItemClickListener;
 
   FeedEntryRecyclerViewRecyclerViewAdapter(List<FeedEntry> mValues,
       OnItemClickListener<FeedEntry> itemClickListener,
-      OnMenuItemClickListener onMenuItemClickListener) {
+      MyMenuItemClickListener myMenuItemClickListener) {
     super(itemClickListener);
     this.mValues = mValues;
-    this.onMenuItemClickListener = onMenuItemClickListener;
+    this.myMenuItemClickListener = myMenuItemClickListener;
+  }
+
+  public void setValues(List<FeedEntry> mValues) {
+    this.mValues = mValues;
+    notifyDataSetChanged();
   }
 
   @Override
@@ -46,7 +54,27 @@ public class FeedEntryRecyclerViewRecyclerViewAdapter extends
   protected void bind(FragmentItemCardBinding binding, FeedEntry item) {
     binding.setFeedEntry(item);
     binding.setImageUrl("http://i.imgur.com/DvpvklR.png");
+    binding.toolbar.getMenu().clear();
     binding.toolbar.inflateMenu(R.menu.menu_feed_item_card);
-    binding.toolbar.setOnMenuItemClickListener(onMenuItemClickListener);
+
+    if (item.isFavourite()) {
+      MenuItem favoriteItem = binding.toolbar.getMenu().findItem(R.id.action_entry_favourite);
+      Drawable newIcon = favoriteItem.getIcon();
+      newIcon.mutate()
+          .setColorFilter(binding.getRoot().getContext().getResources().getColor(R.color.yellow),
+              PorterDuff.Mode.SRC_IN);
+    }
+    binding.toolbar.setOnMenuItemClickListener(
+        menuItem -> myMenuItemClickListener.onMenuItemClick(menuItem, item));
+  }
+
+  public static abstract class MyMenuItemClickListener implements OnMenuItemClickListener {
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+      return false;
+    }
+
+    public abstract boolean onMenuItemClick(MenuItem item, FeedEntry feedEntry);
   }
 }

@@ -1,5 +1,6 @@
 package com.example.feedentry.ui;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.ViewModelProviders;
@@ -8,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -32,6 +32,7 @@ public class FeedEntryDetailActivity extends AppCompatActivity implements Lifecy
     return mRegistry;
   }
 
+  @SuppressLint("StaticFieldLeak")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -40,12 +41,10 @@ public class FeedEntryDetailActivity extends AppCompatActivity implements Lifecy
     viewModel = ViewModelProviders.of(this).get(FeedEntryDetailViewModel.class);
     viewModel.init(this);
     viewModel.getFeedEntry(uid).observe(this, feedEntry -> {
-        this.feedEntry = feedEntry;
-        binding.setFeedEntry(this.feedEntry);
+      this.feedEntry = feedEntry;
+      binding.setFeedEntry(this.feedEntry);
     });
-    binding = DataBindingUtil
-        .inflate(getLayoutInflater(), R.layout.activity_feed_entry_detail, null, false);
-    setContentView(binding.getRoot());
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_feed_entry_detail);
     setSupportActionBar(binding.toolbar);
     binding.setFeedEntry(new FeedEntry("Testing Feed Title", "Testing Feed Sub Title"));
     binding.setImageUrl("http://i.imgur.com/DvpvklR.png");
@@ -61,20 +60,19 @@ public class FeedEntryDetailActivity extends AppCompatActivity implements Lifecy
           .setView(dialogFeedEntryBinding.getRoot())
           .setPositiveButton("Submit", (dialogInterface, i) -> {
             FeedEntry inputFeedEntry = dialogFeedEntryBinding.getFeedEntry();
-            if (!TextUtils.isEmpty(inputFeedEntry.getTitle().trim()) && !TextUtils
-                .isEmpty(inputFeedEntry.getSubTitle().trim())) {
+            Boolean[] validations = new Boolean[]{
+                dialogFeedEntryBinding.imageUrlValidation.isErrorEnabled(),
+                dialogFeedEntryBinding.titleValidation.isErrorEnabled(),
+                dialogFeedEntryBinding.subTitleValidation.isErrorEnabled()
+            };
+            boolean isValid = true;
+            for (Boolean validation : validations) {
+              if (validation) {
+                isValid = false;
+              }
+            }
+            if (isValid) {
               new AsyncTask<FeedEntry, Void, Void>() {
-
-                private ProgressBar progressBar;
-
-                @Override
-                protected void onPreExecute() {
-                  super.onPreExecute();
-                  progressBar = new ProgressBar(FeedEntryDetailActivity.this);
-                  progressBar.setVisibility(View.VISIBLE);
-
-                }
-
                 @Override
                 protected Void doInBackground(FeedEntry... feedEntries) {
                   viewModel.update(feedEntries[0]);
@@ -84,9 +82,10 @@ public class FeedEntryDetailActivity extends AppCompatActivity implements Lifecy
                 @Override
                 protected void onPostExecute(Void aVoid) {
                   super.onPostExecute(aVoid);
-                  progressBar.setVisibility(View.GONE);
+                  binding.setFeedEntry(inputFeedEntry);
                 }
               }.execute(inputFeedEntry);
+              dialogInterface.dismiss();
             }
           }).create().show();
     });

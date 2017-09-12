@@ -11,8 +11,8 @@ import android.view.ViewGroup;
  * Created by Charles Ng on 6/9/2017.
  */
 
-public abstract class BaseRecyclerViewAdapter<T, B extends  ViewDataBinding>
-    extends RecyclerView.Adapter<BaseRecyclerViewAdapter<T,B>.MyViewHolder<B>> {
+public abstract class BaseRecyclerViewAdapter<T, B extends ViewDataBinding>
+    extends RecyclerView.Adapter<BaseRecyclerViewAdapter<T, B>.MyViewHolder<B>> {
 
   public BaseRecyclerViewAdapter(OnItemClickListener<T> itemClickListener) {
     this.itemClickListener = itemClickListener;
@@ -25,22 +25,21 @@ public abstract class BaseRecyclerViewAdapter<T, B extends  ViewDataBinding>
 
   private final OnItemClickListener<T> itemClickListener;
 
-  public BaseRecyclerViewAdapter<T,B>.MyViewHolder<B> onCreateViewHolder(ViewGroup parent,
+  public BaseRecyclerViewAdapter<T, B>.MyViewHolder<B> onCreateViewHolder(ViewGroup parent,
       int viewType) {
     LayoutInflater layoutInflater =
         LayoutInflater.from(parent.getContext());
     B binding = DataBindingUtil.inflate(
         layoutInflater, viewType, parent, false);
-    return new BaseRecyclerViewAdapter<T,B>.MyViewHolder<>(binding);
+    return new BaseRecyclerViewAdapter<T, B>.MyViewHolder<>(binding);
   }
 
   @Override
-  public void onBindViewHolder(BaseRecyclerViewAdapter<T,B>.MyViewHolder<B> holder,
+  public void onBindViewHolder(BaseRecyclerViewAdapter<T, B>.MyViewHolder<B> holder,
       int position) {
     final T item = getItemForPosition(position);
     holder.itemView.setOnClickListener(v -> itemClickListener.onItemClick(item));
-    bind(holder.binding,item);
-//    holder.bind(holder.binding,item);
+    bind(holder.binding, item);
   }
 
   @Override
@@ -55,7 +54,7 @@ public abstract class BaseRecyclerViewAdapter<T, B extends  ViewDataBinding>
   protected abstract void bind(B binding, T item);
 
 
-  public  class MyViewHolder<Binding extends ViewDataBinding> extends RecyclerView.ViewHolder {
+  public class MyViewHolder<Binding extends ViewDataBinding> extends RecyclerView.ViewHolder {
 
     private final Binding binding;
 

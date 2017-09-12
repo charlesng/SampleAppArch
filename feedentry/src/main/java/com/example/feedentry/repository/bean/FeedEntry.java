@@ -21,6 +21,10 @@ public class FeedEntry {
   @ColumnInfo(name = "imageUrl")
   private String imageUrl;
 
+
+  @ColumnInfo(name = "favourite")
+  private boolean isFavourite= false;
+
   public String getTitle() {
     return title;
   }
@@ -45,16 +49,6 @@ public class FeedEntry {
     this.uid = uid;
   }
 
-  @Override
-  public String toString() {
-    return "FeedEntry{" +
-        "uid=" + uid +
-        ", title='" + title + '\'' +
-        ", subTitle='" + subTitle + '\'' +
-        ", imageUrl='" + imageUrl + '\'' +
-        '}';
-  }
-
   public String getImageUrl() {
     return imageUrl;
   }
@@ -68,6 +62,22 @@ public class FeedEntry {
     this.subTitle = subTitle;
   }
 
+  @Override
+  public String toString() {
+    return "FeedEntry{" +
+        "uid=" + uid +
+        ", title='" + title + '\'' +
+        ", subTitle='" + subTitle + '\'' +
+        ", imageUrl='" + imageUrl + '\'' +
+        ", isFavourite=" + isFavourite +
+        '}';
+  }
 
+  public boolean isFavourite() {
+    return isFavourite;
+  }
 
+  public void setFavourite(boolean favourite) {
+    isFavourite = favourite;
+  }
 }

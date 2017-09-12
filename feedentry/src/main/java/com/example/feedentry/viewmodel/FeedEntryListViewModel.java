@@ -34,4 +34,13 @@ public class FeedEntryListViewModel extends ViewModel {
     feedEntryDBRepository.delete(feedEntry);
   }
 
+
+  public void update(FeedEntry feedEntry) {
+    feedEntryDBRepository.update(feedEntry);
+  }
+
+  public void refresh()
+  {
+
+  }
 }

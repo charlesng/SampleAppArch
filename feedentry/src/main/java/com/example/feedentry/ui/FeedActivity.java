@@ -15,12 +15,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import com.example.feedentry.R;
 import com.example.feedentry.databinding.DialogFeedentryBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
+import com.example.feedentry.ui.FeedEntryFragment.Mode;
 import com.example.feedentry.viewmodel.FeedEntryListViewModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +49,6 @@ public class FeedActivity extends AppCompatActivity {
       //insert sample data by button click
       final DialogFeedentryBinding dialogFeedEntryBinding = DataBindingUtil
           .inflate(LayoutInflater.from(this), R.layout.dialog_feedentry, null, false);
-      dialogFeedEntryBinding.inputSubtitle.setError("Cannot be empty");
-      dialogFeedEntryBinding.inputTitle.setError("Cannot be empty");
       FeedEntry feedEntry = new FeedEntry("", "");
       feedEntry.setImageUrl("http://i.imgur.com/DvpvklR.png");
       dialogFeedEntryBinding.setFeedEntry(feedEntry);
@@ -64,9 +62,20 @@ public class FeedActivity extends AppCompatActivity {
         Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
         button.setOnClickListener(view1 -> {
           // TODO Do something
+          //to trigger auto error enable
           FeedEntry inputFeedEntry = dialogFeedEntryBinding.getFeedEntry();
-          if (!TextUtils.isEmpty(inputFeedEntry.getTitle().trim()) && !TextUtils
-              .isEmpty(inputFeedEntry.getSubTitle().trim())) {
+          Boolean[] validations = new Boolean[]{
+              dialogFeedEntryBinding.imageUrlValidation.isErrorEnabled(),
+              dialogFeedEntryBinding.titleValidation.isErrorEnabled(),
+              dialogFeedEntryBinding.subTitleValidation.isErrorEnabled()
+          };
+          boolean isValid = true;
+          for (Boolean validation : validations) {
+            if (validation) {
+              isValid = false;
+            }
+          }
+          if (isValid) {
             new AsyncTask<FeedEntry, Void, Void>() {
               @Override
               protected Void doInBackground(FeedEntry... feedEntries) {
@@ -75,9 +84,6 @@ public class FeedActivity extends AppCompatActivity {
               }
             }.execute(inputFeedEntry);
             dialogInterface.dismiss();
-          } else {
-            dialogFeedEntryBinding.titleValidation.setErrorEnabled(true);
-            dialogFeedEntryBinding.inputTitle.setError("Cannot be empty");
           }
         });
       });
@@ -88,9 +94,15 @@ public class FeedActivity extends AppCompatActivity {
 
   private void setupViewPager(ViewPager viewPager) {
     Adapter adapter = new Adapter(getSupportFragmentManager());
-    adapter.addFragment(new FeedEntryFragment(), "List");
-    adapter.addFragment(new FeedEntryFragment(), "Tile");
-    adapter.addFragment(new FeedEntryFragment(), "Grid");
+    FeedEntryFragment fragment1 = new FeedEntryFragment();
+    FeedEntryFragment fragment2 = new FeedEntryFragment();
+    FeedEntryFragment fragment3 = new FeedEntryFragment();
+    fragment1.setMode(Mode.LIST);
+    fragment2.setMode(Mode.TILE);
+    fragment3.setMode(Mode.GRID);
+    adapter.addFragment(fragment1, "List");
+    adapter.addFragment(fragment2, "Tile");
+    adapter.addFragment(fragment3, "Grid");
     viewPager.setAdapter(adapter);
   }
 

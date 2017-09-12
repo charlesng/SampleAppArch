@@ -12,17 +12,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.feedentry.R;
 import com.example.feedentry.databinding.FragmentItemListBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
+import com.example.feedentry.ui.FeedEntryRecyclerViewRecyclerViewAdapter.MyMenuItemClickListener;
 import com.example.feedentry.viewmodel.FeedEntryListViewModel;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -32,8 +35,6 @@ import com.example.feedentry.viewmodel.FeedEntryListViewModel;
  */
 public class FeedEntryFragment extends LifecycleFragment {
 
-  // TODO: Customize parameters
-  private int mColumnCount = 1;
   private FragmentItemListBinding binding;
   private FeedEntryRecyclerViewRecyclerViewAdapter adapter;
 
@@ -41,6 +42,17 @@ public class FeedEntryFragment extends LifecycleFragment {
    * Mandatory empty constructor for the fragment manager to instantiate the
    * fragment (e.g. upon screen orientation changes).
    */
+  private Mode mode = Mode.LIST;
+  private FeedEntryListViewModel viewModel;
+
+  public enum Mode {
+    LIST, GRID, TILE
+  }
+
+  public void setMode(Mode mode) {
+    this.mode = mode;
+  }
+
   public FeedEntryFragment() {
   }
 
@@ -72,36 +84,52 @@ public class FeedEntryFragment extends LifecycleFragment {
         // result of the request.
       }
     }
-    FeedEntryListViewModel viewModel = ViewModelProviders.of(getActivity())
+    viewModel = ViewModelProviders.of(getActivity())
         .get(FeedEntryListViewModel.class);
-    viewModel.getFeedEntrys().observe(this, entries -> {
+    viewModel.getFeedEntrys().observe(this, (List<FeedEntry> entries) -> {
       //update the data
-      adapter = new FeedEntryRecyclerViewRecyclerViewAdapter(entries,
-          item -> {
-            Intent intent = new Intent(getActivity(), FeedEntryDetailActivity.class);
-            intent.putExtra(FeedEntryDetailActivity.EXTRA_POSITION, item.getUid());
-            startActivity(intent);
-          }, item -> {
-        int menuId = item.getItemId();
-        if (menuId == R.id.action_entry_delete) {
-          new Builder(binding.getRoot().getContext())
-              .setTitle("Warning").setMessage("Are you sure to delete the Feed Entry?")
-              .setPositiveButton("OK", (dialogInterface, j) -> {
-                new AsyncTask<FeedEntry,Void,Void>()
-                {
-
-                  @Override
-                  protected Void doInBackground(FeedEntry... feedEntries) {
-                    return null;
-                  }
-                }.execute();
-              }).create()
-              .show();
-        } else if (menuId == R.id.action_entry_favourite) {
-        }
-        return false;
-      });
-      binding.list.setAdapter(adapter);
+      if (adapter == null) {
+        adapter = new FeedEntryRecyclerViewRecyclerViewAdapter(entries,
+            item -> {
+              Intent intent = new Intent(getActivity(), FeedEntryDetailActivity.class);
+              intent.putExtra(FeedEntryDetailActivity.EXTRA_POSITION, item.getUid());
+              startActivity(intent);
+            }, new MyMenuItemClickListener() {
+          @Override
+          public boolean onMenuItemClick(MenuItem item, FeedEntry feedEntry) {
+            int menuId = item.getItemId();
+            if (menuId == R.id.action_entry_delete) {
+              new AlertDialog.Builder(binding.getRoot().getContext())
+                  .setTitle("Warning").setMessage("Are you sure to delete the Feed Entry?")
+                  .setPositiveButton("OK", (dialogInterface, j) -> {
+                    new AsyncTask<FeedEntry, Void, Void>() {
+                      @Override
+                      protected Void doInBackground(FeedEntry... feedEntries) {
+                        viewModel.delete(feedEntry);
+                        return null;
+                      }
+                    }.execute(feedEntry);
+                  })
+                  .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss())
+                  .create()
+                  .show();
+            } else if (menuId == R.id.action_entry_favourite) {
+              feedEntry.setFavourite(!feedEntry.isFavourite());
+              new AsyncTask<FeedEntry, Void, Void>() {
+                @Override
+                protected Void doInBackground(FeedEntry... feedEntries) {
+                  viewModel.update(feedEntries[0]);
+                  return null;
+                }
+              }.execute(feedEntry);
+            }
+            return false;
+          }
+        });
+        binding.list.setAdapter(adapter);
+      } else {
+        adapter.setValues(entries);
+      }
     });
   }
 
@@ -134,10 +162,16 @@ public class FeedEntryFragment extends LifecycleFragment {
     binding = DataBindingUtil
         .inflate(inflater, R.layout.fragment_item_list, null, false);
     // Set the adapter
-    if (mColumnCount <= 1) {
-      binding.list.setLayoutManager(new LinearLayoutManager(getActivity()));
-    } else {
-      binding.list.setLayoutManager(new GridLayoutManager(getActivity(), mColumnCount));
+    switch (mode) {
+      case GRID:
+        binding.list.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        break;
+      case LIST:
+        binding.list.setLayoutManager(new LinearLayoutManager(getActivity()));
+        break;
+      case TILE:
+        binding.list.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        break;
     }
     return binding.getRoot();
   }
