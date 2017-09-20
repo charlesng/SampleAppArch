@@ -3,7 +3,6 @@ package com.example.feedentry.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
 import com.example.feedentry.repository.bean.FeedEntry;
 import com.example.feedentry.repository.bean.FeedEntryRepository;
 import java.util.List;
@@ -14,12 +13,14 @@ import java.util.List;
 
 public class FeedEntryListViewModel extends ViewModel {
 
-  private MutableLiveData<List<FeedEntry>> feedEntries = new MutableLiveData<>();
-  private final FeedEntryRepository feedEntryDBRepository = new FeedEntryRepository();
+  private LiveData<List<FeedEntry>> feedEntries = new MutableLiveData<>();
+  private FeedEntryRepository feedEntryDBRepository;
 
-  public void init(Context context) {
-    feedEntryDBRepository.init(context);
+  public FeedEntryListViewModel(FeedEntryRepository feedEntryDBRepository) {
+    this.feedEntryDBRepository = feedEntryDBRepository;
+    this.feedEntries = feedEntryDBRepository.getAll();
   }
+
 
   public LiveData<List<FeedEntry>> getFeedEntrys() {
     return feedEntryDBRepository.getAll();
@@ -35,12 +36,8 @@ public class FeedEntryListViewModel extends ViewModel {
   }
 
 
-  public void update(FeedEntry feedEntry) {
-    feedEntryDBRepository.update(feedEntry);
+  public int update(FeedEntry feedEntry) {
+    return feedEntryDBRepository.update(feedEntry);
   }
 
-  public void refresh()
-  {
-
-  }
 }

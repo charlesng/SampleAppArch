@@ -21,7 +21,9 @@ import com.example.feedentry.R;
 import com.example.feedentry.databinding.DialogFeedentryBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
 import com.example.feedentry.ui.FeedEntryFragment.Mode;
+import com.example.feedentry.utils.InjectUtils;
 import com.example.feedentry.viewmodel.FeedEntryListViewModel;
+import com.example.feedentry.viewmodel.FeedEntryListViewModelFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +36,13 @@ public class FeedActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_feed);
-    viewModel = ViewModelProviders.of(this)
+    /*
+    Use Code lab injection reference example
+    https://codelabs.developers.google.com/codelabs/build-app-with-arch-components/index.html?index=..%2F..%2Findex#10
+     */
+    FeedEntryListViewModelFactory factory = InjectUtils.provideFeedEntryListViewModelFactory(this);
+    viewModel = ViewModelProviders.of(this,factory)
         .get(FeedEntryListViewModel.class);
-    viewModel.init(this);
     ViewPager viewPager = findViewById(R.id.viewpager);
     setupViewPager(viewPager);
     // Set Tabs inside Toolbar

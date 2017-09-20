@@ -19,13 +19,6 @@ public interface FeedEntryDAO {
   @Query("SELECT * FROM feedEntrys")
   LiveData<List<FeedEntry>> getAll();
 
-  @Query("SELECT * FROM feedEntrys WHERE uid IN (:userIds)")
-  List<FeedEntry> loadAllByIds(int[] userIds);
-
-  @Query("SELECT * FROM feedEntrys WHERE title LIKE :title AND "
-      + "subTitle LIKE :subTitle LIMIT 1")
-  FeedEntry findByName(String title, String subTitle);
-
   @Query("SELECT * FROM feedEntrys WHERE uid = :uid LIMIT 1")
   LiveData<FeedEntry> findByUid(int uid);
 

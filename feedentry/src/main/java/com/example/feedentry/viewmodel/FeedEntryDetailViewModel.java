@@ -2,7 +2,6 @@ package com.example.feedentry.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
 import com.example.feedentry.repository.bean.FeedEntry;
 import com.example.feedentry.repository.bean.FeedEntryRepository;
 
@@ -12,17 +11,24 @@ import com.example.feedentry.repository.bean.FeedEntryRepository;
 
 public class FeedEntryDetailViewModel extends ViewModel {
 
-  private final FeedEntryRepository feedEntryDBRepository = new FeedEntryRepository();
+  private FeedEntryRepository feedEntryDBRepository = new FeedEntryRepository();
+  private LiveData<FeedEntry> feedEntry;
+  private int uid;
 
-  public void init(Context context) {
-    feedEntryDBRepository.init(context);
+  public FeedEntryDetailViewModel(FeedEntryRepository feedEntryRepository, int uid) {
+    this.feedEntryDBRepository = feedEntryRepository;
+    this.uid = uid;
+    this.feedEntry = feedEntryDBRepository.findByUid(uid);
   }
+
 
   public LiveData<FeedEntry> getFeedEntry(int uid) {
-    return feedEntryDBRepository.findByUid(uid);
+    this.feedEntry = feedEntryDBRepository.findByUid(uid);
+    return feedEntry;
   }
 
-  public boolean update(FeedEntry feedEntry){
-    return feedEntryDBRepository.update(feedEntry) > 0;
+  public int update(FeedEntry feedEntry) {
+  return feedEntryDBRepository.update(feedEntry);
+
   }
 }

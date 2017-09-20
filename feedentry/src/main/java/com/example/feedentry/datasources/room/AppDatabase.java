@@ -14,14 +14,16 @@ import com.example.feedentry.repository.bean.FeedEntry;
 
 @Database(entities = {FeedEntry.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
-
+  private static AppDatabase appDatabase;
   public abstract FeedEntryDAO feedEntryDao();
 
   public static AppDatabase getDb(Context context) {
-
-    return Room.databaseBuilder(context, AppDatabase.class, "feedentry-db")
-        .fallbackToDestructiveMigration()
-        .addMigrations(Migration1_2.newInstance(), Migration2_3.newInstance())
-        .build();
+    if(appDatabase == null) {
+      appDatabase = Room.databaseBuilder(context, AppDatabase.class, "feedentry-db")
+          .fallbackToDestructiveMigration()
+          .addMigrations(Migration1_2.newInstance(), Migration2_3.newInstance())
+          .build();
+    }
+    return appDatabase;
   }
 }

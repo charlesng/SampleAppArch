@@ -8,30 +8,29 @@ import java.util.List;
 
 /**
  * Created by Charles Ng on 6/9/2017.
+ * Implements the FeedEntryDAO interface to handle all the situation
  */
 
 public class FeedEntryRepository extends LiveData<List<FeedEntry>> implements FeedEntryDAO {
 
   private FeedEntryDAO feedEntryDAO;
 
-  public void init(Context context) {
+  private void init(Context context) {
     AppDatabase db = AppDatabase.getDb(context);
     feedEntryDAO = db.feedEntryDao();
   }
 
+  public static FeedEntryRepository getInstance(Context context
+  ) {
+    FeedEntryRepository feedEntryRepository = new FeedEntryRepository();
+    feedEntryRepository.init(context);
+    return feedEntryRepository;
+  }
+
+
   @Override
   public LiveData<List<FeedEntry>> getAll() {
     return feedEntryDAO.getAll();
-  }
-
-  @Override
-  public List<FeedEntry> loadAllByIds(int[] userIds) {
-    return null;
-  }
-
-  @Override
-  public FeedEntry findByName(String title, String subTitle) {
-    return null;
   }
 
   @Override
@@ -52,6 +51,4 @@ public class FeedEntryRepository extends LiveData<List<FeedEntry>> implements Fe
   public int update(FeedEntry feedEntry) {
     return feedEntryDAO.update(feedEntry);
   }
-
-
 }

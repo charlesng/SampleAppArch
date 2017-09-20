@@ -1,8 +1,6 @@
 package com.example.feedentry.ui;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
@@ -16,21 +14,18 @@ import com.example.feedentry.R;
 import com.example.feedentry.databinding.ActivityFeedEntryDetailBinding;
 import com.example.feedentry.databinding.DialogFeedentryBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
+import com.example.feedentry.utils.InjectUtils;
 import com.example.feedentry.viewmodel.FeedEntryDetailViewModel;
+import com.example.feedentry.viewmodel.FeedEntryDetailViewModelFactory;
 
-public class FeedEntryDetailActivity extends AppCompatActivity implements LifecycleRegistryOwner {
+public class FeedEntryDetailActivity extends AppCompatActivity {
 
   FeedEntryDetailViewModel viewModel;
-  private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
   private ActivityFeedEntryDetailBinding binding;
 
   public static final String EXTRA_POSITION = "position";
   private FeedEntry feedEntry;
 
-  @Override
-  public LifecycleRegistry getLifecycle() {
-    return mRegistry;
-  }
 
   @SuppressLint("StaticFieldLeak")
   @Override
@@ -38,8 +33,9 @@ public class FeedEntryDetailActivity extends AppCompatActivity implements Lifecy
     super.onCreate(savedInstanceState);
     //get the uid from the parameter first
     int uid = getIntent().getIntExtra(EXTRA_POSITION, 1);
-    viewModel = ViewModelProviders.of(this).get(FeedEntryDetailViewModel.class);
-    viewModel.init(this);
+    FeedEntryDetailViewModelFactory factory = InjectUtils
+        .provideFeenEntryDetailViewModelFactory(this, uid);
+    viewModel = ViewModelProviders.of(this, factory).get(FeedEntryDetailViewModel.class);
     viewModel.getFeedEntry(uid).observe(this, feedEntry -> {
       this.feedEntry = feedEntry;
       binding.setFeedEntry(this.feedEntry);

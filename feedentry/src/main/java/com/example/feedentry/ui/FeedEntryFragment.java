@@ -2,7 +2,7 @@ package com.example.feedentry.ui;
 
 
 import android.Manifest;
-import android.arch.lifecycle.LifecycleFragment;
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,7 +25,9 @@ import com.example.feedentry.R;
 import com.example.feedentry.databinding.FragmentItemListBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
 import com.example.feedentry.ui.FeedEntryRecyclerViewRecyclerViewAdapter.MyMenuItemClickListener;
+import com.example.feedentry.utils.InjectUtils;
 import com.example.feedentry.viewmodel.FeedEntryListViewModel;
+import com.example.feedentry.viewmodel.FeedEntryListViewModelFactory;
 import java.util.List;
 
 /**
@@ -33,7 +36,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link }
  * interface.
  */
-public class FeedEntryFragment extends LifecycleFragment {
+public class FeedEntryFragment extends Fragment{
 
   private FragmentItemListBinding binding;
   private FeedEntryRecyclerViewRecyclerViewAdapter adapter;
@@ -84,7 +87,8 @@ public class FeedEntryFragment extends LifecycleFragment {
         // result of the request.
       }
     }
-    viewModel = ViewModelProviders.of(getActivity())
+    FeedEntryListViewModelFactory factory = InjectUtils.provideFeedEntryListViewModelFactory(getActivity());
+    viewModel = ViewModelProviders.of(getActivity(),factory)
         .get(FeedEntryListViewModel.class);
     viewModel.getFeedEntrys().observe(this, (List<FeedEntry> entries) -> {
       //update the data
@@ -95,21 +99,21 @@ public class FeedEntryFragment extends LifecycleFragment {
               intent.putExtra(FeedEntryDetailActivity.EXTRA_POSITION, item.getUid());
               startActivity(intent);
             }, new MyMenuItemClickListener() {
+          @SuppressLint("StaticFieldLeak")
           @Override
           public boolean onMenuItemClick(MenuItem item, FeedEntry feedEntry) {
             int menuId = item.getItemId();
             if (menuId == R.id.action_entry_delete) {
               new AlertDialog.Builder(binding.getRoot().getContext())
                   .setTitle("Warning").setMessage("Are you sure to delete the Feed Entry?")
-                  .setPositiveButton("OK", (dialogInterface, j) -> {
-                    new AsyncTask<FeedEntry, Void, Void>() {
-                      @Override
-                      protected Void doInBackground(FeedEntry... feedEntries) {
-                        viewModel.delete(feedEntry);
-                        return null;
-                      }
-                    }.execute(feedEntry);
-                  })
+                  .setPositiveButton("OK", (dialogInterface, j) -> new AsyncTask<FeedEntry, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(FeedEntry... feedEntries) {
+                      viewModel.delete(feedEntry);
+                      return null;
+                    }
+                  }.execute(feedEntry)
+                  )
                   .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss())
                   .create()
                   .show();

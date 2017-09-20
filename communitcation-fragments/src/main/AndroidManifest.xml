@@ -5,16 +5,21 @@
   <application>
     <activity
       android:label="@string/title_feedentry_list"
-      android:name=".ui.FeedEntryListActivity"
+      android:name=".ui.masterdetail.SimpleListActivity"
       android:theme="@style/AppTheme.NoActionBar"></activity>
     <activity
       android:label="@string/title_feedentry_detail"
-      android:name=".ui.FeedEntryDetailActivity"
-      android:parentActivityName=".ui.FeedEntryListActivity"
+      android:name=".ui.masterdetail.SimpleDetailActivity"
+      android:parentActivityName=".ui.masterdetail.SimpleListActivity"
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.example.communitcation_fragments.ui.FeedEntryListActivity" />
+        android:value="com.example.communitcation_fragments.ui.masterdetail.SimpleListActivity" />
+    </activity>
+    <activity
+      android:label="Pager Activity"
+      android:name=".ui.viewpager.PagerActivity"
+      android:theme="@style/AppTheme.NoActionBar">
     </activity>
   </application>
 

@@ -53,7 +53,7 @@ public class FeedEntryRecyclerViewRecyclerViewAdapter extends
   @Override
   protected void bind(FragmentItemCardBinding binding, FeedEntry item) {
     binding.setFeedEntry(item);
-    binding.setImageUrl("http://i.imgur.com/DvpvklR.png");
+    binding.setImageUrl("http://i.imgur.com/DvpvklR.png");//default value
     binding.toolbar.getMenu().clear();
     binding.toolbar.inflateMenu(R.menu.menu_feed_item_card);
 

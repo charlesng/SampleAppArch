@@ -13,29 +13,6 @@
     android:name=".architecture.MyApplication"
     >
     <activity
-      android:label="@string/app_name"
-      android:name=".architecture.ui.MainActivity" />
-    <activity
-      android:label="@string/title_activity_pager"
-      android:name=".architecture.ui.viewpager.PagerActivity"
-      android:theme="@style/AppTheme.NoActionBar">
-    </activity>
-    <activity
-      android:label="@string/title_email_list"
-      android:name=".architecture.ui.masterdetail.EmailListActivity"
-      android:theme="@style/AppTheme.NoActionBar">
-
-    </activity>
-    <activity
-      android:label="@string/title_email_detail"
-      android:name=".architecture.ui.masterdetail.EmailDetailActivity"
-      android:parentActivityName=".architecture.ui.masterdetail.EmailListActivity"
-      android:theme="@style/AppTheme.NoActionBar">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".architecture.ui.masterdetail.EmailListActivity" />
-    </activity>
-    <activity
       android:label="@string/title_activity_app_arch_navigation_drawer"
       android:name=".architecture.ui.AppArchNavigationDrawer"
       android:theme="@style/AppTheme.NoActionBar">

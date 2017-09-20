@@ -97,7 +97,6 @@ public class LocationFragment extends LifecycleFragment {
     // Inflate the layout for this fragment
     binding = DataBindingUtil
         .inflate(LayoutInflater.from(getActivity()), R.layout.fragment_location, null, false);
-
     binding.btnLocation.setOnClickListener(view -> {
       Location location = binding.getLocation();
       if (location != null) {

@@ -16,6 +16,12 @@ public class LastLocationViewModel extends ViewModel {
   private MutableLiveData<Location> lastKnowLocation;
   private LastLocationListener lastLocationListener;
 
+  public LastLocationViewModel(LastLocationListener lastLocationListener)
+  {
+    this.lastLocationListener = lastLocationListener;
+
+  }
+
   public void init(Context context) {
     if (lastKnowLocation == null) {
       lastKnowLocation = new MutableLiveData<>();
