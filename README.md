@@ -47,5 +47,9 @@ datasource
 - Room for local persistence
 - External content providers for OS
 
+utils
+-
+- Common Utils (Like Android databinding
+- Inject Utils (Dependency Injection)
 
 
