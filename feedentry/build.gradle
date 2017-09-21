@@ -15,6 +15,7 @@ android {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation":
                                      "$projectDir/schemas".toString()]
+                includeCompileClasspath = true
             }
         }
         vectorDrawables.useSupportLibrary = true
@@ -50,10 +51,8 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$arch_version"
     implementation "android.arch.lifecycle:runtime:$arch_version"
     annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
-    api "android.arch.persistence.room:runtime:$arch_version"
-    annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
-    testImplementation "android.arch.persistence.room:testing:$arch_version"
-    api "android.arch.persistence.room:rxjava2:$arch_version"
+    implementation "android.arch.persistence.room:runtime:$arch_version"
+    implementation "android.arch.persistence.room:compiler:$arch_version"
     api project(':common')
     compile 'com.squareup.picasso:picasso:2.5.2'
 

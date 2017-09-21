@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.example.communitcation_fragments.ui.viewpager.PagerActivity;
+import com.example.feedentry.ui.FeedActivity;
 import sampleproj.charlesng0209.com.sampleapparch.R;
 
 public class AppArchNavigationDrawer extends AppCompatActivity
@@ -82,10 +82,10 @@ public class AppArchNavigationDrawer extends AppCompatActivity
     int id = item.getItemId();
     switch (id) {
       case R.id.nav_fragment_communication:
-        startActivity(new Intent(this, PagerActivity.class));
+//        startActivity(new Intent(this, PagerActivity.class));
         break;
       case R.id.nav_storage:
-//        startActivity(new Intent(this, FeedActivity.class));
+        startActivity(new Intent(this, FeedActivity.class));
         break;
       case R.id.nav_connectivity:
         break;
