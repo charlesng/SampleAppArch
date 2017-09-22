@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.example.common.components.binding.CustomConverter;
 import com.example.location.R;
 import com.example.location.databinding.FragmentLocationBinding;
 import com.example.location.viewmodel.LastLocationViewModel;
@@ -63,8 +64,10 @@ public class LocationFragment extends LifecycleFragment {
     //get the viewmodel from activity
     LastLocationViewModel lastLocationViewModel = ViewModelProviders.of(getActivity())
         .get(LastLocationViewModel.class);
-    lastLocationViewModel.getLastKnowLocation().observe(this, location ->
-        binding.setLocation(location));
+    lastLocationViewModel.getLastKnowLocation().observe(this, location ->{
+        binding.setLocation(location);
+
+    });
 
   }
 
@@ -97,6 +100,7 @@ public class LocationFragment extends LifecycleFragment {
     // Inflate the layout for this fragment
     binding = DataBindingUtil
         .inflate(LayoutInflater.from(getActivity()), R.layout.fragment_location, null, false);
+    binding.setConverter(new CustomConverter());
     binding.btnLocation.setOnClickListener(view -> {
       Location location = binding.getLocation();
       if (location != null) {

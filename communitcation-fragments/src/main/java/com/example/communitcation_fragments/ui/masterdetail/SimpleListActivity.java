@@ -44,15 +44,12 @@ public class SimpleListActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_simple_list);
-
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     toolbar.setTitle(getTitle());
-
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
         .setAction("Action", null).show());
-
     View recyclerView = findViewById(R.id.feedentry_list);
     assert recyclerView != null;
     setupRecyclerView((RecyclerView) recyclerView);

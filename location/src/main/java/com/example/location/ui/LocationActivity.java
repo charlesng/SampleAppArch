@@ -19,9 +19,9 @@ public class LocationActivity extends AppCompatActivity {
     setContentView(R.layout.activity_location);
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
+
     LastLocationViewModelFactory factory = InjectUtils.provideLastLocationViewModelFactory(this);
     lastLocationViewModel = ViewModelProviders.of(this, factory)
         .get(LastLocationViewModel.class);
-    lastLocationViewModel.init(this);
   }
 }

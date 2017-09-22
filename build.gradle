@@ -13,10 +13,11 @@ buildscript {
     }
 }
 
-ext.arch_version = "1.0.0-alpha8"
+ext.arch_version = "1.0.0-alpha9-1"
 ext.support_version = "26.1.0"
 ext.constraint_layout_version = "1.0.2"
 ext.junit_version = "4.12"
+ext.dagger2_version = "2.11"
 
 allprojects {
     repositories {

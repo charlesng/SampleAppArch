@@ -4,11 +4,11 @@
 
   <application>
     <activity
-      android:label="@string/title_feedentry_list"
+      android:label="@string/title_simple_list"
       android:name=".ui.masterdetail.SimpleListActivity"
-      android:theme="@style/AppTheme.NoActionBar"></activity>
+      android:theme="@style/AppTheme.NoActionBar" />
     <activity
-      android:label="@string/title_feedentry_detail"
+      android:label="@string/title_simple_detail"
       android:name=".ui.masterdetail.SimpleDetailActivity"
       android:parentActivityName=".ui.masterdetail.SimpleListActivity"
       android:theme="@style/AppTheme.NoActionBar">
@@ -17,10 +17,13 @@
         android:value="com.example.communitcation_fragments.ui.masterdetail.SimpleListActivity" />
     </activity>
     <activity
-      android:label="Pager Activity"
+      android:label="Pager Activity "
       android:name=".ui.viewpager.PagerActivity"
-      android:theme="@style/AppTheme.NoActionBar">
-    </activity>
+      android:theme="@style/AppTheme.NoActionBar"></activity>
+    <activity
+      android:label="Communication between fragments"
+      android:name=".ui.CommunicationFragmentActivity"
+      android:theme="@style/AppTheme.NoActionBar"></activity>
   </application>
 
 </manifest>

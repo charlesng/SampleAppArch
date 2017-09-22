@@ -1,21 +1,29 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.viewpager.BlankFragmentA"
-    android:orientation="vertical">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".ui.viewpager.BlankFragmentA"
+  android:id="@+id/linearLayout">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/fragment_textA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Default Msg Container A" />
+      android:id="@+id/fragment_textA"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Default Msg Container A"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginTop="8dp"
+      android:layout_marginStart="8dp" />
 
     <Button
-        android:id="@+id/btnA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="A button" />
+      android:id="@+id/btnA"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="A button"
+      app:layout_constraintStart_toStartOf="@+id/fragment_textA"
+      android:layout_marginTop="8dp"
+      app:layout_constraintTop_toBottomOf="@+id/fragment_textA" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
