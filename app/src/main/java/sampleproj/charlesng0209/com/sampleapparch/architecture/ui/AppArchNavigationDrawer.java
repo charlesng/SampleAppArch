@@ -1,5 +1,6 @@
 package sampleproj.charlesng0209.com.sampleapparch.architecture.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.location.ui.LocationActivity;
 import sampleproj.charlesng0209.com.sampleapparch.R;
 
 public class AppArchNavigationDrawer extends AppCompatActivity
@@ -91,7 +93,7 @@ public class AppArchNavigationDrawer extends AppCompatActivity
       case R.id.nav_connectivity:
         break;
       case R.id.nav_location:
-//        startActivity(new Intent(this,LocationActivity.class));
+        startActivity(new Intent(this,LocationActivity.class));
         break;
     }
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
