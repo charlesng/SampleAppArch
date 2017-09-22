@@ -95,6 +95,6 @@ dependencies {
 //    implementation "com.google.dagger:dagger-android:$dagger2_version"
 //    implementation "com.google.dagger:dagger-android-support:$dagger2_version" // if you use the support libraries
 //    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger2_version"
-//        implementation project(':location')
+        implementation project(':location')
 //        implementation project(':communitcation-fragments')
 }
