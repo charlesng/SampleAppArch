@@ -4,4 +4,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="title_activity_maps">Map</string>
+  <string name="btnLocation">Get the location from binding</string>
+  <string name="txtLatitude">Latitude</string>
+  <string name="txtLongitude">Longitude</string>
 </resources>
