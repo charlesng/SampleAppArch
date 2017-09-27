@@ -5,17 +5,20 @@ import android.content.Context;
 import com.example.feedentry.datasources.room.AppDatabase;
 import com.example.feedentry.datasources.room.FeedEntryDAO;
 import java.util.List;
+import javax.inject.Singleton;
 
 /**
  * Created by Charles Ng on 6/9/2017.
  * Implements the FeedEntryDAO interface to handle all the situation
  */
 
+@Singleton
 public class FeedEntryRepository extends LiveData<List<FeedEntry>> implements FeedEntryDAO {
 
   private FeedEntryDAO feedEntryDAO;
 
-  private void init(Context context) {
+
+  public void init(Context context) {
     AppDatabase db = AppDatabase.getDb(context);
     feedEntryDAO = db.feedEntryDao();
   }

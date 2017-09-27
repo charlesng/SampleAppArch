@@ -16,6 +16,7 @@ public class FeedEntryListViewModel extends ViewModel {
   private LiveData<List<FeedEntry>> feedEntries = new MutableLiveData<>();
   private FeedEntryRepository feedEntryDBRepository;
 
+
   public FeedEntryListViewModel(FeedEntryRepository feedEntryDBRepository) {
     this.feedEntryDBRepository = feedEntryDBRepository;
     this.feedEntries = feedEntryDBRepository.getAll();

@@ -13,36 +13,35 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import com.example.feedentry.R;
 import com.example.feedentry.databinding.DialogFeedentryBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
+import com.example.feedentry.repository.bean.FeedEntryRepository;
 import com.example.feedentry.ui.FeedEntryFragment.Mode;
-import com.example.feedentry.utils.InjectUtils;
 import com.example.feedentry.viewmodel.FeedEntryListViewModel;
 import com.example.feedentry.viewmodel.FeedEntryListViewModelFactory;
+import dagger.Module;
+import dagger.Provides;
+import dagger.android.support.DaggerAppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends DaggerAppCompatActivity {
 
-  private FeedEntryListViewModel viewModel;
+  @Inject
+  FeedEntryListViewModel viewModel;
+
 
   @SuppressLint("StaticFieldLeak")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_feed);
-    /*
-    Use Code lab injection reference example
-    https://codelabs.developers.google.com/codelabs/build-app-with-arch-components/index.html?index=..%2F..%2Findex#10
-     */
-    FeedEntryListViewModelFactory factory = InjectUtils.provideFeedEntryListViewModelFactory(this);
-    viewModel = ViewModelProviders.of(this,factory)
-        .get(FeedEntryListViewModel.class);
     ViewPager viewPager = findViewById(R.id.viewpager);
     setupViewPager(viewPager);
     // Set Tabs inside Toolbar
@@ -52,9 +51,9 @@ public class FeedActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(view -> {
-      //insert sample data by button click
       final DialogFeedentryBinding dialogFeedEntryBinding = DataBindingUtil
-          .inflate(LayoutInflater.from(this), R.layout.dialog_feedentry, null, false);
+          .inflate(LayoutInflater.from(FeedActivity.this), R.layout.dialog_feedentry, null, false);
+      //insert sample data by button click
       FeedEntry feedEntry = new FeedEntry("", "");
       feedEntry.setImageUrl("http://i.imgur.com/DvpvklR.png");
       dialogFeedEntryBinding.setFeedEntry(feedEntry);
@@ -140,5 +139,32 @@ public class FeedActivity extends AppCompatActivity {
     public CharSequence getPageTitle(int position) {
       return mFragmentTitleList.get(position);
     }
+  }
+
+  /**
+   * Created by Charles Ng on 26/9/2017.
+   */
+
+  @Module
+  @Singleton
+  public static class MyModule {
+
+    @Provides
+    FeedEntryListViewModelFactory provideFeedEntryListViewModel(
+        FeedEntryRepository feedEntryRepository) {
+          /*
+    Use Code lab injection reference example
+    https://codelabs.developers.google.com/codelabs/build-app-with-arch-components/index.html?index=..%2F..%2Findex#10
+     */
+      return new FeedEntryListViewModelFactory(feedEntryRepository);
+    }
+
+    @Provides
+    FeedEntryListViewModel provideViewModel(FeedActivity feedActivity,
+        FeedEntryListViewModelFactory factory) {
+      return ViewModelProviders.of(feedActivity, factory)
+          .get(FeedEntryListViewModel.class);
+    }
+
   }
 }
