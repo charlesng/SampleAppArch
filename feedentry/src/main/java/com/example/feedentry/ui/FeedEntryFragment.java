@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,11 +23,15 @@ import android.widget.Toast;
 import com.example.feedentry.R;
 import com.example.feedentry.databinding.FragmentItemListBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
+import com.example.feedentry.repository.bean.FeedEntryRepository;
 import com.example.feedentry.ui.FeedEntryRecyclerViewRecyclerViewAdapter.MyMenuItemClickListener;
-import com.example.feedentry.utils.InjectUtils;
 import com.example.feedentry.viewmodel.FeedEntryListViewModel;
 import com.example.feedentry.viewmodel.FeedEntryListViewModelFactory;
+import dagger.Module;
+import dagger.Provides;
+import dagger.android.support.DaggerFragment;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  * A fragment representing a list of Items.
@@ -36,9 +39,10 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link }
  * interface.
  */
-public class FeedEntryFragment extends Fragment{
+public class FeedEntryFragment extends DaggerFragment {
 
   private FragmentItemListBinding binding;
+
   private FeedEntryRecyclerViewRecyclerViewAdapter adapter;
 
   /**
@@ -46,7 +50,9 @@ public class FeedEntryFragment extends Fragment{
    * fragment (e.g. upon screen orientation changes).
    */
   private Mode mode = Mode.LIST;
-  private FeedEntryListViewModel viewModel;
+
+  @Inject
+  FeedEntryListViewModel viewModel;
 
   public enum Mode {
     LIST, GRID, TILE
@@ -87,9 +93,6 @@ public class FeedEntryFragment extends Fragment{
         // result of the request.
       }
     }
-    FeedEntryListViewModelFactory factory = InjectUtils.provideFeedEntryListViewModelFactory(getActivity());
-    viewModel = ViewModelProviders.of(getActivity(),factory)
-        .get(FeedEntryListViewModel.class);
     viewModel.getFeedEntrys().observe(this, (List<FeedEntry> entries) -> {
       //update the data
       if (adapter == null) {
@@ -106,13 +109,14 @@ public class FeedEntryFragment extends Fragment{
             if (menuId == R.id.action_entry_delete) {
               new AlertDialog.Builder(binding.getRoot().getContext())
                   .setTitle("Warning").setMessage("Are you sure to delete the Feed Entry?")
-                  .setPositiveButton("OK", (dialogInterface, j) -> new AsyncTask<FeedEntry, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(FeedEntry... feedEntries) {
-                      viewModel.delete(feedEntry);
-                      return null;
-                    }
-                  }.execute(feedEntry)
+                  .setPositiveButton("OK",
+                      (dialogInterface, j) -> new AsyncTask<FeedEntry, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(FeedEntry... feedEntries) {
+                          viewModel.delete(feedEntry);
+                          return null;
+                        }
+                      }.execute(feedEntry)
                   )
                   .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss())
                   .create()
@@ -180,5 +184,26 @@ public class FeedEntryFragment extends Fragment{
     return binding.getRoot();
   }
 
+  @Module
+  public static class MyModule {
 
+    @Provides
+    FeedEntryListViewModelFactory provideFeedEntryListViewModel(
+        FeedEntryRepository feedEntryRepository) {
+          /*
+    Use Code lab injection reference example
+    https://codelabs.developers.google.com/codelabs/build-app-with-arch-components/index.html?index=..%2F..%2Findex#10
+     */
+      return new FeedEntryListViewModelFactory(feedEntryRepository);
+    }
+
+    @Provides
+    FeedEntryListViewModel provideViewModel(FeedEntryFragment feedEntryFragment,
+        FeedEntryListViewModelFactory factory) {
+
+      return ViewModelProviders.of(feedEntryFragment.getActivity(), factory)
+          .get(FeedEntryListViewModel.class);
+    }
+
+  }
 }

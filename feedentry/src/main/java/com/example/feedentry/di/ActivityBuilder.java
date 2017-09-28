@@ -1,7 +1,8 @@
 package com.example.feedentry.di;
 
 import com.example.feedentry.ui.FeedActivity;
-import com.example.feedentry.ui.FeedActivity.MyModule;
+import com.example.feedentry.ui.FeedEntryDetailActivity;
+import com.example.feedentry.ui.FeedEntryFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -12,8 +13,12 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilder {
 
-  @ContributesAndroidInjector(modules = MyModule.class)
-  abstract FeedActivity bindMainActivity();
+  @ContributesAndroidInjector(modules = FeedActivity.MyModule.class)
+  abstract FeedActivity bindFeedActivity();
 
+  @ContributesAndroidInjector(modules = FeedEntryDetailActivity.MyModule.class)
+  abstract FeedEntryDetailActivity bindFeedEntryDetailActivity();
 
+  @ContributesAndroidInjector(modules = FeedEntryFragment.MyModule.class)
+  abstract FeedEntryFragment bindFeedEntryFragment();
 }
