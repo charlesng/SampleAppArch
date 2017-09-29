@@ -178,7 +178,7 @@ public class FeedActivity extends DaggerAppCompatActivity {
 
     @Provides
     FeedEntryListViewModel provideViewModel(FeedActivity feedActivity,FeedEntryRepository feedEntryRepository) {
-      FeedEntryListViewModelFactory factory = new FeedEntryListViewModelFactory(feedActivity,feedEntryRepository);
+      FeedEntryListViewModelFactory factory = new FeedEntryListViewModelFactory(feedEntryRepository);
       return ViewModelProviders.of(feedActivity, factory)
           .get(FeedEntryListViewModel.class);
     }

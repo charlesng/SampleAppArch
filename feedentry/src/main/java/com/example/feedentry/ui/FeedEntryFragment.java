@@ -188,7 +188,7 @@ public class FeedEntryFragment extends DaggerFragment {
 
     @Provides
     FeedEntryListViewModel provideViewModel(FeedEntryFragment feedEntryFragment,FeedEntryRepository feedEntryRepository) {
-      FeedEntryListViewModelFactory factory = new FeedEntryListViewModelFactory(feedEntryFragment,feedEntryRepository);
+      FeedEntryListViewModelFactory factory = new FeedEntryListViewModelFactory(feedEntryRepository);
       return ViewModelProviders.of(feedEntryFragment.getActivity(), factory)
           .get(FeedEntryListViewModel.class);
     }

@@ -1,7 +1,7 @@
 package com.example.feedentry.viewmodel;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import com.example.feedentry.repository.bean.FeedEntry;
@@ -19,7 +19,7 @@ public class FeedEntryListViewModel extends ViewModel {
   private LiveData<List<FeedEntry>> feedEntries = new MutableLiveData<>();
   private MutableLiveData<String> userId = new MutableLiveData<>();
   //show your composite model here
-  private MutableLiveData<CompositeModel> compositeModelLiveData;
+  private MediatorLiveData<CompositeModel> compositeModelLiveData;
 
   //list all your repository
   private FeedEntryRepository feedEntryDBRepository;
@@ -53,27 +53,24 @@ public class FeedEntryListViewModel extends ViewModel {
 
   }
 
-  public FeedEntryListViewModel(LifecycleOwner lifecycleOwner,
+  public FeedEntryListViewModel(
       FeedEntryRepository feedEntryDBRepository) {
     this.feedEntryDBRepository = feedEntryDBRepository;
     this.feedEntries = feedEntryDBRepository.getAll();
-    this.compositeModelLiveData = new MutableLiveData<>();
-    //initialize the composite model to avoid NullPointerException
-    this.compositeModelLiveData.postValue(new CompositeModel());
-    
-    this.feedEntries.observe(lifecycleOwner, list -> {
-      CompositeModel compositeModel = compositeModelLiveData.getValue();
-      compositeModel.setFeedEntries(list);
-      compositeModelLiveData.postValue(compositeModel);
-    });
-    //Fake User Information live Data
-    this.userId.observe(lifecycleOwner, defaultImageUrl ->
+    this.compositeModelLiveData = new MediatorLiveData<>();
+    this.compositeModelLiveData.addSource(feedEntries, data ->
     {
       CompositeModel compositeModel = compositeModelLiveData.getValue();
-      compositeModel.setUserId(defaultImageUrl);
+      compositeModel.setFeedEntries(data);
       compositeModelLiveData.postValue(compositeModel);
     });
-
+    this.compositeModelLiveData.addSource(userId, data -> {
+      CompositeModel compositeModel = compositeModelLiveData.getValue();
+      compositeModel.setUserId(data);
+      compositeModelLiveData.postValue(compositeModel);
+    });
+    //initialize the composite model to avoid NullPointerException
+    this.compositeModelLiveData.postValue(new CompositeModel());
   }
 
   public void loadUserId(String userId) {
