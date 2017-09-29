@@ -28,6 +28,7 @@ Module
 
 https://youtu.be/FrteWKKVyzI?t=29m41s
 
+  <img src="https://developer.android.com/topic/libraries/architecture/images/final-architecture.png" >
 
 ui (UI Controllers , Fragments & Activities)
 -
