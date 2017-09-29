@@ -9,7 +9,7 @@ import com.example.feedentry.R;
 import com.example.feedentry.databinding.FragmentItemCardBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
 import com.example.feedentry.ui.common.BaseRecyclerViewAdapter;
-import java.util.List;
+import com.example.feedentry.viewmodel.FeedEntryListViewModel.CompositeModel;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link FeedEntry} and makes a call to the
@@ -19,30 +19,30 @@ import java.util.List;
 public class FeedEntryRecyclerViewRecyclerViewAdapter extends
     BaseRecyclerViewAdapter<FeedEntry, FragmentItemCardBinding> {
 
-  private List<FeedEntry> mValues;
+  private CompositeModel mValues;
   private MyMenuItemClickListener myMenuItemClickListener;
 
-  FeedEntryRecyclerViewRecyclerViewAdapter(List<FeedEntry> mValues,
+  FeedEntryRecyclerViewRecyclerViewAdapter(CompositeModel compositeModel,
       OnItemClickListener<FeedEntry> itemClickListener,
       MyMenuItemClickListener myMenuItemClickListener) {
     super(itemClickListener);
-    this.mValues = mValues;
+    this.mValues = compositeModel;
     this.myMenuItemClickListener = myMenuItemClickListener;
   }
 
-  public void setValues(List<FeedEntry> mValues) {
+  public void setValues(CompositeModel compositeModel) {
     this.mValues = mValues;
     notifyDataSetChanged();
   }
 
   @Override
   protected FeedEntry getItemForPosition(int position) {
-    return mValues.get(position);
+    return mValues.getFeedEntries().get(position);
   }
 
   @Override
   public int getItemCount() {
-    return mValues.size();
+    return mValues.getFeedEntries().size();
   }
 
   @Override
@@ -54,6 +54,7 @@ public class FeedEntryRecyclerViewRecyclerViewAdapter extends
   protected void bind(FragmentItemCardBinding binding, FeedEntry item) {
     binding.setFeedEntry(item);
     binding.setImageUrl("http://i.imgur.com/DvpvklR.png");//default value
+    binding.setUserId(mValues.getUserId());
     binding.toolbar.getMenu().clear();
     binding.toolbar.inflateMenu(R.menu.menu_feed_item_card);
 

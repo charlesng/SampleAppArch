@@ -30,7 +30,6 @@ import com.example.feedentry.viewmodel.FeedEntryListViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.support.DaggerFragment;
-import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -93,7 +92,7 @@ public class FeedEntryFragment extends DaggerFragment {
         // result of the request.
       }
     }
-    viewModel.getFeedEntrys().observe(this, (List<FeedEntry> entries) -> {
+    viewModel.getCompositeEntrys().observe(this, entries -> {
       //update the data
       if (adapter == null) {
         adapter = new FeedEntryRecyclerViewRecyclerViewAdapter(entries,
@@ -188,19 +187,8 @@ public class FeedEntryFragment extends DaggerFragment {
   public static class MyModule {
 
     @Provides
-    FeedEntryListViewModelFactory provideFeedEntryListViewModel(
-        FeedEntryRepository feedEntryRepository) {
-          /*
-    Use Code lab injection reference example
-    https://codelabs.developers.google.com/codelabs/build-app-with-arch-components/index.html?index=..%2F..%2Findex#10
-     */
-      return new FeedEntryListViewModelFactory(feedEntryRepository);
-    }
-
-    @Provides
-    FeedEntryListViewModel provideViewModel(FeedEntryFragment feedEntryFragment,
-        FeedEntryListViewModelFactory factory) {
-
+    FeedEntryListViewModel provideViewModel(FeedEntryFragment feedEntryFragment,FeedEntryRepository feedEntryRepository) {
+      FeedEntryListViewModelFactory factory = new FeedEntryListViewModelFactory(feedEntryFragment,feedEntryRepository);
       return ViewModelProviders.of(feedEntryFragment.getActivity(), factory)
           .get(FeedEntryListViewModel.class);
     }

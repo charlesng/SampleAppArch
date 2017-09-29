@@ -15,6 +15,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import com.example.feedentry.R;
 import com.example.feedentry.databinding.DialogFeedentryBinding;
@@ -141,6 +143,30 @@ public class FeedActivity extends DaggerAppCompatActivity {
     }
   }
 
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_feed, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+
+    //noinspection SimplifiableIfStatement
+    if (id == R.id.action_updateDefaultTitle) {
+      viewModel.loadUserId("10233221");
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
+
   /**
    * Created by Charles Ng on 26/9/2017.
    */
@@ -149,22 +175,15 @@ public class FeedActivity extends DaggerAppCompatActivity {
   @Singleton
   public static class MyModule {
 
-    @Provides
-    FeedEntryListViewModelFactory provideFeedEntryListViewModel(
-        FeedEntryRepository feedEntryRepository) {
-          /*
-    Use Code lab injection reference example
-    https://codelabs.developers.google.com/codelabs/build-app-with-arch-components/index.html?index=..%2F..%2Findex#10
-     */
-      return new FeedEntryListViewModelFactory(feedEntryRepository);
-    }
 
     @Provides
-    FeedEntryListViewModel provideViewModel(FeedActivity feedActivity,
-        FeedEntryListViewModelFactory factory) {
+    FeedEntryListViewModel provideViewModel(FeedActivity feedActivity,FeedEntryRepository feedEntryRepository) {
+      FeedEntryListViewModelFactory factory = new FeedEntryListViewModelFactory(feedActivity,feedEntryRepository);
       return ViewModelProviders.of(feedActivity, factory)
           .get(FeedEntryListViewModel.class);
     }
 
   }
+
+
 }

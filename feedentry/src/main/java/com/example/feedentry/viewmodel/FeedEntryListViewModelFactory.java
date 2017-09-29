@@ -1,9 +1,11 @@
 package com.example.feedentry.viewmodel;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import com.example.feedentry.repository.bean.FeedEntryRepository;
-import javax.inject.Inject;
+import com.example.feedentry.ui.FeedActivity;
+import com.example.feedentry.ui.FeedEntryFragment;
 
 /**
  * Created by Charles Ng on 20/9/2017.
@@ -11,13 +13,20 @@ import javax.inject.Inject;
 
 public class FeedEntryListViewModelFactory extends ViewModelProvider.NewInstanceFactory {
   private FeedEntryRepository feedEntryRepository;
-  @Inject
-  public FeedEntryListViewModelFactory(FeedEntryRepository feedEntryRepository) {
+  private LifecycleOwner lifecycleOwner;
+
+  public FeedEntryListViewModelFactory(FeedActivity feedActivity, FeedEntryRepository feedEntryRepository) {
+    this.lifecycleOwner = feedActivity;
+    this.feedEntryRepository = feedEntryRepository;
+  }
+
+  public FeedEntryListViewModelFactory(FeedEntryFragment feedEntryFragment, FeedEntryRepository feedEntryRepository) {
+    this.lifecycleOwner = feedEntryFragment;
     this.feedEntryRepository = feedEntryRepository;
   }
 
   @Override
   public <T extends ViewModel> T create(Class<T> modelClass) {
-    return (T) new FeedEntryListViewModel(feedEntryRepository);
+    return (T) new FeedEntryListViewModel(lifecycleOwner,feedEntryRepository);
   }
 }
