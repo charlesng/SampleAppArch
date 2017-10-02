@@ -9,7 +9,7 @@ import com.example.feedentry.repository.bean.FeedEntryRepository;
  * Created by Charles Ng on 11/9/2017.
  */
 
-public class FeedEntryDetailViewModel extends ViewModel {
+public  class FeedEntryDetailViewModel extends ViewModel {
 
   private FeedEntryRepository feedEntryDBRepository = new FeedEntryRepository();
   private LiveData<FeedEntry> feedEntry;
@@ -19,6 +19,7 @@ public class FeedEntryDetailViewModel extends ViewModel {
     this.feedEntryDBRepository = feedEntryRepository;
     this.uid = uid;
     this.feedEntry = feedEntryDBRepository.findByUid(uid);
+
   }
 
 
@@ -31,4 +32,6 @@ public class FeedEntryDetailViewModel extends ViewModel {
   return feedEntryDBRepository.update(feedEntry);
 
   }
+
+
 }

@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -14,13 +13,22 @@ import com.example.feedentry.R;
 import com.example.feedentry.databinding.ActivityFeedEntryDetailBinding;
 import com.example.feedentry.databinding.DialogFeedentryBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
-import com.example.feedentry.utils.InjectUtils;
+import com.example.feedentry.repository.bean.FeedEntryRepository;
 import com.example.feedentry.viewmodel.FeedEntryDetailViewModel;
 import com.example.feedentry.viewmodel.FeedEntryDetailViewModelFactory;
+import dagger.Module;
+import dagger.Provides;
+import dagger.android.support.DaggerAppCompatActivity;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-public class FeedEntryDetailActivity extends AppCompatActivity {
+public class FeedEntryDetailActivity extends DaggerAppCompatActivity {
 
+  @Inject
   FeedEntryDetailViewModel viewModel;
+  @Inject
+  int uid;
+
   private ActivityFeedEntryDetailBinding binding;
 
   public static final String EXTRA_POSITION = "position";
@@ -31,11 +39,6 @@ public class FeedEntryDetailActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    //get the uid from the parameter first
-    int uid = getIntent().getIntExtra(EXTRA_POSITION, 1);
-    FeedEntryDetailViewModelFactory factory = InjectUtils
-        .provideFeenEntryDetailViewModelFactory(this, uid);
-    viewModel = ViewModelProviders.of(this, factory).get(FeedEntryDetailViewModel.class);
     viewModel.getFeedEntry(uid).observe(this, feedEntry -> {
       this.feedEntry = feedEntry;
       binding.setFeedEntry(this.feedEntry);
@@ -85,6 +88,35 @@ public class FeedEntryDetailActivity extends AppCompatActivity {
             }
           }).create().show();
     });
+  }
+
+  @Module
+  @Singleton
+  public static class MyModule {
+
+    @Provides
+    int getUid(FeedEntryDetailActivity activity)
+    {
+      return  activity.getIntent().getIntExtra(EXTRA_POSITION, 1);
+    }
+
+    @Provides
+    FeedEntryDetailViewModelFactory provideFeedEntryDetailViewModel(FeedEntryDetailActivity activity, int uid,
+        FeedEntryRepository feedEntryRepository) {
+          /*
+    Use Code lab injection reference example
+    https://codelabs.developers.google.com/codelabs/build-app-with-arch-components/index.html?index=..%2F..%2Findex#10
+     */
+      return new FeedEntryDetailViewModelFactory(feedEntryRepository,uid);
+    }
+
+    @Provides
+    FeedEntryDetailViewModel provideViewModel(FeedEntryDetailActivity feedActivity,
+        FeedEntryDetailViewModelFactory factory) {
+      return ViewModelProviders.of(feedActivity, factory)
+          .get(FeedEntryDetailViewModel.class);
+    }
+
   }
 
 }

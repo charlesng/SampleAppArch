@@ -1,5 +1,6 @@
 package com.example.feedentry.viewmodel;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import com.example.feedentry.repository.bean.FeedEntryRepository;
@@ -10,7 +11,10 @@ import com.example.feedentry.repository.bean.FeedEntryRepository;
 
 public class FeedEntryListViewModelFactory extends ViewModelProvider.NewInstanceFactory {
   private FeedEntryRepository feedEntryRepository;
-  public FeedEntryListViewModelFactory(FeedEntryRepository feedEntryRepository) {
+  private LifecycleOwner lifecycleOwner;
+
+
+  public FeedEntryListViewModelFactory( FeedEntryRepository feedEntryRepository) {
     this.feedEntryRepository = feedEntryRepository;
   }
 

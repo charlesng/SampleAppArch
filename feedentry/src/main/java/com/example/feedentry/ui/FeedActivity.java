@@ -13,36 +13,37 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import com.example.feedentry.R;
 import com.example.feedentry.databinding.DialogFeedentryBinding;
 import com.example.feedentry.repository.bean.FeedEntry;
+import com.example.feedentry.repository.bean.FeedEntryRepository;
 import com.example.feedentry.ui.FeedEntryFragment.Mode;
-import com.example.feedentry.utils.InjectUtils;
 import com.example.feedentry.viewmodel.FeedEntryListViewModel;
 import com.example.feedentry.viewmodel.FeedEntryListViewModelFactory;
+import dagger.Module;
+import dagger.Provides;
+import dagger.android.support.DaggerAppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends DaggerAppCompatActivity {
 
-  private FeedEntryListViewModel viewModel;
+  @Inject
+  FeedEntryListViewModel viewModel;
+
 
   @SuppressLint("StaticFieldLeak")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_feed);
-    /*
-    Use Code lab injection reference example
-    https://codelabs.developers.google.com/codelabs/build-app-with-arch-components/index.html?index=..%2F..%2Findex#10
-     */
-    FeedEntryListViewModelFactory factory = InjectUtils.provideFeedEntryListViewModelFactory(this);
-    viewModel = ViewModelProviders.of(this,factory)
-        .get(FeedEntryListViewModel.class);
     ViewPager viewPager = findViewById(R.id.viewpager);
     setupViewPager(viewPager);
     // Set Tabs inside Toolbar
@@ -52,9 +53,9 @@ public class FeedActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(view -> {
-      //insert sample data by button click
       final DialogFeedentryBinding dialogFeedEntryBinding = DataBindingUtil
-          .inflate(LayoutInflater.from(this), R.layout.dialog_feedentry, null, false);
+          .inflate(LayoutInflater.from(FeedActivity.this), R.layout.dialog_feedentry, null, false);
+      //insert sample data by button click
       FeedEntry feedEntry = new FeedEntry("", "");
       feedEntry.setImageUrl("http://i.imgur.com/DvpvklR.png");
       dialogFeedEntryBinding.setFeedEntry(feedEntry);
@@ -141,4 +142,48 @@ public class FeedActivity extends AppCompatActivity {
       return mFragmentTitleList.get(position);
     }
   }
+
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_feed, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+
+    //noinspection SimplifiableIfStatement
+    if (id == R.id.action_updateDefaultTitle) {
+      viewModel.loadUserId("10233221");
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
+
+  /**
+   * Created by Charles Ng on 26/9/2017.
+   */
+
+  @Module
+  @Singleton
+  public static class MyModule {
+
+
+    @Provides
+    FeedEntryListViewModel provideViewModel(FeedActivity feedActivity,FeedEntryRepository feedEntryRepository) {
+      FeedEntryListViewModelFactory factory = new FeedEntryListViewModelFactory(feedEntryRepository);
+      return ViewModelProviders.of(feedActivity, factory)
+          .get(FeedEntryListViewModel.class);
+    }
+
+  }
+
+
 }
