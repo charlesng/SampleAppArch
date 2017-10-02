@@ -3,7 +3,7 @@ Sample Application using the app archieture
 -Sample Navigation Drawer
 
 Module
-- [Fragment Communication](communitcation-fragments)
+- [Fragment Communication](app/src/main/java/com/cn29/aac/ui/communitcation-fragments)
   <p>
   <img src="https://user-images.githubusercontent.com/5112837/30728470-02f6b93e-9f8b-11e7-83f2-28d3dd4bf61f.png" width="150">
   <img src="https://user-images.githubusercontent.com/5112837/30728643-0769e634-9f8c-11e7-8206-fe57dd63b5d4.png" width="150">
@@ -11,13 +11,13 @@ Module
   </p>
   
 - Connectivity
-- [Feed Entry](feedentry)
+- [Feed Entry](app/src/main/java/com/cn29/aac/ui/feedentry)
   <p>
   <img src="https://user-images.githubusercontent.com/5112837/30317424-aca50e60-97dc-11e7-89a3-ea5d4ff097f0.png" width="150">
   <img src="https://user-images.githubusercontent.com/5112837/30317423-aca26c64-97dc-11e7-8fbb-047ef7df27d3.png" width="150">
   <img src="https://user-images.githubusercontent.com/5112837/30267309-ae590838-9714-11e7-92a9-387a64b26552.png" width="150">
   </p>
-- [Location](location)
+- [Location](app/src/main/java/com/cn29/aac/ui/location)
   <p>
   <img src="https://user-images.githubusercontent.com/5112837/30799289-f985eba0-a20e-11e7-8c9c-ef36044cc663.png" width="150">
   </p>
