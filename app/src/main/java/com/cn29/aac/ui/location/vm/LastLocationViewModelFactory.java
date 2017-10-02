@@ -3,6 +3,7 @@ package com.cn29.aac.ui.location.vm;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import com.cn29.aac.repo.LastLocationListener;
+import javax.inject.Inject;
 
 
 /**
@@ -11,6 +12,8 @@ import com.cn29.aac.repo.LastLocationListener;
 
 public class LastLocationViewModelFactory extends ViewModelProvider.NewInstanceFactory{
   private LastLocationListener lastLocationListener;
+
+  @Inject
   public LastLocationViewModelFactory(LastLocationListener lastLocationListener) {
     this.lastLocationListener = lastLocationListener;
   }

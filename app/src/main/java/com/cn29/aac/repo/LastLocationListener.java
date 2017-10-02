@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import javax.inject.Inject;
 
 /**
  * Created by Charles Ng on 5/9/2017.
@@ -45,6 +46,7 @@ public class LastLocationListener extends LiveData<Location> {
     }
   };
 
+  @Inject
   public LastLocationListener(Context context) {
     this.context = context;
     locationManager = (LocationManager) context.getSystemService(

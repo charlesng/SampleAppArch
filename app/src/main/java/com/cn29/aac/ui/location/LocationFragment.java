@@ -2,8 +2,6 @@ package com.cn29.aac.ui.location;
 
 
 import android.Manifest.permission;
-import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
@@ -19,16 +17,19 @@ import com.cn29.aac.R;
 import com.cn29.aac.databinding.FragmentLocationBinding;
 import com.cn29.aac.ui.location.vm.LastLocationViewModel;
 import com.example.common.components.binding.CustomConverter;
+import dagger.android.support.DaggerFragment;
+import javax.inject.Inject;
 
 
 /**
  * Use the {@link LocationFragment#} factory method to
  * create an instance of this fragment.
  */
-public class LocationFragment extends LifecycleFragment {
+public class LocationFragment extends DaggerFragment {
 
+  @Inject
+  LastLocationViewModel lastLocationViewModel;
   private FragmentLocationBinding binding;
-
 
   public LocationFragment() {
     // Required empty public constructor
@@ -62,8 +63,6 @@ public class LocationFragment extends LifecycleFragment {
       }
     }
     //get the viewmodel from activity
-    LastLocationViewModel lastLocationViewModel = ViewModelProviders.of(getActivity())
-        .get(LastLocationViewModel.class);
     lastLocationViewModel.getLastKnowLocation().observe(this, location ->{
         binding.setLocation(location);
 

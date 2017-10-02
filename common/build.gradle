@@ -39,6 +39,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
     implementation "com.android.support:design:$support_version"
-
     compile 'com.squareup.picasso:picasso:2.5.2'
 }
