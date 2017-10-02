@@ -2,15 +2,14 @@
 Sample Application using the app archieture
 -Sample Navigation Drawer
 
-Module
-- [Fragment Communication](app/src/main/java/com/cn29/aac/ui/communitcation-fragments)
+Activity
+- [Fragment Communication](app/src/main/java/com/cn29/aac/ui/masterdetail)
   <p>
   <img src="https://user-images.githubusercontent.com/5112837/30728470-02f6b93e-9f8b-11e7-83f2-28d3dd4bf61f.png" width="150">
   <img src="https://user-images.githubusercontent.com/5112837/30728643-0769e634-9f8c-11e7-8206-fe57dd63b5d4.png" width="150">
   <img src="https://user-images.githubusercontent.com/5112837/30728677-42590202-9f8c-11e7-88a9-1dc31b6e8894.png" width="150">
   </p>
   
-- Connectivity
 - [Feed Entry](app/src/main/java/com/cn29/aac/ui/feedentry)
   <p>
   <img src="https://user-images.githubusercontent.com/5112837/30317424-aca50e60-97dc-11e7-89a3-ea5d4ff097f0.png" width="150">
