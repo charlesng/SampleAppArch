@@ -11,10 +11,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
-            <option value="$PROJECT_DIR$/communitcation-fragments" />
-            <option value="$PROJECT_DIR$/connectivity" />
-            <option value="$PROJECT_DIR$/feedentry" />
-            <option value="$PROJECT_DIR$/location" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

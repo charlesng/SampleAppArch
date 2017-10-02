@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "sampleproj.charlesng0209.com.sampleapparch"
+        applicationId "com.cn29.aac"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
@@ -14,6 +14,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+                includeCompileClasspath = true
+            }
+        }
     }
     dataBinding {
         enabled = true
@@ -81,14 +88,20 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support:support-vector-drawable:$support_version"
+    implementation "com.android.support:recyclerview-v7:$support_version"
+    api "com.android.support:cardview-v7:$support_version"
     implementation "android.arch.lifecycle:extensions:$arch_version"
     implementation "android.arch.lifecycle:runtime:$arch_version"
     annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
+    implementation "android.arch.persistence.room:runtime:$arch_version"
+    implementation "android.arch.persistence.room:compiler:$arch_version"
+    api project(':common')
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation "com.android.support:support-v4:$support_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     testImplementation "junit:junit:$junit_version"
-    implementation project(':feedentry')
+//    implementation project(':feedentry')
     implementation 'com.facebook.stetho:stetho:1.5.0'
     // apt command comes from the android-apt plugin
     implementation "com.google.dagger:dagger-android:$dagger2_version"
@@ -96,6 +109,7 @@ dependencies {
     // if you use the support libraries
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger2_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger2_version"
-        implementation project(':location')
+    implementation 'com.google.android.gms:play-services-maps:11.4.0'
+//        implementation project(':location')
 //        implementation project(':communitcation-fragments')
 }

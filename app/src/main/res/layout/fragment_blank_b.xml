@@ -1,0 +1,30 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/linearLayout2"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".ui.viewpager.BlankFragmentB">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+      android:id="@+id/fragment_textB"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginStart="8dp"
+      android:text="Default Msg Container B"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+      android:id="@+id/btnB"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginStart="8dp"
+      android:text="B Button"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/fragment_textB"/>
+
+</android.support.constraint.ConstraintLayout>

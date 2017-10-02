@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <data>
+
+    <import type="com.example.common.components.binding.TextInputEditTextBindingUtil.Rule"/>
+
+    <variable
+      name="feedEntry"
+      type="com.cn29.aac.repo.bean.FeedEntry"/>
+
+  </data>
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+    <android.support.design.widget.TextInputLayout
+      android:id="@+id/imageUrlValidation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:errorMsg='@{"Cannot be empty"}'
+      app:validation="@{Rule.NOT_EMPTY_RULE}"
+      >
+      <android.support.design.widget.TextInputEditText
+        android:id="@+id/input_imageUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Image Url"
+        android:text="@={feedEntry.imageUrl}" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+      android:id="@+id/titleValidation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:errorMsg='@{"Cannot be empty"}'
+      app:validation="@{Rule.NOT_EMPTY_RULE}"
+      >
+
+      <android.support.design.widget.TextInputEditText
+        android:id="@+id/input_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:text="@={feedEntry.title}"
+
+        />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+      android:id="@+id/subTitleValidation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:errorMsg='@{"Cannot be empty"}'
+      app:validation="@{Rule.NOT_EMPTY_RULE}"
+      >
+
+      <android.support.design.widget.TextInputEditText
+        android:id="@+id/input_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Subtitle"
+        android:text="@={feedEntry.subTitle}"
+
+        />
+    </android.support.design.widget.TextInputLayout>
+  </LinearLayout>
+</layout>

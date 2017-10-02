@@ -1,6 +1,0 @@
-<resources>
-  <string name="app_name">FeedEntry</string>
-  <string name="title_activity_feed">FeedActivity</string>
-  <string name="action_settings">Load User Id</string>
-  <string name="title_activity_feed_entry_detail">FeedEntryDetailActivity</string>
-</resources>

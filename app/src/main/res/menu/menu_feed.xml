@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context="com.example.feedentry.ui.feedentry.FeedActivity">
+  <item
+    android:id="@+id/action_updateDefaultTitle"
+    android:orderInCategory="100"
+    android:title="Load User Id"
+    app:showAsAction="never" />
+</menu>

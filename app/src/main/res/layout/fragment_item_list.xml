@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+  <data>
+
+  </data>
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/md_keylines"
+    android:paddingBottom="@dimen/md_keylines"
+    android:clipToPadding="false"
+    android:name="com.example.feedentry.ui.FeedEntryFragment"
+    android:scrollbars="vertical"
+    app:layoutManager="LinearLayoutManager"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.feedentry.ui.feedentry.FeedEntryFragment"
+     />
+</layout>

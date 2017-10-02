@@ -17,5 +17,17 @@
   <string name="navigation_drawer_open">Open navigation drawer</string>
   <string name="navigation_drawer_close">Close navigation drawer</string>
 
-  <string name="action_settings">Settings</string>
+
+  <string name="title_activity_feed">FeedActivity</string>
+  <string name="action_settings">Load User Id</string>
+  <string name="title_activity_feed_entry_detail">FeedEntryDetailActivity</string>
+
+
+  <string name="title_activity_maps">Map</string>
+  <string name="btnLocation">Get the location from binding</string>
+  <string name="txtLatitude">Latitude</string>
+  <string name="txtLongitude">Longitude</string>
+
+  <string name="title_simple_list">Simple List Activity</string>
+  <string name="title_simple_detail">Simple Detail Activity</string>
 </resources>

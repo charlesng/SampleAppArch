@@ -1,1 +1,1 @@
-include ':app', ':feedentry', ':communitcation-fragments', ':connectivity', ':location', ':common'
+include ':app', ':common'

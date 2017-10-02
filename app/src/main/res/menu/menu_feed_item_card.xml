@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context="com.example.feedentry.ui.feedentrydetail.FeedEntryDetailActivity">
+  <item
+    android:id="@+id/action_entry_favourite"
+    android:icon="@drawable/ic_favorite_black_24dp"
+    android:orderInCategory="100"
+    android:title="Add Favourite"
+    app:showAsAction="ifRoom" />
+  <item
+    android:id="@+id/action_entry_delete"
+    android:icon="@drawable/ic_delete_black_24dp"
+    android:orderInCategory="100"
+    android:title="Delete"
+    app:showAsAction="ifRoom" />
+</menu>
