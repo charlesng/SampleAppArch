@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import com.cn29.aac.R;
 import com.cn29.aac.ui.feedentry.FeedActivity;
 import com.cn29.aac.ui.location.LocationActivity;
+import com.cn29.aac.ui.masterdetail.SimpleListActivity;
+import com.cn29.aac.ui.viewpager.PagerActivity;
 
 public class AppArchNavigationDrawer extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -84,12 +86,13 @@ public class AppArchNavigationDrawer extends AppCompatActivity
     int id = item.getItemId();
     switch (id) {
       case R.id.nav_fragment_communication:
-        startActivity(new Intent(this, CommunicationFragmentActivity.class));
+        startActivity(new Intent(this, SimpleListActivity.class));
         break;
       case R.id.nav_storage:
         startActivity(new Intent(this, FeedActivity.class));
         break;
       case R.id.nav_connectivity:
+        startActivity(new Intent(this, PagerActivity.class));
         break;
       case R.id.nav_location:
         startActivity(new Intent(this, LocationActivity.class));

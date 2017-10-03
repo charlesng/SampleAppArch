@@ -1,4 +1,4 @@
-package com.cn29.aac.repo;
+package com.cn29.aac.repo.location;
 
 import android.Manifest.permission;
 import android.arch.lifecycle.LiveData;

@@ -1,18 +1,17 @@
 package com.cn29.aac.ui.masterdetail;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import com.cn29.aac.R;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
-
+import dagger.android.support.DaggerAppCompatActivity;
+import javax.inject.Inject;
 
 
 /**
@@ -21,9 +20,10 @@ import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
  * item details are presented side-by-side with a list of items
  * in a {@link SimpleListActivity}.
  */
-public class SimpleDetailActivity extends AppCompatActivity {
+public class SimpleDetailActivity extends DaggerAppCompatActivity {
 
-  private SimpleMasterDetailShareViewModel masterDetailShareViewModel;
+  @Inject
+  SimpleMasterDetailShareViewModel masterDetailShareViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +58,7 @@ public class SimpleDetailActivity extends AppCompatActivity {
       Bundle arguments = new Bundle();
       arguments.putString(SimpleDetailFragment.ARG_ITEM_ID,
           getIntent().getStringExtra(SimpleDetailFragment.ARG_ITEM_ID));
-      masterDetailShareViewModel = ViewModelProviders.of(this).get(SimpleMasterDetailShareViewModel.class);
-      masterDetailShareViewModel.init();
-      masterDetailShareViewModel.selectFeedEntry(getIntent().getStringExtra(SimpleDetailFragment.ARG_ITEM_ID));
+
       SimpleDetailFragment fragment = new SimpleDetailFragment();
       fragment.setArguments(arguments);
       getSupportFragmentManager().beginTransaction()

@@ -56,10 +56,6 @@
       android:name=".ui.viewpager.PagerActivity"
       android:theme="@style/AppTheme.NoActionBar"></activity>
     <activity
-      android:label="Communication between fragments"
-      android:name=".ui.CommunicationFragmentActivity"
-      android:theme="@style/AppTheme.NoActionBar"></activity>
-    <activity
       android:label="Location Activity"
       android:name=".ui.location.LocationActivity"
       android:theme="@style/AppTheme.NoActionBar"/>

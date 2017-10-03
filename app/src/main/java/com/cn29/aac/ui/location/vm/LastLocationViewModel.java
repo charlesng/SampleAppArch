@@ -3,7 +3,7 @@ package com.cn29.aac.ui.location.vm;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.location.Location;
-import com.cn29.aac.repo.LastLocationListener;
+import com.cn29.aac.repo.location.LastLocationListener;
 
 
 /**

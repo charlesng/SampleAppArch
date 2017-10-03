@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import com.cn29.aac.repo.bean.FeedEntry;
-import com.cn29.aac.repo.bean.FeedEntryRepository;
+import com.cn29.aac.repo.feedentry.FeedEntry;
+import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 import java.util.ArrayList;
 import java.util.List;
 

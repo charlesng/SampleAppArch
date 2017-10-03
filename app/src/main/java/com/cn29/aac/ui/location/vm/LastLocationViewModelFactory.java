@@ -2,7 +2,7 @@ package com.cn29.aac.ui.location.vm;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
-import com.cn29.aac.repo.LastLocationListener;
+import com.cn29.aac.repo.location.LastLocationListener;
 import javax.inject.Inject;
 
 

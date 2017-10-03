@@ -1,13 +1,11 @@
 package com.cn29.aac.ui.masterdetail;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -18,7 +16,9 @@ import com.cn29.aac.R;
 import com.cn29.aac.repo.bean.DummyContent;
 import com.cn29.aac.repo.bean.DummyContent.DummyItem;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
+import dagger.android.support.DaggerAppCompatActivity;
 import java.util.List;
+import javax.inject.Inject;
 
 
 /**
@@ -30,14 +30,15 @@ import java.util.List;
  * item details side-by-side using two vertical panes.
  * https://developer.android.com/topic/libraries/architecture/viewmodel.html
  */
-public class SimpleListActivity extends AppCompatActivity {
+public class SimpleListActivity extends DaggerAppCompatActivity {
 
+  @Inject
+  SimpleMasterDetailShareViewModel masterDetailShareViewModel;
   /**
    * Whether or not the activity is in two-pane mode, i.e. running on a tablet
    * device.
    */
   private boolean mTwoPane;
-  private SimpleMasterDetailShareViewModel masterDetailShareViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,7 @@ public class SimpleListActivity extends AppCompatActivity {
     View recyclerView = findViewById(R.id.feedentry_list);
     assert recyclerView != null;
     setupRecyclerView((RecyclerView) recyclerView);
-    masterDetailShareViewModel = ViewModelProviders.of(this).get(SimpleMasterDetailShareViewModel.class);
-    masterDetailShareViewModel.init();
+
     if (findViewById(R.id.feedentry_detail_container) != null) {
       // The detail container view will be present only in the
       // large-screen layouts (res/values-w900dp).

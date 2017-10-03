@@ -6,7 +6,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
-import com.cn29.aac.repo.bean.FeedEntry;
+import com.cn29.aac.repo.feedentry.FeedEntry;
 import java.util.List;
 
 /**

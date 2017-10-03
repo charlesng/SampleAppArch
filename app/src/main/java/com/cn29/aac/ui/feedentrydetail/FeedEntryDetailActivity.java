@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ActivityFeedEntryDetailBinding;
 import com.cn29.aac.databinding.DialogFeedentryBinding;
-import com.cn29.aac.repo.bean.FeedEntry;
+import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.feedentrydetail.vm.FeedEntryDetailViewModel;
 import dagger.android.support.DaggerAppCompatActivity;
 import javax.inject.Inject;

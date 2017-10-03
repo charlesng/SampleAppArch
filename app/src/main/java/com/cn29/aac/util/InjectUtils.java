@@ -1,7 +1,7 @@
 package com.cn29.aac.util;
 
 import android.content.Context;
-import com.cn29.aac.repo.LastLocationListener;
+import com.cn29.aac.repo.location.LastLocationListener;
 import com.cn29.aac.ui.location.vm.LastLocationViewModelFactory;
 
 

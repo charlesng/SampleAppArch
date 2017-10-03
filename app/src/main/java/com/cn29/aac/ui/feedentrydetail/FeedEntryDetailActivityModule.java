@@ -1,7 +1,7 @@
 package com.cn29.aac.ui.feedentrydetail;
 
 import android.arch.lifecycle.ViewModelProviders;
-import com.cn29.aac.repo.bean.FeedEntryRepository;
+import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 import com.cn29.aac.ui.feedentrydetail.vm.FeedEntryDetailViewModel;
 import com.cn29.aac.ui.feedentrydetail.vm.FeedEntryDetailViewModelFactory;
 import dagger.Module;

@@ -1,4 +1,4 @@
-package com.cn29.aac.repo.bean;
+package com.cn29.aac.repo.feedentry;
 
 import android.arch.lifecycle.LiveData;
 import android.content.Context;

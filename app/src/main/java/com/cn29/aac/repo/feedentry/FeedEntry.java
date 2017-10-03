@@ -1,4 +1,4 @@
-package com.cn29.aac.repo.bean;
+package com.cn29.aac.repo.feedentry;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

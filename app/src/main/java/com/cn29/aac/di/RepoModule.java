@@ -1,7 +1,7 @@
 package com.cn29.aac.di;
 
 import android.app.Application;
-import com.cn29.aac.repo.bean.FeedEntryRepository;
+import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

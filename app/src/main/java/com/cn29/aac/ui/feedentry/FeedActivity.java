@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.DialogFeedentryBinding;
-import com.cn29.aac.repo.bean.FeedEntry;
+import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.feedentry.FeedEntryFragment.Mode;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
 import dagger.android.support.DaggerAppCompatActivity;

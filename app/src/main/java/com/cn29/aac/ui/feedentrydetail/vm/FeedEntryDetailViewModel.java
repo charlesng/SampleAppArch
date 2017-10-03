@@ -3,8 +3,8 @@ package com.cn29.aac.ui.feedentrydetail.vm;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import com.cn29.aac.repo.bean.FeedEntry;
-import com.cn29.aac.repo.bean.FeedEntryRepository;
+import com.cn29.aac.repo.feedentry.FeedEntry;
+import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 
 /**
  * Created by Charles Ng on 11/9/2017.

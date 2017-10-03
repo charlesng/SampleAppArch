@@ -19,7 +19,7 @@
   <data>
     <variable
       name="feedEntry"
-      type="com.cn29.aac.repo.bean.FeedEntry"/>
+      type="com.cn29.aac.repo.feedentry.FeedEntry" />
 
     <variable
       name="imageUrl"

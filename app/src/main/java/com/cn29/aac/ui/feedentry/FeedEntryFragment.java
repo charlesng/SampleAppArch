@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.FragmentItemListBinding;
-import com.cn29.aac.repo.bean.FeedEntry;
+import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.base.BaseFragment;
 import com.cn29.aac.ui.feedentry.FeedEntryRecyclerViewRecyclerViewAdapter.MyMenuItemClickListener;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;

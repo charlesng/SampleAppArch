@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import com.cn29.aac.datasource.room.migration.Migration1_2;
 import com.cn29.aac.datasource.room.migration.Migration2_3;
-import com.cn29.aac.repo.bean.FeedEntry;
+import com.cn29.aac.repo.feedentry.FeedEntry;
 
 /**
  * Created by Charles Ng on 5/9/2017.

@@ -1,8 +1,6 @@
 package com.cn29.aac.ui.masterdetail;
 
 import android.app.Activity;
-import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -13,6 +11,8 @@ import android.widget.TextView;
 import com.cn29.aac.R;
 import com.cn29.aac.repo.bean.DummyContent;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
+import dagger.android.support.DaggerFragment;
+import javax.inject.Inject;
 
 
 /**
@@ -21,19 +21,19 @@ import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
  * in two-pane mode (on tablets) or a {@link SimpleDetailActivity}
  * on handsets.
  */
-public class SimpleDetailFragment extends LifecycleFragment {
+public class SimpleDetailFragment extends DaggerFragment {
 
   /**
    * The fragment argument representing the item ID that this fragment
    * represents.
    */
   public static final String ARG_ITEM_ID = "item_id";
-
+  @Inject
+  SimpleMasterDetailShareViewModel masterDetailShareViewModel;
   /**
    * The dummy content this fragment is presenting.
    */
   private DummyContent.DummyItem mItem;
-  private SimpleMasterDetailShareViewModel masterDetailShareViewModel;
   private View rootView;
 
   /**
@@ -46,7 +46,6 @@ public class SimpleDetailFragment extends LifecycleFragment {
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    masterDetailShareViewModel = ViewModelProviders.of(getActivity()).get(SimpleMasterDetailShareViewModel.class);
 
     masterDetailShareViewModel.getSelectFeedEntry().observe(this, s -> {
       Activity activity = getActivity();

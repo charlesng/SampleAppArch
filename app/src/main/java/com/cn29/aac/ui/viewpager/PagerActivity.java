@@ -1,6 +1,5 @@
 package com.cn29.aac.ui.viewpager;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,19 +8,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import com.cn29.aac.R;
 import com.cn29.aac.ui.viewpager.vm.PagerAgentViewModel;
+import dagger.android.support.DaggerAppCompatActivity;
+import javax.inject.Inject;
 
 
-public class PagerActivity extends AppCompatActivity{
+public class PagerActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    PagerAgentViewModel pagerAgentViewModel;
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
     private ViewPager mPager;
-    private PagerAgentViewModel pagerAgentViewModel;
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -38,8 +40,7 @@ public class PagerActivity extends AppCompatActivity{
         mPager = findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-        pagerAgentViewModel = ViewModelProviders.of(this).get(PagerAgentViewModel.class);
-        pagerAgentViewModel.init();
+
     }
 
     /**
@@ -59,9 +60,9 @@ public class PagerActivity extends AppCompatActivity{
             switch (position)
             {
                 case FRAGMENT_A_POS :
-                    return BlankFragmentA.newInstance("Test","Test1");
+                    return BlankFragmentA.newInstance();
                 case FRAGMENT_B_POS:
-                    return BlankFragmentB.newInstance("Test","Test2");
+                    return BlankFragmentB.newInstance();
                 default:
                     break;
             }
