@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -48,8 +47,9 @@ public class SimpleListActivity extends DaggerAppCompatActivity {
     setSupportActionBar(toolbar);
     toolbar.setTitle(getTitle());
     FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        .setAction("Action", null).show());
+    fab.setOnClickListener(view -> {
+
+    });
     View recyclerView = findViewById(R.id.feedentry_list);
     assert recyclerView != null;
     setupRecyclerView((RecyclerView) recyclerView);
@@ -61,6 +61,7 @@ public class SimpleListActivity extends DaggerAppCompatActivity {
       // activity should be in two-pane mode.
       mTwoPane = true;
     }
+
   }
 
   private void setupRecyclerView(@NonNull RecyclerView recyclerView) {

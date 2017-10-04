@@ -3,6 +3,10 @@ package com.cn29.aac.ui.masterdetail.vm;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import com.cn29.aac.datasource.api.GithubService;
+import com.cn29.aac.repo.github.Contributor;
+import java.util.List;
+import javax.inject.Inject;
 
 /**
  * Created by charlesng0209 on 25/6/2017.
@@ -10,7 +14,18 @@ import android.arch.lifecycle.ViewModel;
 
 public class SimpleMasterDetailShareViewModel extends ViewModel {
 
+  @Inject
+  GithubService githubService;
+
+  private MutableLiveData<List<Contributor>> contributors;
+
+
+
   private MutableLiveData<String> selectFeedEntryName;
+
+  public SimpleMasterDetailShareViewModel(GithubService githubService) {
+    this.githubService = githubService;
+  }
 
   public void init() {
     selectFeedEntryName = new MutableLiveData<>();
@@ -23,4 +38,6 @@ public class SimpleMasterDetailShareViewModel extends ViewModel {
   public LiveData<String> getSelectFeedEntry() {
     return this.selectFeedEntryName;
   }
+
+
 }
