@@ -92,7 +92,7 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$arch_version"
     implementation "android.arch.persistence.room:compiler:$arch_version"
     api project(':common')
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation "com.squareup.picasso:picasso:$picasso_version"
     implementation "com.android.support:support-v4:$support_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
@@ -102,6 +102,10 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger2_version"
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger2_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger2_version"
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+// Because RxAndroid releases are few and far between, it is recommended you also
+// explicitly depend on RxJava's latest version for bug fixes and new features.
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.3'
 }
