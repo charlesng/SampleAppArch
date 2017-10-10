@@ -1,6 +1,7 @@
 package com.cn29.aac.ui.feedentrydetail;
 
 import android.arch.lifecycle.ViewModelProviders;
+import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 import com.cn29.aac.ui.feedentrydetail.vm.FeedEntryDetailViewModel;
 import com.cn29.aac.ui.feedentrydetail.vm.FeedEntryDetailViewModelFactory;
@@ -20,8 +21,7 @@ public class FeedEntryDetailActivityModule {
   }
 
   @Provides
-  FeedEntryDetailViewModelFactory provideFeedEntryDetailViewModel(
-      FeedEntryDetailActivity activity, int uid,
+  FeedEntryDetailViewModelFactory provideFeedEntryDetailViewModel(int uid,
       FeedEntryRepository feedEntryRepository) {
           /*
     Use Code lab injection reference example
@@ -37,5 +37,9 @@ public class FeedEntryDetailActivityModule {
         .get(FeedEntryDetailViewModel.class);
   }
 
+  @Provides
+  FeedEntry provideDefaultFeedEntry() {
+    return new FeedEntry("", "");
+  }
 
 }

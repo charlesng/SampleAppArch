@@ -18,6 +18,7 @@ import com.cn29.aac.databinding.FragmentLocationBinding;
 import com.cn29.aac.ui.location.vm.LastLocationViewModel;
 import com.example.common.components.binding.CustomConverter;
 import dagger.android.support.DaggerFragment;
+import java.util.Locale;
 import javax.inject.Inject;
 
 
@@ -43,6 +44,7 @@ public class LocationFragment extends DaggerFragment {
         permission.ACCESS_COARSE_LOCATION)
         != PackageManager.PERMISSION_GRANTED) {
       // Should we show an explanation?
+
       if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
           permission.ACCESS_COARSE_LOCATION)) {
         // Show an explanation to the user *asynchronously* -- don't block
@@ -63,10 +65,8 @@ public class LocationFragment extends DaggerFragment {
       }
     }
     //get the viewmodel from activity
-    lastLocationViewModel.getLastKnowLocation().observe(this, location ->{
-        binding.setLocation(location);
-
-    });
+    lastLocationViewModel.getLastKnowLocation()
+        .observe(this, location -> binding.setLocation(location));
 
   }
 
@@ -104,7 +104,8 @@ public class LocationFragment extends DaggerFragment {
       Location location = binding.getLocation();
       if (location != null) {
         Toast.makeText(getActivity(),
-            String.format("Lat : %f, Long : %f", location.getLatitude(), location.getLongitude()),
+            String.format(Locale.ENGLISH, "Lat : %f, Long : %f", location.getLatitude(),
+                location.getLongitude()),
             Toast.LENGTH_SHORT).show();
       }
     });

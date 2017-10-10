@@ -12,7 +12,7 @@ import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 
 public  class FeedEntryDetailViewModel extends ViewModel {
 
-  private FeedEntryRepository feedEntryDBRepository = new FeedEntryRepository();
+  private FeedEntryRepository feedEntryDBRepository;
   private LiveData<FeedEntry> feedEntry;
   private int uid;
 

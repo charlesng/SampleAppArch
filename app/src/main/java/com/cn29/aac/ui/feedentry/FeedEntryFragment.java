@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -26,6 +25,9 @@ import com.cn29.aac.ui.base.BaseFragment;
 import com.cn29.aac.ui.feedentry.FeedEntryRecyclerViewRecyclerViewAdapter.MyMenuItemClickListener;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
 import com.cn29.aac.ui.feedentrydetail.FeedEntryDetailActivity;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 
 
@@ -39,16 +41,13 @@ public class FeedEntryFragment extends BaseFragment {
 
   @Inject
   FeedEntryListViewModel viewModel;
+
+  @Inject
+  Mode mode;
+
   private FragmentItemListBinding binding;
   private FeedEntryRecyclerViewRecyclerViewAdapter adapter;
-  /**
-   * Mandatory empty constructor for the fragment manager to instantiate the
-   * fragment (e.g. upon screen orientation changes).
-   */
-  private Mode mode = Mode.LIST;
 
-  public FeedEntryFragment() {
-  }
 
   public void setMode(Mode mode) {
     this.mode = mode;
@@ -98,33 +97,29 @@ public class FeedEntryFragment extends BaseFragment {
               new AlertDialog.Builder(binding.getRoot().getContext())
                   .setTitle("Warning").setMessage("Are you sure to delete the Feed Entry?")
                   .setPositiveButton("OK",
-                      (dialogInterface, j) -> new AsyncTask<FeedEntry, Void, Void>() {
-                        @Override
-                        protected Void doInBackground(FeedEntry... feedEntries) {
-                          viewModel.delete(feedEntry);
-                          return null;
-                        }
-                      }.execute(feedEntry)
+                      (dialogInterface, j) ->
+                          Single.create(subscriber -> viewModel.delete(feedEntry))
+                              .subscribeOn(Schedulers.newThread())
+                              .observeOn(AndroidSchedulers.mainThread())
+                              .subscribe()
                   )
                   .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss())
                   .create()
                   .show();
             } else if (menuId == R.id.action_entry_favourite) {
               feedEntry.setFavourite(!feedEntry.isFavourite());
-              new AsyncTask<FeedEntry, Void, Void>() {
-                @Override
-                protected Void doInBackground(FeedEntry... feedEntries) {
-                  viewModel.update(feedEntries[0]);
-                  return null;
-                }
-              }.execute(feedEntry);
+              Single.create(subscriber -> viewModel.update(feedEntry))
+                  .subscribeOn(Schedulers.newThread())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .subscribe();
+
             }
             return false;
           }
         });
         binding.list.setAdapter(adapter);
       } else {
-        adapter.setValues(entries);
+        adapter.notifyDataSetChanged();
       }
     });
   }

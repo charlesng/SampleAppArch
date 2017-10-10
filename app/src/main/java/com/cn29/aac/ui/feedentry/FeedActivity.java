@@ -3,7 +3,6 @@ package com.cn29.aac.ui.feedentry;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -23,6 +22,9 @@ import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.feedentry.FeedEntryFragment.Mode;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
 import dagger.android.support.DaggerAppCompatActivity;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -64,6 +66,7 @@ public class FeedActivity extends DaggerAppCompatActivity {
         button.setOnClickListener(view1 -> {
           // TODO Do something
           //to trigger auto error enable
+          //get the binding
           FeedEntry inputFeedEntry = dialogFeedEntryBinding.getFeedEntry();
           Boolean[] validations = new Boolean[]{
               dialogFeedEntryBinding.imageUrlValidation.isErrorEnabled(),
@@ -71,19 +74,18 @@ public class FeedActivity extends DaggerAppCompatActivity {
               dialogFeedEntryBinding.subTitleValidation.isErrorEnabled()
           };
           boolean isValid = true;
+          //check the validation
           for (Boolean validation : validations) {
             if (validation) {
               isValid = false;
             }
           }
+          //insert the record
           if (isValid) {
-            new AsyncTask<FeedEntry, Void, Void>() {
-              @Override
-              protected Void doInBackground(FeedEntry... feedEntries) {
-                viewModel.insert(feedEntries);
-                return null;
-              }
-            }.execute(inputFeedEntry);
+            Single.create(subscriber -> viewModel.insert(inputFeedEntry))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
             dialogInterface.dismiss();
           }
         });

@@ -2,6 +2,7 @@ package com.cn29.aac.repo.github;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -17,6 +18,7 @@ import com.google.gson.annotations.SerializedName;
 public class Contributor {
 
   @SerializedName("login")
+  @NonNull
   private final String login;
 
   @SerializedName("contributions")
@@ -25,8 +27,10 @@ public class Contributor {
   @SerializedName("avatar_url")
   private final String avatarUrl;
 
+  @NonNull
   private String repoName;
 
+  @NonNull
   private String repoOwner;
 
   public Contributor(String login, int contributions, String avatarUrl) {

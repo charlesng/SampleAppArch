@@ -1,9 +1,9 @@
 package com.cn29.aac.ui.feedentry.vm;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import com.cn29.aac.repo.feedentry.FeedEntryRepository;
+import javax.inject.Inject;
 
 
 /**
@@ -12,9 +12,8 @@ import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 
 public class FeedEntryListViewModelFactory extends ViewModelProvider.NewInstanceFactory {
   private FeedEntryRepository feedEntryRepository;
-  private LifecycleOwner lifecycleOwner;
 
-
+  @Inject
   public FeedEntryListViewModelFactory( FeedEntryRepository feedEntryRepository) {
     this.feedEntryRepository = feedEntryRepository;
   }

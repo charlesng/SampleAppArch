@@ -2,6 +2,7 @@ package com.cn29.aac.ui.masterdetail;
 
 import android.arch.lifecycle.ViewModelProviders;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
+import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
 
@@ -12,10 +13,12 @@ import dagger.Provides;
 @Module
 public class SimpleListActivityModule {
 
+
   @Provides
-  SimpleMasterDetailShareViewModel provideVm(SimpleListActivity simpleListActivity) {
+  SimpleMasterDetailShareViewModel provideVm(SimpleListActivity simpleListActivity,
+      SimpleMasterDetailShareViewModelFactory factory) {
     SimpleMasterDetailShareViewModel masterDetailShareViewModel = ViewModelProviders
-        .of(simpleListActivity).get(SimpleMasterDetailShareViewModel.class);
+        .of(simpleListActivity, factory).get(SimpleMasterDetailShareViewModel.class);
     masterDetailShareViewModel.init();
     return masterDetailShareViewModel;
 

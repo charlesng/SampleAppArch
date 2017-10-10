@@ -1,9 +1,12 @@
 package com.cn29.aac.di;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
+import com.cn29.aac.datasource.GithubDb;
 import com.cn29.aac.datasource.LiveDataCallAdapterFactory;
+import com.cn29.aac.datasource.RepoDao;
+import com.cn29.aac.datasource.UserDao;
 import com.cn29.aac.datasource.api.GithubService;
-import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -16,16 +19,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 @Module
-@Singleton
 public class RepoModule {
 
-  @Provides
-  FeedEntryRepository provideFeedEntryRepository(Application application) {
-    FeedEntryRepository feedEntryRepository = new FeedEntryRepository();
-    feedEntryRepository.init(application);
-    return feedEntryRepository;
-  }
-
+  @Singleton
   @Provides
   Retrofit provideRetrofit() {
     Retrofit retrofit = new Retrofit.Builder()
@@ -36,9 +32,28 @@ public class RepoModule {
     return retrofit;
   }
 
+  @Singleton
   @Provides
   GithubService provideGitHubService(Retrofit retrofit) {
     GithubService service = retrofit.create(GithubService.class);
     return service;
+  }
+
+  @Singleton
+  @Provides
+  GithubDb provideDb(Application app) {
+    return Room.databaseBuilder(app, GithubDb.class, "github.db").build();
+  }
+
+  @Singleton
+  @Provides
+  UserDao provideUserDao(GithubDb db) {
+    return db.userDao();
+  }
+
+  @Singleton
+  @Provides
+  RepoDao provideRepoDao(GithubDb db) {
+    return db.repoDao();
   }
 }

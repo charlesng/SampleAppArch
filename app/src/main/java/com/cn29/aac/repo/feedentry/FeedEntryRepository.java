@@ -1,10 +1,12 @@
 package com.cn29.aac.repo.feedentry;
 
+import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import com.cn29.aac.datasource.room.AppDatabase;
 import com.cn29.aac.datasource.room.FeedEntryDAO;
 import java.util.List;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -17,12 +19,16 @@ public class FeedEntryRepository extends LiveData<List<FeedEntry>> implements Fe
 
   private FeedEntryDAO feedEntryDAO;
 
-  public static FeedEntryRepository getInstance(Context context
-  ) {
-    FeedEntryRepository feedEntryRepository = new FeedEntryRepository();
-    feedEntryRepository.init(context);
-    return feedEntryRepository;
+
+  @Inject
+  public FeedEntryRepository(Application application) {
+    init(application);
   }
+//  public static FeedEntryRepository getInstance(Context context) {
+//    FeedEntryRepository feedEntryRepository = new FeedEntryRepository();
+//    feedEntryRepository.init(context);
+//    return feedEntryRepository;
+//  }
 
   public void init(Context context) {
     AppDatabase db = AppDatabase.getDb(context);

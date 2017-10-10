@@ -47,9 +47,11 @@ public class SimpleListActivity extends DaggerAppCompatActivity {
     setSupportActionBar(toolbar);
     toolbar.setTitle(getTitle());
     FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(view -> {
+    fab.setOnClickListener(view -> masterDetailShareViewModel
+        .loadRepos("googlesamples", "android-architecture-components")
+        .observe(SimpleListActivity.this, observer -> {
 
-    });
+        }));
     View recyclerView = findViewById(R.id.feedentry_list);
     assert recyclerView != null;
     setupRecyclerView((RecyclerView) recyclerView);
@@ -73,7 +75,7 @@ public class SimpleListActivity extends DaggerAppCompatActivity {
 
     private final List<DummyItem> mValues;
 
-    public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
+    SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
       mValues = items;
     }
 
@@ -116,12 +118,12 @@ public class SimpleListActivity extends DaggerAppCompatActivity {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-      public final View mView;
-      public final TextView mIdView;
-      public final TextView mContentView;
-      public DummyContent.DummyItem mItem;
+      final View mView;
+      final TextView mIdView;
+      final TextView mContentView;
+      DummyContent.DummyItem mItem;
 
-      public ViewHolder(View view) {
+      ViewHolder(View view) {
         super(view);
         mView = view;
         mIdView = view.findViewById(R.id.id);

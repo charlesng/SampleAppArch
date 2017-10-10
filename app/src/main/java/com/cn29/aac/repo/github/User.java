@@ -1,7 +1,9 @@
 package com.cn29.aac.repo.github;
 
 import android.arch.persistence.room.Entity;
+import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
+
 
 /**
  * Created by Charles Ng on 3/10/2017.
@@ -11,6 +13,7 @@ import com.google.gson.annotations.SerializedName;
 public class User {
 
   @SerializedName("login")
+  @NonNull
   public final String login;
   @SerializedName("avatar_url")
   public final String avatarUrl;

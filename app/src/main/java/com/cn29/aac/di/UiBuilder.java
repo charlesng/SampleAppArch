@@ -31,7 +31,7 @@ import dagger.android.ContributesAndroidInjector;
  */
 
 @Module
-public abstract class ActivityBuilder {
+public abstract class UiBuilder {
 
   //feed entry
   @ContributesAndroidInjector(modules = FeedActivityModule.class)

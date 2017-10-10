@@ -31,11 +31,6 @@ public class FeedEntryRecyclerViewRecyclerViewAdapter extends
     this.myMenuItemClickListener = myMenuItemClickListener;
   }
 
-  public void setValues(CompositeModel compositeModel) {
-    this.mValues = mValues;
-    notifyDataSetChanged();
-  }
-
   @Override
   protected FeedEntry getItemForPosition(int position) {
     return mValues.getFeedEntries().get(position);

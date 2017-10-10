@@ -1,7 +1,6 @@
 package com.cn29.aac.ui.feedentry;
 
 import android.arch.lifecycle.ViewModelProviders;
-import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModelFactory;
 import dagger.Module;
@@ -20,9 +19,7 @@ public class FeedActivityModule {
 
   @Provides
   FeedEntryListViewModel provideViewModel(FeedActivity feedActivity,
-      FeedEntryRepository feedEntryRepository) {
-    FeedEntryListViewModelFactory factory = new FeedEntryListViewModelFactory(
-        feedEntryRepository);
+      FeedEntryListViewModelFactory factory) {
     return ViewModelProviders.of(feedActivity, factory)
         .get(FeedEntryListViewModel.class);
   }

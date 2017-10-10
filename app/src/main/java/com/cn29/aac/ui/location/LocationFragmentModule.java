@@ -17,7 +17,7 @@ public class LocationFragmentModule {
   @Provides
   LastLocationViewModel provideLastLocationVM(LastLocationViewModelFactory factory,
       LocationFragment locationFragment) {
-    return ViewModelProviders.of(locationFragment.getActivity())
+    return ViewModelProviders.of(locationFragment.getActivity(), factory)
         .get(LastLocationViewModel.class);
   }
 }

@@ -10,10 +10,11 @@ import javax.inject.Singleton;
  * Created by Charles Ng on 27/9/2017.
  */
 
+
 @Module
-@Singleton
 public class AppModule {
 
+  @Singleton
   @Provides
   Context provideContext(Application application) {
     return application;

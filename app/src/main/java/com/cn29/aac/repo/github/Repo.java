@@ -7,6 +7,7 @@ package com.cn29.aac.repo.github;
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
+import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -20,6 +21,7 @@ public class Repo {
   public static final int UNKNOWN_ID = -1;
   public final int id;
   @SerializedName("name")
+  @NonNull
   public final String name;
   @SerializedName("full_name")
   public final String fullName;
@@ -29,6 +31,7 @@ public class Repo {
   public final int stars;
   @SerializedName("owner")
   @Embedded(prefix = "owner_")
+  @NonNull
   public final Owner owner;
 
   public Repo(int id, String name, String fullName, String description, Owner owner, int stars) {
@@ -42,7 +45,9 @@ public class Repo {
 
   public static class Owner {
 
+
     @SerializedName("login")
+    @NonNull
     public final String login;
     @SerializedName("url")
     public final String url;
