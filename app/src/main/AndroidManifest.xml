@@ -10,7 +10,7 @@
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
     android:name=".MyApplication"
-    android:roundIcon="@mipmap/ic_launcher_round"
+    android:roundIcon="@mipmap/ic_launcher"
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
     >
@@ -31,11 +31,11 @@
       android:theme="@style/AppTheme.NoActionBar"/>
     <activity
       android:label="@string/title_activity_feed_entry_detail"
-      android:name="ui.feedentrydetail.FeedEntryDetailActivity"
+      android:name=".ui.feedentrydetail.FeedEntryDetailActivity"
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.cn29.aac.ui.feedentry.FeedActivity"/>
+        android:value=".ui.feedentry.FeedActivity" />
 
     </activity>
     <activity
@@ -54,7 +54,7 @@
     <activity
       android:label="Pager Activity "
       android:name=".ui.viewpager.PagerActivity"
-      android:theme="@style/AppTheme.NoActionBar"></activity>
+      android:theme="@style/AppTheme.NoActionBar" />
     <activity
       android:label="Location Activity"
       android:name=".ui.location.LocationActivity"
