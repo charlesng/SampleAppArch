@@ -1,5 +1,19 @@
 # SampleAppArch
 Sample Application using the app archieture
+
+Current Plan
+
+| Implementation  | Description | Type |
+| ------------- | ------------- | ----|
+| Android Architecture Component (AAC) | Using the AAC as bone of the app structures  | App |
+| MVP  | Extract the BaseFragment Features and link it to the AAC (e.g. ProgressDialog, AlertDialog)  | View, Presenter |
+| Dagger2 | As the Dependency Injectection to the  | DI|
+| Google Github sample for AAC Networkbound, ApiResponse | Reference the Networkbound class and related class to generic the API call and responses | Model Gateway |
+| Android Data Binding Library | To easily bind the data to the UI and seperate the design and controller logic | Presenter |
+| Crashlytics | To report the runtime error | Testing |
+
+
+
 -Sample Navigation Drawer
 
 Activity
