@@ -1,4 +1,4 @@
-package com.cn29.aac.ui;
+package com.cn29.aac.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;

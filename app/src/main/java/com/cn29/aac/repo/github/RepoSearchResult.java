@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.cn29.aac.vo;
+package com.cn29.aac.repo.github;
 
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import com.cn29.aac.datasource.GithubTypeConverters;
+import com.cn29.aac.datasource.github.GithubTypeConverters;
 import java.util.List;
 
 

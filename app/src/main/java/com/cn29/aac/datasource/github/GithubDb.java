@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.cn29.aac.datasource;
+package com.cn29.aac.datasource.github;
 
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 import com.cn29.aac.repo.github.Contributor;
 import com.cn29.aac.repo.github.Repo;
+import com.cn29.aac.repo.github.RepoSearchResult;
 import com.cn29.aac.repo.github.User;
-import com.cn29.aac.vo.RepoSearchResult;
 
 /**
  * Main database description.

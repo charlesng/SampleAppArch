@@ -8,7 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -19,9 +19,9 @@ import android.widget.Button;
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.DialogFeedentryBinding;
 import com.cn29.aac.repo.feedentry.FeedEntry;
+import com.cn29.aac.ui.base.BaseAppCompatActivity;
 import com.cn29.aac.ui.feedentry.FeedEntryFragment.Mode;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
-import dagger.android.support.DaggerAppCompatActivity;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -29,11 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
-public class FeedActivity extends DaggerAppCompatActivity {
+public class FeedActivity extends BaseAppCompatActivity {
 
   @Inject
   FeedEntryListViewModel viewModel;
-
 
   @SuppressLint("StaticFieldLeak")
   @Override
@@ -103,9 +102,9 @@ public class FeedActivity extends DaggerAppCompatActivity {
     fragment1.setMode(Mode.LIST);
     fragment2.setMode(Mode.TILE);
     fragment3.setMode(Mode.GRID);
-    adapter.addFragment(fragment1, "List");
-    adapter.addFragment(fragment2, "Tile");
-    adapter.addFragment(fragment3, "Grid");
+    adapter.addFragment("List");
+    adapter.addFragment("Tile");
+    adapter.addFragment("Grid");
     viewPager.setAdapter(adapter);
   }
 
@@ -132,9 +131,8 @@ public class FeedActivity extends DaggerAppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  private static class Adapter extends FragmentPagerAdapter {
+  private static class Adapter extends FragmentStatePagerAdapter {
 
-    private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
     Adapter(FragmentManager manager) {
@@ -143,18 +141,35 @@ public class FeedActivity extends DaggerAppCompatActivity {
 
     @Override
     public Fragment getItem(int position) {
-      return mFragmentList.get(position);
+      switch (position) {
+        case 0:
+          FeedEntryFragment fragment1 = new FeedEntryFragment();
+          fragment1.setMode(Mode.LIST);
+          return fragment1;
+        case 1:
+          FeedEntryFragment fragment2 = new FeedEntryFragment();
+          fragment2.setMode(Mode.TILE);
+          return fragment2;
+        case 2:
+          FeedEntryFragment fragment3 = new FeedEntryFragment();
+          fragment3.setMode(Mode.GRID);
+          return fragment3;
+        default:
+          break;
+      }
+      return new FeedEntryFragment();
     }
 
     @Override
     public int getCount() {
-      return mFragmentList.size();
+      return 3;
     }
 
-    void addFragment(Fragment fragment, String title) {
-      mFragmentList.add(fragment);
+
+    void addFragment(String title) {
       mFragmentTitleList.add(title);
     }
+
 
     @Override
     public CharSequence getPageTitle(int position) {

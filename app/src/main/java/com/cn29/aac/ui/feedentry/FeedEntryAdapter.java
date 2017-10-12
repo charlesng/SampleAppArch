@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
 import android.view.MenuItem;
 import com.cn29.aac.R;
-import com.cn29.aac.databinding.FragmentItemCardBinding;
+import com.cn29.aac.databinding.ItemFeedentryCardBinding;
 import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.common.BaseRecyclerViewAdapter;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel.CompositeModel;
@@ -17,13 +17,13 @@ import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel.CompositeModel;
  * specified {@link }.
  * TODO: Replace the implementation with code for your data type.
  */
-public class FeedEntryRecyclerViewRecyclerViewAdapter extends
-    BaseRecyclerViewAdapter<FeedEntry, FragmentItemCardBinding> {
+public class FeedEntryAdapter extends
+    BaseRecyclerViewAdapter<FeedEntry, ItemFeedentryCardBinding> {
 
   private CompositeModel mValues;
   private MyMenuItemClickListener myMenuItemClickListener;
 
-  FeedEntryRecyclerViewRecyclerViewAdapter(CompositeModel compositeModel,
+  FeedEntryAdapter(CompositeModel compositeModel,
       OnItemClickListener<FeedEntry> itemClickListener,
       MyMenuItemClickListener myMenuItemClickListener) {
     super(itemClickListener);
@@ -43,11 +43,11 @@ public class FeedEntryRecyclerViewRecyclerViewAdapter extends
 
   @Override
   protected int getLayoutIdForPosition(int position) {
-    return R.layout.fragment_item_card;
+    return R.layout.item_feedentry_card;
   }
 
   @Override
-  protected void bind(FragmentItemCardBinding binding, FeedEntry item) {
+  protected void bind(ItemFeedentryCardBinding binding, FeedEntry item) {
     binding.setFeedEntry(item);
     binding.setImageUrl("http://i.imgur.com/DvpvklR.png");//default value
     binding.setUserId(mValues.getUserId());
@@ -66,7 +66,6 @@ public class FeedEntryRecyclerViewRecyclerViewAdapter extends
   }
 
   public static abstract class MyMenuItemClickListener implements OnMenuItemClickListener {
-
     @Override
     public boolean onMenuItemClick(MenuItem item) {
       return false;

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.cn29.aac.vo;
+package com.cn29.aac.repo.util;
 
-import static com.cn29.aac.vo.Status.ERROR;
-import static com.cn29.aac.vo.Status.LOADING;
-import static com.cn29.aac.vo.Status.SUCCESS;
+import static com.cn29.aac.repo.util.Status.ERROR;
+import static com.cn29.aac.repo.util.Status.LOADING;
+import static com.cn29.aac.repo.util.Status.SUCCESS;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

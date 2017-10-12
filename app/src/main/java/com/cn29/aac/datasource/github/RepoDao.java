@@ -1,4 +1,4 @@
-package com.cn29.aac.datasource;
+package com.cn29.aac.datasource.github;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Transformations;
@@ -10,7 +10,7 @@ import android.arch.persistence.room.RoomWarnings;
 import android.util.SparseIntArray;
 import com.cn29.aac.repo.github.Contributor;
 import com.cn29.aac.repo.github.Repo;
-import com.cn29.aac.vo.RepoSearchResult;
+import com.cn29.aac.repo.github.RepoSearchResult;
 import java.util.Collections;
 import java.util.List;
 

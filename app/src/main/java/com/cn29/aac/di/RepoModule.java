@@ -2,11 +2,11 @@ package com.cn29.aac.di;
 
 import android.app.Application;
 import android.arch.persistence.room.Room;
-import com.cn29.aac.datasource.GithubDb;
-import com.cn29.aac.datasource.LiveDataCallAdapterFactory;
-import com.cn29.aac.datasource.RepoDao;
-import com.cn29.aac.datasource.UserDao;
-import com.cn29.aac.datasource.api.GithubService;
+import com.cn29.aac.datasource.api.LiveDataCallAdapterFactory;
+import com.cn29.aac.datasource.github.GithubDb;
+import com.cn29.aac.datasource.github.GithubService;
+import com.cn29.aac.datasource.github.RepoDao;
+import com.cn29.aac.datasource.github.UserDao;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

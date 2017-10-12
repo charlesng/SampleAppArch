@@ -19,10 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.cn29.aac.R;
-import com.cn29.aac.databinding.FragmentItemListBinding;
+import com.cn29.aac.databinding.FragmentFeedentryListBinding;
 import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.base.BaseFragment;
-import com.cn29.aac.ui.feedentry.FeedEntryRecyclerViewRecyclerViewAdapter.MyMenuItemClickListener;
+import com.cn29.aac.ui.feedentry.FeedEntryAdapter.MyMenuItemClickListener;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
 import com.cn29.aac.ui.feedentrydetail.FeedEntryDetailActivity;
 import io.reactivex.Single;
@@ -42,11 +42,10 @@ public class FeedEntryFragment extends BaseFragment {
   @Inject
   FeedEntryListViewModel viewModel;
 
-  @Inject
   Mode mode;
 
-  private FragmentItemListBinding binding;
-  private FeedEntryRecyclerViewRecyclerViewAdapter adapter;
+  private FragmentFeedentryListBinding binding;
+  private FeedEntryAdapter adapter;
 
 
   public void setMode(Mode mode) {
@@ -83,7 +82,7 @@ public class FeedEntryFragment extends BaseFragment {
     viewModel.getCompositeEntrys().observe(this, entries -> {
       //update the data
       if (adapter == null) {
-        adapter = new FeedEntryRecyclerViewRecyclerViewAdapter(entries,
+        adapter = new FeedEntryAdapter(entries,
             item -> {
               Intent intent = new Intent(getActivity(), FeedEntryDetailActivity.class);
               intent.putExtra(FeedEntryDetailActivity.EXTRA_POSITION, item.getUid());
@@ -151,7 +150,7 @@ public class FeedEntryFragment extends BaseFragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     binding = DataBindingUtil
-        .inflate(inflater, R.layout.fragment_item_list, null, false);
+        .inflate(inflater, R.layout.fragment_feedentry_list, null, false);
     // Set the adapter
     switch (mode) {
       case GRID:

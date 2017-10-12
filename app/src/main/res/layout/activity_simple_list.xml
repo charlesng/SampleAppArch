@@ -27,7 +27,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <include layout="@layout/simple_list" />
+    <include layout="@layout/fragment_simple_list" />
   </FrameLayout>
 
   <android.support.design.widget.FloatingActionButton
@@ -36,7 +36,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/fab_margin"
     android:layout_gravity="bottom|end"
-    app:srcCompat="@android:drawable/ic_dialog_email" />
+    app:srcCompat="@drawable/ic_refresh_white_24dp" />
 
 
 </android.support.design.widget.CoordinatorLayout>

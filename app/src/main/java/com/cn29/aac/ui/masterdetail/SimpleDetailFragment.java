@@ -2,16 +2,14 @@ package com.cn29.aac.ui.masterdetail;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.cn29.aac.R;
-import com.cn29.aac.repo.bean.DummyContent;
+import com.cn29.aac.ui.base.BaseFragment;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
-import dagger.android.support.DaggerFragment;
 import javax.inject.Inject;
 
 
@@ -21,20 +19,16 @@ import javax.inject.Inject;
  * in two-pane mode (on tablets) or a {@link SimpleDetailActivity}
  * on handsets.
  */
-public class SimpleDetailFragment extends DaggerFragment {
+public class SimpleDetailFragment extends BaseFragment {
 
-  /**
-   * The fragment argument representing the item ID that this fragment
-   * represents.
-   */
-  public static final String ARG_ITEM_ID = "item_id";
+  public static final String REPO_NAME = "repo_name";
+  public static final String OWNER_NAME = "owner_name";
   @Inject
   SimpleMasterDetailShareViewModel masterDetailShareViewModel;
-  /**
-   * The dummy content this fragment is presenting.
-   */
-  private DummyContent.DummyItem mItem;
+
   private View rootView;
+  private String repoName;
+  private String ownerName;
 
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,36 +38,40 @@ public class SimpleDetailFragment extends DaggerFragment {
   }
 
   @Override
-  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-
-    masterDetailShareViewModel.getSelectFeedEntry().observe(this, s -> {
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    if (getArguments().containsKey(REPO_NAME) && getArguments().containsKey(OWNER_NAME)) {
+      repoName = getArguments().getString(REPO_NAME);
+      ownerName = getArguments().getString(OWNER_NAME);
+    }
+    masterDetailShareViewModel.loadRepos(ownerName, repoName).observe(this, repoResource -> {
       Activity activity = getActivity();
       CollapsingToolbarLayout appBarLayout = activity
           .findViewById(R.id.toolbar_layout);
-      if (appBarLayout != null) {
-        appBarLayout.setTitle(mItem.content);
+      TextView titleView = rootView
+          .findViewById(R.id.feedentry_detail);
+      assert repoResource != null;
+      switch (repoResource.status) {
+        case SUCCESS:
+          progressDialogComponent.hideLoading();
+          assert repoResource.data != null;
+          appBarLayout.setTitle(repoResource.data.name);
+          titleView.setText(repoResource.data.fullName);
+          break;
+        case ERROR:
+          progressDialogComponent.hideLoading();
+          break;
+        case LOADING:
+          progressDialogComponent.showLoading();
+          break;
       }
-      ((TextView) rootView.findViewById(R.id.feedentry_detail)).setText(mItem.details);
     });
-  }
-
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    if (getArguments().containsKey(ARG_ITEM_ID)) {
-      // Load the dummy content specified by the fragment
-      // arguments. In a real-world scenario, use a Loader
-      // to load content from a content provider.
-      mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-    }
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    rootView = inflater.inflate(R.layout.simple_detail, container, false);
+    rootView = inflater.inflate(R.layout.fragment_simple_detail, container, false);
     return rootView;
   }
 }

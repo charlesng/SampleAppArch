@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cn29.aac.vo;
+package com.cn29.aac.repo.util;
 
 /**
  * Status of a resource that is provided to the UI.

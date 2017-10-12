@@ -1,7 +1,6 @@
-package com.cn29.aac.datasource;
+package com.cn29.aac.datasource.api;
 
 import android.arch.lifecycle.LiveData;
-import com.cn29.aac.datasource.api.ApiResponse;
 import java.lang.reflect.Type;
 import java.util.concurrent.atomic.AtomicBoolean;
 import retrofit2.Call;

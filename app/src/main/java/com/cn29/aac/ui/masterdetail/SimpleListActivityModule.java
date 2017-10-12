@@ -13,14 +13,13 @@ import dagger.Provides;
 @Module
 public class SimpleListActivityModule {
 
-
   @Provides
   SimpleMasterDetailShareViewModel provideVm(SimpleListActivity simpleListActivity,
       SimpleMasterDetailShareViewModelFactory factory) {
-    SimpleMasterDetailShareViewModel masterDetailShareViewModel = ViewModelProviders
+    return ViewModelProviders
         .of(simpleListActivity, factory).get(SimpleMasterDetailShareViewModel.class);
-    masterDetailShareViewModel.init();
-    return masterDetailShareViewModel;
 
   }
+
+
 }

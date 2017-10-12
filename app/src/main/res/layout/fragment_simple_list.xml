@@ -10,4 +10,4 @@
   android:name="com.example.communitcation_fragments.ui.FeedEntryListFragment"
   app:layoutManager="LinearLayoutManager"
   tools:context="ui.masterdetail.SimpleListActivity"
-  tools:listitem="@layout/simple_list_content" />
+  tools:listitem="@layout/fragment_simple_list_content" />

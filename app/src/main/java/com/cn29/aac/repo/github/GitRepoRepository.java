@@ -4,13 +4,13 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.cn29.aac.AppExecutors;
-import com.cn29.aac.datasource.GithubDb;
-import com.cn29.aac.datasource.RepoDao;
 import com.cn29.aac.datasource.api.ApiResponse;
-import com.cn29.aac.datasource.api.GithubService;
-import com.cn29.aac.repo.NetworkBoundResource;
-import com.cn29.aac.util.RateLimiter;
-import com.cn29.aac.vo.Resource;
+import com.cn29.aac.datasource.github.GithubDb;
+import com.cn29.aac.datasource.github.GithubService;
+import com.cn29.aac.datasource.github.RepoDao;
+import com.cn29.aac.repo.util.NetworkBoundResource;
+import com.cn29.aac.repo.util.RateLimiter;
+import com.cn29.aac.repo.util.Resource;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
@@ -31,6 +31,7 @@ public class GitRepoRepository {
   private RepoDao repoDao;
 
   private AppExecutors appExecutors;
+
   private RateLimiter<String> repoListRateLimit = new RateLimiter<>(10, TimeUnit.MINUTES);
 
   @Inject

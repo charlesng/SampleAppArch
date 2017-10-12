@@ -1,5 +1,8 @@
 package com.cn29.aac.ui.base;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import com.cn29.aac.ui.common.ProgressDialogComponent;
 import dagger.android.support.DaggerFragment;
 
 /**
@@ -8,8 +11,12 @@ import dagger.android.support.DaggerFragment;
 
 public class BaseFragment extends DaggerFragment {
 
+  protected ProgressDialogComponent progressDialogComponent;
+
   @Override
-  public void onResume() {
-    super.onResume();
+  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    progressDialogComponent = new ProgressDialogComponent(getActivity(), this.getLifecycle());
   }
+
 }

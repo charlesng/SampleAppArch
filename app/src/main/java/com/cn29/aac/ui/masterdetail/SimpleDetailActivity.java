@@ -25,6 +25,7 @@ public class SimpleDetailActivity extends DaggerAppCompatActivity {
   @Inject
   SimpleMasterDetailShareViewModel masterDetailShareViewModel;
 
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -56,9 +57,10 @@ public class SimpleDetailActivity extends DaggerAppCompatActivity {
       // Create the detail fragment and add it to the activity
       // using a fragment transaction.
       Bundle arguments = new Bundle();
-      arguments.putString(SimpleDetailFragment.ARG_ITEM_ID,
-          getIntent().getStringExtra(SimpleDetailFragment.ARG_ITEM_ID));
-
+      arguments.putString(SimpleDetailFragment.OWNER_NAME,
+          getIntent().getStringExtra(SimpleDetailFragment.OWNER_NAME));
+      arguments.putString(SimpleDetailFragment.REPO_NAME,
+          getIntent().getStringExtra(SimpleDetailFragment.REPO_NAME));
       SimpleDetailFragment fragment = new SimpleDetailFragment();
       fragment.setArguments(arguments);
       getSupportFragmentManager().beginTransaction()

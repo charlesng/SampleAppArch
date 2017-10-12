@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cn29.aac.datasource;
+package com.cn29.aac.datasource.github;
 
 import android.arch.persistence.room.TypeConverter;
 import android.arch.persistence.room.util.StringUtil;

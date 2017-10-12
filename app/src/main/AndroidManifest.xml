@@ -16,7 +16,7 @@
     >
     <activity
       android:label="@string/title_activity_app_arch_navigation_drawer"
-      android:name=".ui.AppArchNavigationDrawer"
+      android:name=".ui.main.AppArchNavigationDrawer"
       android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

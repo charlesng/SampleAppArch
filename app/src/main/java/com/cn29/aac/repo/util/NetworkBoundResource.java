@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cn29.aac.repo;
+package com.cn29.aac.repo.util;
 
 
 import android.arch.lifecycle.LiveData;
@@ -25,7 +25,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 import com.cn29.aac.AppExecutors;
 import com.cn29.aac.datasource.api.ApiResponse;
-import com.cn29.aac.vo.Resource;
 
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cn29.aac.util;
+package com.cn29.aac.repo.util;
 
 import android.os.SystemClock;
 import android.support.v4.util.ArrayMap;

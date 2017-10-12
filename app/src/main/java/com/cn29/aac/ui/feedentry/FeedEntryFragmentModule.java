@@ -1,7 +1,6 @@
 package com.cn29.aac.ui.feedentry;
 
 import android.arch.lifecycle.ViewModelProviders;
-import com.cn29.aac.ui.feedentry.FeedEntryFragment.Mode;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModelFactory;
 import dagger.Module;
@@ -17,9 +16,5 @@ public class FeedEntryFragmentModule {
         .get(FeedEntryListViewModel.class);
   }
 
-  @Provides
-  Mode provideDefaultMode() {
-    return Mode.LIST;
-  }
 
 }

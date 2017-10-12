@@ -1,7 +1,6 @@
-package com.cn29.aac.datasource;
+package com.cn29.aac.datasource.api;
 
 import android.arch.lifecycle.LiveData;
-import com.cn29.aac.datasource.api.ApiResponse;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

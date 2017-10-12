@@ -1,10 +1,11 @@
-package com.cn29.aac.datasource.api;
+package com.cn29.aac.datasource.github;
 
 /**
  * Created by Charles Ng on 3/10/2017.
  */
 
 import android.arch.lifecycle.LiveData;
+import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.repo.github.Contributor;
 import com.cn29.aac.repo.github.Repo;
 import com.cn29.aac.repo.github.User;

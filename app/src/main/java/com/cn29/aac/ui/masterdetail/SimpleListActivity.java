@@ -3,20 +3,12 @@ package com.cn29.aac.ui.masterdetail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import com.cn29.aac.R;
-import com.cn29.aac.repo.bean.DummyContent;
-import com.cn29.aac.repo.bean.DummyContent.DummyItem;
+import com.cn29.aac.ui.base.BaseAppCompatActivity;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
-import dagger.android.support.DaggerAppCompatActivity;
-import java.util.List;
 import javax.inject.Inject;
 
 
@@ -29,15 +21,18 @@ import javax.inject.Inject;
  * item details side-by-side using two vertical panes.
  * https://developer.android.com/topic/libraries/architecture/viewmodel.html
  */
-public class SimpleListActivity extends DaggerAppCompatActivity {
+public class SimpleListActivity extends BaseAppCompatActivity {
 
   @Inject
   SimpleMasterDetailShareViewModel masterDetailShareViewModel;
+
   /**
    * Whether or not the activity is in two-pane mode, i.e. running on a tablet
    * device.
    */
   private boolean mTwoPane;
+
+  private GithubRepoAdapter githubRepoAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +42,12 @@ public class SimpleListActivity extends DaggerAppCompatActivity {
     setSupportActionBar(toolbar);
     toolbar.setTitle(getTitle());
     FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(view -> masterDetailShareViewModel
-        .loadRepos("googlesamples", "android-architecture-components")
-        .observe(SimpleListActivity.this, observer -> {
-
-        }));
-    View recyclerView = findViewById(R.id.feedentry_list);
+    fab.setOnClickListener(view -> loadRepos("googlesamples"));
+    setupAdapter();
+    loadRepos("googlesamples");
+    RecyclerView recyclerView = findViewById(R.id.feedentry_list);
     assert recyclerView != null;
-    setupRecyclerView((RecyclerView) recyclerView);
-
+    recyclerView.setAdapter(githubRepoAdapter);
     if (findViewById(R.id.feedentry_detail_container) != null) {
       // The detail container view will be present only in the
       // large-screen layouts (res/values-w900dp).
@@ -63,77 +55,48 @@ public class SimpleListActivity extends DaggerAppCompatActivity {
       // activity should be in two-pane mode.
       mTwoPane = true;
     }
-
   }
 
-  private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-    recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+  private void loadRepos(String ownerName) {
+    masterDetailShareViewModel
+        .loadRepos(ownerName)
+        .observe(SimpleListActivity.this, repos -> {
+          assert repos != null;
+          switch (repos.status) {
+            case SUCCESS:
+              progressDialogComponent.hideLoading();
+              githubRepoAdapter.setRepos(repos.data);
+              break;
+            case ERROR:
+              progressDialogComponent.hideLoading();
+              break;
+            case LOADING:
+              progressDialogComponent.showLoading();
+              break;
+          }
+          githubRepoAdapter.notifyDataSetChanged();
+        });
   }
 
-  public class SimpleItemRecyclerViewAdapter
-      extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-    private final List<DummyItem> mValues;
-
-    SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
-      mValues = items;
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-      View view = LayoutInflater.from(parent.getContext())
-          .inflate(R.layout.simple_list_content, parent, false);
-      return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-      holder.mItem = mValues.get(position);
-      holder.mIdView.setText(mValues.get(position).id);
-      holder.mContentView.setText(mValues.get(position).content);
-      holder.mView.setOnClickListener(v -> {
-        masterDetailShareViewModel.selectFeedEntry(holder.mItem.id);
-        if (mTwoPane) {
-          Bundle arguments = new Bundle();
-          arguments.putString(SimpleDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-          SimpleDetailFragment fragment = new SimpleDetailFragment();
-          fragment.setArguments(arguments);
-          getSupportFragmentManager().beginTransaction()
-              .replace(R.id.feedentry_detail_container, fragment)
-              .commit();
-        } else {
-
-          Context context = v.getContext();
-          Intent intent = new Intent(context, SimpleDetailActivity.class);
-          intent.putExtra(SimpleDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-          context.startActivity(intent);
-        }
-      });
-    }
-
-    @Override
-    public int getItemCount() {
-      return mValues.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-      final View mView;
-      final TextView mIdView;
-      final TextView mContentView;
-      DummyContent.DummyItem mItem;
-
-      ViewHolder(View view) {
-        super(view);
-        mView = view;
-        mIdView = view.findViewById(R.id.id);
-        mContentView = view.findViewById(R.id.content);
-      }
-
-      @Override
-      public String toString() {
-        return super.toString() + " '" + mContentView.getText() + "'";
-      }
-    }
+  private void setupAdapter() {
+    githubRepoAdapter = new GithubRepoAdapter(
+        repo -> {
+          if (mTwoPane) {
+            Bundle arguments = new Bundle();
+            arguments.putString(SimpleDetailFragment.REPO_NAME, repo.name);
+            arguments.putString(SimpleDetailFragment.OWNER_NAME, repo.owner.login);
+            SimpleDetailFragment fragment = new SimpleDetailFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.feedentry_detail_container, fragment)
+                .commit();
+          } else {
+            Context context = SimpleListActivity.this;
+            Intent intent = new Intent(context, SimpleDetailActivity.class);
+            intent.putExtra(SimpleDetailFragment.REPO_NAME, repo.name);
+            intent.putExtra(SimpleDetailFragment.OWNER_NAME, repo.owner.login);
+            context.startActivity(intent);
+          }
+        });
   }
 }
