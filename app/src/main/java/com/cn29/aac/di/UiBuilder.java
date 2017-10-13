@@ -11,6 +11,10 @@ import com.cn29.aac.ui.location.LocationActivity;
 import com.cn29.aac.ui.location.LocationActivityModule;
 import com.cn29.aac.ui.location.LocationFragment;
 import com.cn29.aac.ui.location.LocationFragmentModule;
+import com.cn29.aac.ui.login.LoginActivity;
+import com.cn29.aac.ui.login.LoginActivityModule;
+import com.cn29.aac.ui.main.AppArchNavigationDrawer;
+import com.cn29.aac.ui.main.AppArchNavigationDrawerModule;
 import com.cn29.aac.ui.masterdetail.SimpleDetailActivity;
 import com.cn29.aac.ui.masterdetail.SimpleDetailActivityModule;
 import com.cn29.aac.ui.masterdetail.SimpleDetailFragment;
@@ -32,6 +36,15 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class UiBuilder {
+
+
+  //Login
+  @ContributesAndroidInjector(modules = LoginActivityModule.class)
+  abstract LoginActivity bindLoginActivity();
+
+  //Main Activity
+  @ContributesAndroidInjector(modules = AppArchNavigationDrawerModule.class)
+  abstract AppArchNavigationDrawer bindDrawer();
 
   //feed entry
   @ContributesAndroidInjector(modules = FeedActivityModule.class)

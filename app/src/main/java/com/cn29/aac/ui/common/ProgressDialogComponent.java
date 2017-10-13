@@ -2,7 +2,6 @@ package com.cn29.aac.ui.common;
 
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.Lifecycle.Event;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
@@ -50,7 +49,7 @@ public class ProgressDialogComponent implements LifecycleObserver {
   void onCreate() {
   }
 
-  @OnLifecycleEvent(Event.ON_PAUSE)
+  @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
   void onPause() {
     hideLoading();
   }

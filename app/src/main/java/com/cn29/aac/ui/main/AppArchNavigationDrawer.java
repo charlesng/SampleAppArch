@@ -9,18 +9,30 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.cn29.aac.R;
+import com.cn29.aac.ui.base.BaseAppCompatActivity;
 import com.cn29.aac.ui.feedentry.FeedActivity;
 import com.cn29.aac.ui.location.LocationActivity;
+import com.cn29.aac.ui.login.LoginActivity;
+import com.cn29.aac.ui.main.vm.AppArchNavViewModel;
 import com.cn29.aac.ui.masterdetail.SimpleListActivity;
+import com.cn29.aac.ui.setting.SettingsActivity;
 import com.cn29.aac.ui.viewpager.PagerActivity;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
 
-public class AppArchNavigationDrawer extends AppCompatActivity
+public class AppArchNavigationDrawer extends BaseAppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
+
+  @Inject
+  AppArchNavViewModel appArchNavViewModel;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +84,8 @@ public class AppArchNavigationDrawer extends AppCompatActivity
     int id = item.getItemId();
 
     //noinspection SimplifiableIfStatement
-    if (id == R.id.action_updateDefaultTitle) {
+    if (id == R.id.action_settings) {
+      startActivity(new Intent(this, SettingsActivity.class));
       return true;
     }
 
@@ -96,6 +109,20 @@ public class AppArchNavigationDrawer extends AppCompatActivity
         break;
       case R.id.nav_location:
         startActivity(new Intent(this, LocationActivity.class));
+        break;
+      case R.id.nav_logout:
+        progressDialogComponent.showLoading();
+        //clear the data first
+        appArchNavViewModel.logout();
+        Single.timer(3, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(s -> {
+              //finish the current activity and go back to the login activity
+              progressDialogComponent.hideLoading();
+              finish();
+              startActivity(new Intent(this, LoginActivity.class));
+            });
         break;
     }
     DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -1,6 +1,11 @@
 package com.cn29.aac.ui.feedentrydetail;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
+import android.view.LayoutInflater;
+import com.cn29.aac.R;
+import com.cn29.aac.databinding.ActivityFeedEntryDetailBinding;
+import com.cn29.aac.databinding.DialogFeedentryBinding;
 import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 import com.cn29.aac.ui.feedentrydetail.vm.FeedEntryDetailViewModel;
@@ -40,6 +45,17 @@ public class FeedEntryDetailActivityModule {
   @Provides
   FeedEntry provideDefaultFeedEntry() {
     return new FeedEntry("", "");
+  }
+
+  @Provides
+  ActivityFeedEntryDetailBinding provideBinding(FeedEntryDetailActivity activity) {
+    return DataBindingUtil.setContentView(activity, R.layout.activity_feed_entry_detail);
+  }
+
+  @Provides
+  DialogFeedentryBinding provideDialogBinding(FeedEntryDetailActivity activity) {
+    return DataBindingUtil
+        .inflate(LayoutInflater.from(activity), R.layout.dialog_feedentry, null, false);
   }
 
 }

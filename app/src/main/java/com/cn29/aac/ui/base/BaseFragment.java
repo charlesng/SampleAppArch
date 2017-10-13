@@ -2,6 +2,8 @@ package com.cn29.aac.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import com.cn29.aac.ui.common.AlertDialogComponent;
+import com.cn29.aac.ui.common.FragmentPermissionComponent.PermissionCallback;
 import com.cn29.aac.ui.common.ProgressDialogComponent;
 import dagger.android.support.DaggerFragment;
 
@@ -11,12 +13,31 @@ import dagger.android.support.DaggerFragment;
 
 public class BaseFragment extends DaggerFragment {
 
+  //common UI component
   protected ProgressDialogComponent progressDialogComponent;
+  protected AlertDialogComponent dialogComponent;
+  //permission callback
+  private PermissionCallback permissionCallback;
 
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     progressDialogComponent = new ProgressDialogComponent(getActivity(), this.getLifecycle());
+    dialogComponent = new AlertDialogComponent(getActivity(), this.getLifecycle());
   }
 
+  @Override
+  public void onRequestPermissionsResult(int requestCode,
+      String permissions[], int[] grantResults) {
+    permissionCallback.onRequestPermissionsResult(requestCode, permissions, grantResults);
+  }
+
+  public PermissionCallback getPermissionCallback() {
+    return permissionCallback;
+  }
+
+  public void setPermissionCallback(
+      PermissionCallback permissionCallback) {
+    this.permissionCallback = permissionCallback;
+  }
 }

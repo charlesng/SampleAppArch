@@ -1,9 +1,8 @@
 package com.cn29.aac.ui.feedentry;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,7 +11,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -34,7 +32,12 @@ public class FeedActivity extends BaseAppCompatActivity {
   @Inject
   FeedEntryListViewModel viewModel;
 
-  @SuppressLint("StaticFieldLeak")
+  @Inject
+  DialogFeedentryBinding dialogFeedEntryBinding;
+
+  @Inject
+  FeedEntry inputFeedEntry;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,50 +51,53 @@ public class FeedActivity extends BaseAppCompatActivity {
     setSupportActionBar(toolbar);
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(view -> {
-      final DialogFeedentryBinding dialogFeedEntryBinding = DataBindingUtil
-          .inflate(LayoutInflater.from(FeedActivity.this), R.layout.dialog_feedentry, null, false);
       //insert sample data by button click
       FeedEntry feedEntry = new FeedEntry("", "");
       feedEntry.setImageUrl("http://i.imgur.com/DvpvklR.png");
       dialogFeedEntryBinding.setFeedEntry(feedEntry);
-      final Dialog dialog = new AlertDialog.Builder(FeedActivity.this)
-          .setTitle("Create a new Feed Entry")
-          .setView(dialogFeedEntryBinding.getRoot())
-          .setPositiveButton("Submit", null)
-          .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss())
-          .create();
-      dialog.setOnShowListener(dialogInterface -> {
-        Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-        button.setOnClickListener(view1 -> {
-          // TODO Do something
-          //to trigger auto error enable
-          //get the binding
-          FeedEntry inputFeedEntry = dialogFeedEntryBinding.getFeedEntry();
-          Boolean[] validations = new Boolean[]{
-              dialogFeedEntryBinding.imageUrlValidation.isErrorEnabled(),
-              dialogFeedEntryBinding.titleValidation.isErrorEnabled(),
-              dialogFeedEntryBinding.subTitleValidation.isErrorEnabled()
-          };
-          boolean isValid = true;
-          //check the validation
-          for (Boolean validation : validations) {
-            if (validation) {
-              isValid = false;
-            }
-          }
-          //insert the record
-          if (isValid) {
-            Single.create(subscriber -> viewModel.insert(inputFeedEntry))
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-            dialogInterface.dismiss();
-          }
-        });
-      });
+      final Dialog dialog = getDialog();
       dialog.show();
-
     });
+  }
+
+  @NonNull
+  private Dialog getDialog() {
+    final Dialog dialog = new AlertDialog.Builder(FeedActivity.this)
+        .setTitle("Create a new Feed Entry")
+        .setView(dialogFeedEntryBinding.getRoot())
+        .setPositiveButton("Submit", null)
+        .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss())
+        .create();
+    dialog.setOnShowListener(dialogInterface -> {
+      Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+      button.setOnClickListener(view1 -> {
+        // TODO Do something
+        //to trigger auto error enable
+        //get the binding
+        inputFeedEntry = dialogFeedEntryBinding.getFeedEntry();
+        Boolean[] validations = new Boolean[]{
+            dialogFeedEntryBinding.imageUrlValidation.isErrorEnabled(),
+            dialogFeedEntryBinding.titleValidation.isErrorEnabled(),
+            dialogFeedEntryBinding.subTitleValidation.isErrorEnabled()
+        };
+        boolean isValid = true;
+        //check the validation
+        for (Boolean validation : validations) {
+          if (validation) {
+            isValid = false;
+          }
+        }
+        //insert the record
+        if (isValid) {
+          Single.create(subscriber -> viewModel.insert(inputFeedEntry))
+              .subscribeOn(Schedulers.newThread())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe();
+          dialogInterface.dismiss();
+        }
+      });
+    });
+    return dialog;
   }
 
   private void setupViewPager(ViewPager viewPager) {

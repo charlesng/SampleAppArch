@@ -17,6 +17,7 @@ import javax.inject.Singleton;
     AndroidInjectionModule.class, AndroidSupportInjectionModule.class,
     AppModule.class,
     RepoModule.class,
+    AuthModule.class,
     UiBuilder.class})
 public interface AppComponent {
 

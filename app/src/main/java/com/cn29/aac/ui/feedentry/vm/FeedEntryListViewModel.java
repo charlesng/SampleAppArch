@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableField;
 import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 import java.util.ArrayList;
@@ -21,9 +22,10 @@ public class FeedEntryListViewModel extends ViewModel {
   private MutableLiveData<String> userId = new MutableLiveData<>();
   //show your composite model here
   private MediatorLiveData<CompositeModel> compositeModelLiveData;
-
   //list all your repository
   private FeedEntryRepository feedEntryDBRepository;
+  //Data binding variable
+  private ObservableField<FeedEntry> feedEntry;
 
   public FeedEntryListViewModel(
       FeedEntryRepository feedEntryDBRepository) {
@@ -43,6 +45,7 @@ public class FeedEntryListViewModel extends ViewModel {
     });
     //initialize the composite model to avoid NullPointerException
     this.compositeModelLiveData.postValue(new CompositeModel());
+    feedEntry = new ObservableField<>();
   }
 
   public void loadUserId(String userId) {
@@ -70,9 +73,13 @@ public class FeedEntryListViewModel extends ViewModel {
     return feedEntryDBRepository.update(feedEntry);
   }
 
+  public ObservableField<FeedEntry> getFeedEntry() {
+    return feedEntry;
+  }
+
   /*
-  The complete model to show the data
-   */
+    The complete model to show the data
+     */
   public static class CompositeModel {
 
     String userId = "SystemId";

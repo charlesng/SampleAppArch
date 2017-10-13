@@ -9,7 +9,7 @@
 
     <variable
       name="Converter"
-      type="com.example.common.components.binding.Converter" />
+      type="com.cn29.aac.binding.Converter" />
 
   </data>
   <android.support.constraint.ConstraintLayout

@@ -1,9 +1,13 @@
 package com.cn29.aac.ui.feedentry;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
+import android.view.LayoutInflater;
+import com.cn29.aac.R;
+import com.cn29.aac.databinding.DialogFeedentryBinding;
+import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModelFactory;
-import com.cn29.aac.ui.viewpager.vm.PagerAgentViewModel;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -19,18 +23,27 @@ public class FeedActivityModule {
 
 
   @Provides
-  FeedEntryListViewModel provideViewModel(FeedActivity feedActivity,
+  FeedEntryListViewModel provideViewModel(FeedEntry feedEntry, FeedActivity feedActivity,
       FeedEntryListViewModelFactory factory) {
-    return ViewModelProviders.of(feedActivity, factory)
+    FeedEntryListViewModel viewModel = ViewModelProviders.of(feedActivity, factory)
         .get(FeedEntryListViewModel.class);
+    viewModel.getFeedEntry().set(feedEntry);
+    return viewModel;
+  }
+
+
+  @Provides
+  DialogFeedentryBinding provideDialogBinding(FeedActivity activity,
+      FeedEntryListViewModel feedEntryListViewModel) {
+    DialogFeedentryBinding binding = DataBindingUtil
+        .inflate(LayoutInflater.from(activity), R.layout.dialog_feedentry, null, false);
+    binding.setFeedEntry(feedEntryListViewModel.getFeedEntry().get());
+    return binding;
   }
 
   @Provides
-  PagerAgentViewModel providePagerAgentVm(FeedActivity pagerActivity) {
-
-    PagerAgentViewModel pagerAgentViewModel = ViewModelProviders.of(pagerActivity)
-        .get(PagerAgentViewModel.class);
-    pagerAgentViewModel.init();
-    return pagerAgentViewModel;
+  FeedEntry provideDefaultFeedEntry() {
+    return new FeedEntry("abc", "");
   }
+
 }

@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.cn29.aac">
 
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <uses-permission android:name="android.permission.INTERNET" />
+  <!-- To auto-complete the email text field in the login form with the user's emails -->
+  <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+  <uses-permission android:name="android.permission.READ_PROFILE" />
+  <uses-permission android:name="android.permission.READ_CONTACTS" />
+
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
@@ -12,23 +17,16 @@
     android:name=".MyApplication"
     android:roundIcon="@mipmap/ic_launcher"
     android:supportsRtl="true"
-    android:theme="@style/AppTheme"
-    >
+    android:theme="@style/AppTheme">
     <activity
       android:label="@string/title_activity_app_arch_navigation_drawer"
       android:name=".ui.main.AppArchNavigationDrawer"
-      android:theme="@style/AppTheme.NoActionBar">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
+      android:theme="@style/AppTheme.NoActionBar" />
     <activity
       android:exported="true"
       android:label="@string/title_activity_feed"
       android:name=".ui.feedentry.FeedActivity"
-      android:theme="@style/AppTheme.NoActionBar"/>
+      android:theme="@style/AppTheme.NoActionBar" />
     <activity
       android:label="@string/title_activity_feed_entry_detail"
       android:name=".ui.feedentrydetail.FeedEntryDetailActivity"
@@ -36,12 +34,11 @@
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".ui.feedentry.FeedActivity" />
-
     </activity>
     <activity
       android:label="@string/title_simple_list"
       android:name=".ui.masterdetail.SimpleListActivity"
-      android:theme="@style/AppTheme.NoActionBar"/>
+      android:theme="@style/AppTheme.NoActionBar" />
     <activity
       android:label="@string/title_simple_detail"
       android:name=".ui.masterdetail.SimpleDetailActivity"
@@ -49,7 +46,7 @@
       android:theme="@style/AppTheme.NoActionBar">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value=".ui.masterdetail.SimpleListActivity"/>
+        android:value=".ui.masterdetail.SimpleListActivity" />
     </activity>
     <activity
       android:label="Pager Activity "
@@ -58,8 +55,20 @@
     <activity
       android:label="Location Activity"
       android:name=".ui.location.LocationActivity"
-      android:theme="@style/AppTheme.NoActionBar"/>
-
+      android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+      android:label="@string/title_activity_login"
+      android:name=".ui.login.LoginActivity"
+      android:theme="@style/AppTheme.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity
+      android:label="@string/title_activity_settings"
+      android:name=".ui.setting.SettingsActivity"
+      android:theme="@style/AppTheme"></activity>
   </application>
 
 </manifest>
