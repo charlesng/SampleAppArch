@@ -6,11 +6,15 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ActivityLoginBinding;
 import com.cn29.aac.repo.user.AuthRepository.AuthMode;
@@ -20,16 +24,26 @@ import com.cn29.aac.ui.common.ActivityPermissionComponent;
 import com.cn29.aac.ui.common.FragmentPermissionComponent.PermissionCallback;
 import com.cn29.aac.ui.login.vm.LoginViewModel;
 import com.cn29.aac.ui.main.AppArchNavigationDrawer;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
+
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends BaseAppCompatActivity {
+public class LoginActivity extends BaseAppCompatActivity implements OnConnectionFailedListener,
+    OnClickListener {
 
   /**
    * Id to identity READ_CONTACTS permission request.
@@ -42,6 +56,8 @@ public class LoginActivity extends BaseAppCompatActivity {
   private static final String[] DUMMY_CREDENTIALS = new String[]{
       "foo@example.com:hello", "bar@example.com:world"
   };
+  private static final int RC_SIGN_IN = 200;
+  private static final String TAG = LoginActivity.class.getSimpleName();
   @Inject
   LoginViewModel loginViewModel;
   @Inject
@@ -64,10 +80,18 @@ public class LoginActivity extends BaseAppCompatActivity {
 
   private String email;
   private String password;
+  private GoogleApiClient mGoogleApiClient;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestEmail()
+        .build();
+    mGoogleApiClient = new GoogleApiClient.Builder(this)
+        .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+        .build();
     init();
     if (loginViewModel.isLogin()) {
       showProgress(true);
@@ -143,6 +167,10 @@ public class LoginActivity extends BaseAppCompatActivity {
     mProgressView = binding.loginProgress;
     mEmailView.setText(loginBean.getEmail());
     mPasswordView.setText("HelloWorld");
+    SignInButton signInButton = binding.signInButton;
+    signInButton.setSize(SignInButton.SIZE_STANDARD);
+    signInButton.setOnClickListener(this);
+
   }
 
 
@@ -190,6 +218,53 @@ public class LoginActivity extends BaseAppCompatActivity {
       mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
       mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
     }
+  }
+
+  @Override
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+  }
+
+  @Override
+  public void onClick(View v) {
+    switch (v.getId()) {
+      case R.id.sign_in_button:
+        signIn();
+        break;
+      // ...
+    }
+  }
+
+  private void signIn() {
+    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+    startActivityForResult(signInIntent, RC_SIGN_IN);
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+    if (requestCode == RC_SIGN_IN) {
+      GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+      handleSignInResult(result);
+    }
+  }
+
+  private void handleSignInResult(GoogleSignInResult result) {
+    Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+    if (result.isSuccess()) {
+      // Signed in successfully, show authenticated UI.
+      GoogleSignInAccount acct = result.getSignInAccount();
+      updateUI(true);
+    } else {
+      // Signed out, show unauthenticated UI.
+      updateUI(false);
+    }
+  }
+
+  private void updateUI(boolean b) {
+    Toast.makeText(this, String.valueOf(b), Toast.LENGTH_SHORT).show();
   }
 
 }

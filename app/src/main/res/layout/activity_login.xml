@@ -80,6 +80,10 @@
           android:layout_marginTop="16dp"
           android:text="@string/action_mycompany_sign_in" />
 
+        <com.google.android.gms.common.SignInButton
+          android:id="@+id/sign_in_button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
         <Button
           android:id="@+id/google_sign_in_button"
           style="?android:textAppearanceSmall"
