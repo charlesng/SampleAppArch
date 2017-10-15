@@ -55,7 +55,9 @@ public class SimpleDetailFragment extends BaseFragment {
         case SUCCESS:
           progressDialogComponent.hideLoading();
           assert repoResource.data != null;
-          appBarLayout.setTitle(repoResource.data.name);
+          if (appBarLayout != null) {
+            appBarLayout.setTitle(repoResource.data.name);
+          }
           titleView.setText(repoResource.data.fullName);
           break;
         case ERROR:

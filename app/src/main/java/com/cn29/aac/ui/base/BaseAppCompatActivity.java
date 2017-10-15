@@ -15,7 +15,8 @@ public class BaseAppCompatActivity extends DaggerAppCompatActivity {
   protected ProgressDialogComponent progressDialogComponent;
   protected AlertDialogComponent dialogComponent;
   //permission callback
-  private PermissionCallback permissionCallback;
+  private PermissionCallback permissionCallback = (requestCode, permissions, grantResults) -> {
+  };
 
 
   @Override
