@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "51c4c5efbc4d410c6f0015cf4894456c",
+    "identityHash": "3e8e7e08cad54534d5d830a9d8ed8d30",
     "entities": [
       {
         "tableName": "Artist",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`artistId` INTEGER NOT NULL, `trackId` INTEGER NOT NULL, `artistName` TEXT, `trackName` TEXT, `artworkUrl100` TEXT, `createDate` TEXT, PRIMARY KEY(`artistId`, `trackId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`artistId` INTEGER NOT NULL, `artistName` TEXT NOT NULL, `trackName` TEXT, `artworkUrl100` TEXT, `trackPrice` REAL NOT NULL, `isFavourite` INTEGER NOT NULL, `createDate` TEXT, PRIMARY KEY(`artistId`, `artistName`))",
         "fields": [
           {
             "fieldPath": "artistId",
@@ -15,16 +15,10 @@
             "notNull": true
           },
           {
-            "fieldPath": "trackId",
-            "columnName": "trackId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
             "fieldPath": "artistName",
             "columnName": "artistName",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "trackName",
@@ -39,6 +33,18 @@
             "notNull": false
           },
           {
+            "fieldPath": "trackPrice",
+            "columnName": "trackPrice",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavourite",
+            "columnName": "isFavourite",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "createDate",
             "columnName": "createDate",
             "affinity": "TEXT",
@@ -48,7 +54,7 @@
         "primaryKey": {
           "columnNames": [
             "artistId",
-            "trackId"
+            "artistName"
           ],
           "autoGenerate": false
         },
@@ -60,14 +66,72 @@
               "artistId"
             ],
             "createSql": "CREATE  INDEX `index_Artist_artistId` ON `${TABLE_NAME}` (`artistId`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Album",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`artistId` INTEGER NOT NULL, `collectionName` TEXT NOT NULL, `collectionPrice` REAL NOT NULL, `primaryGenreName` TEXT, `releaseDate` TEXT, `artworkUrl100` TEXT, `collectionViewUrl` TEXT, PRIMARY KEY(`artistId`, `collectionName`))",
+        "fields": [
+          {
+            "fieldPath": "artistId",
+            "columnName": "artistId",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
-            "name": "index_Artist_trackId",
+            "fieldPath": "collectionName",
+            "columnName": "collectionName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "collectionPrice",
+            "columnName": "collectionPrice",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "primaryGenreName",
+            "columnName": "primaryGenreName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "releaseDate",
+            "columnName": "releaseDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "artworkUrl100",
+            "columnName": "artworkUrl100",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "collectionViewUrl",
+            "columnName": "collectionViewUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "artistId",
+            "collectionName"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Album_artistId",
             "unique": false,
             "columnNames": [
-              "trackId"
+              "artistId"
             ],
-            "createSql": "CREATE  INDEX `index_Artist_trackId` ON `${TABLE_NAME}` (`trackId`)"
+            "createSql": "CREATE  INDEX `index_Album_artistId` ON `${TABLE_NAME}` (`artistId`)"
           }
         ],
         "foreignKeys": []
@@ -75,7 +139,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"51c4c5efbc4d410c6f0015cf4894456c\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3e8e7e08cad54534d5d830a9d8ed8d30\")"
     ]
   }
 }

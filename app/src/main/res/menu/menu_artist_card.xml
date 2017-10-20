@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context="com.example.feedentry.ui.feedentrydetail.FeedEntryDetailActivity">
+  <item
+    android:id="@+id/action_artist_star"
+    android:icon="@drawable/ic_star_black_24dp"
+    android:orderInCategory="100"
+    android:title="Mark it star"
+    app:showAsAction="ifRoom" />
+  <item
+    android:id="@+id/action_artist_add_kart"
+    android:icon="@drawable/ic_add_shopping_cart_black_24dp"
+    android:orderInCategory="100"
+    android:title="Add to kart"
+    app:showAsAction="ifRoom" />
+</menu>

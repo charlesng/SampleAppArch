@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Charles Ng on 16/10/2017.
  */
 
-public class ArtistResult {
+public class ArtistSearchResult {
 
   private int resultCount;
 

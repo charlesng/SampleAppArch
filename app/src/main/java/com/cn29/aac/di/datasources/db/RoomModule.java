@@ -1,4 +1,4 @@
-package com.cn29.aac.di;
+package com.cn29.aac.di.datasources.db;
 
 import android.app.Application;
 import android.arch.persistence.room.Room;
@@ -7,6 +7,7 @@ import com.cn29.aac.datasource.auth.db.AuthDb;
 import com.cn29.aac.datasource.github.db.GithubDb;
 import com.cn29.aac.datasource.github.db.RepoDao;
 import com.cn29.aac.datasource.github.db.UserDao;
+import com.cn29.aac.datasource.itunes.db.AlbumDao;
 import com.cn29.aac.datasource.itunes.db.ArtistDao;
 import com.cn29.aac.datasource.itunes.db.ItunesDb;
 import dagger.Module;
@@ -26,7 +27,6 @@ public class RoomModule {
   GithubDb provideDb(Application app) {
     return Room.databaseBuilder(app, GithubDb.class, "github.db").build();
   }
-
 
   @Singleton
   @Provides
@@ -55,6 +55,7 @@ public class RoomModule {
   }
 
 
+  //Itunes Db instance and Dao
   @Singleton
   @Provides
   ItunesDb provideItunesDb(Application application) {
@@ -65,5 +66,11 @@ public class RoomModule {
   @Provides
   ArtistDao provideArtisDao(ItunesDb itunesDb) {
     return itunesDb.artistDao();
+  }
+
+  @Singleton
+  @Provides
+  AlbumDao provideAlbumDao(ItunesDb itunesDb) {
+    return itunesDb.albumDao();
   }
 }

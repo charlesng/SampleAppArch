@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 import com.cn29.aac.repo.itunes.Artist;
 import java.util.List;
 
@@ -20,4 +21,7 @@ public abstract class ArtistDao {
 
   @Query("SELECT * FROM artist")
   public abstract LiveData<List<Artist>> getAll();
+
+  @Update
+  public abstract int update(Artist artist);
 }

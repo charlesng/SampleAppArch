@@ -25,6 +25,7 @@ public class LoginBean {
 
   public LoginBean(@NonNull String email, String authType) {
     this.email = email;
+    this.authType = authType;
   }
 
   @NonNull

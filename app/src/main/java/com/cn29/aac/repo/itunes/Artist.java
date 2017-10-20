@@ -10,19 +10,19 @@ import java.util.Date;
 /**
  * Created by Charles Ng on 16/10/2017.
  */
-@Entity(indices = {@Index("artistId"), @Index("trackId")},
-    primaryKeys = {"artistId", "trackId"})
+@Entity(indices = {@Index("artistId")},
+    primaryKeys = {"artistId", "artistName"})
 @TypeConverters(TypeConvertor.class)
 public class Artist {
-
   @NonNull
   private long artistId;
+
   @NonNull
-  private long trackId;
   private String artistName;
   private String trackName;
   private String artworkUrl100;
-
+  private double trackPrice;
+  private boolean isFavourite = false;
   private Date createDate;
 
 
@@ -50,15 +50,6 @@ public class Artist {
     this.artworkUrl100 = artworkUrl100;
   }
 
-  @NonNull
-  public long getTrackId() {
-    return trackId;
-  }
-
-  public void setTrackId(@NonNull long trackId) {
-    this.trackId = trackId;
-  }
-
   public String getTrackName() {
     return trackName;
   }
@@ -73,5 +64,21 @@ public class Artist {
 
   public void setCreateDate(Date createDate) {
     this.createDate = createDate;
+  }
+
+  public boolean isFavourite() {
+    return isFavourite;
+  }
+
+  public void setFavourite(boolean favourite) {
+    isFavourite = favourite;
+  }
+
+  public double getTrackPrice() {
+    return trackPrice;
+  }
+
+  public void setTrackPrice(double trackPrice) {
+    this.trackPrice = trackPrice;
   }
 }

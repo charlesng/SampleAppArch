@@ -1,4 +1,4 @@
-package com.cn29.aac.di;
+package com.cn29.aac.di.datasources.remote;
 
 import com.cn29.aac.datasource.api.LiveDataCallAdapterFactory;
 import com.cn29.aac.datasource.github.remote.GithubService;

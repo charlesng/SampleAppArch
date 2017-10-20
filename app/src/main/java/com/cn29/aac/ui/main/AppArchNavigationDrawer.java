@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.cn29.aac.R;
+import com.cn29.aac.databinding.ActivityAppArchNavigationDrawerBinding;
 import com.cn29.aac.ui.base.BaseAppCompatActivity;
 import com.cn29.aac.ui.feedentry.FeedActivity;
 import com.cn29.aac.ui.location.LocationActivity;
@@ -20,6 +21,7 @@ import com.cn29.aac.ui.login.LoginActivity;
 import com.cn29.aac.ui.main.vm.AppArchNavViewModel;
 import com.cn29.aac.ui.masterdetail.SimpleListActivity;
 import com.cn29.aac.ui.setting.SettingsActivity;
+import com.cn29.aac.ui.shopping.ShoppingKartActivity;
 import com.cn29.aac.ui.viewpager.PagerActivity;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,26 +35,23 @@ public class AppArchNavigationDrawer extends BaseAppCompatActivity
   @Inject
   AppArchNavViewModel appArchNavViewModel;
 
+  @Inject
+  ActivityAppArchNavigationDrawerBinding binding;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_app_arch_navigation_drawer);
-
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
-
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(
-        view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+        view -> Snackbar.make(view, "Want to set email ?", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show());
-
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.addDrawerListener(toggle);
     toggle.syncState();
-
     NavigationView navigationView = findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
 
@@ -110,23 +109,44 @@ public class AppArchNavigationDrawer extends BaseAppCompatActivity
       case R.id.nav_location:
         startActivity(new Intent(this, LocationActivity.class));
         break;
+      case R.id.nav_shopping:
+        startActivity(new Intent(this, ShoppingKartActivity.class));
+        ;
+        break;
+      case R.id.nav_shopping_history:
+        viewHistory();
+        break;
+      case R.id.nav_ordering:
+        ordering();
+        break;
       case R.id.nav_logout:
-        progressDialogComponent.showLoading();
-        //clear the data first
-        appArchNavViewModel.logout();
-        Single.timer(3, TimeUnit.SECONDS)
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(s -> {
-              //finish the current activity and go back to the login activity
-              progressDialogComponent.hideLoading();
-              finish();
-              startActivity(new Intent(this, LoginActivity.class));
-            });
+        logout();
         break;
     }
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
+  }
+
+  private void viewHistory() {
+
+  }
+
+  private void ordering() {
+  }
+
+  private void logout() {
+    progressDialogComponent.showLoading();
+    //clear the data first
+    appArchNavViewModel.logout();
+    Single.timer(3, TimeUnit.SECONDS)
+        .subscribeOn(Schedulers.newThread())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(s -> {
+          //finish the current activity and go back to the login activity
+          progressDialogComponent.hideLoading();
+          finish();
+          startActivity(new Intent(this, LoginActivity.class));
+        });
   }
 }

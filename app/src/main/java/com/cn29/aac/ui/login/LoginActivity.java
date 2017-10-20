@@ -14,7 +14,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ActivityLoginBinding;
 import com.cn29.aac.repo.user.AuthRepository.AuthMode;
@@ -257,16 +256,27 @@ public class LoginActivity extends BaseAppCompatActivity implements OnConnection
     if (result.isSuccess()) {
       // Signed in successfully, show authenticated UI.
       GoogleSignInAccount acct = result.getSignInAccount();
-      updateUI(true);
-    } else {
-      // Signed out, show unauthenticated UI.
-      updateUI(false);
+      loginViewModel.login(AuthMode.GOOGLE, acct.getEmail(), password)
+          .observe(LoginActivity.this, loginBeanResource ->
+          {
+            assert loginBeanResource != null;
+            switch (loginBeanResource.status) {
+              case SUCCESS:
+                showProgress(false);
+                finish();
+                startActivity(new Intent(LoginActivity.this, AppArchNavigationDrawer.class));
+                break;
+              case ERROR:
+                showProgress(false);
+                break;
+              case LOADING:
+                showProgress(true);
+                break;
+            }
+          });
     }
   }
 
-  private void updateUI(boolean b) {
-    Toast.makeText(this, String.valueOf(b), Toast.LENGTH_SHORT).show();
-  }
 
 }
 

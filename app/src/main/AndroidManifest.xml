@@ -62,12 +62,17 @@
       android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
+
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
     <activity
       android:label="@string/title_activity_settings"
       android:name=".ui.setting.SettingsActivity"
+      android:theme="@style/AppTheme" />
+    <activity
+      android:label="@string/title_activity_shopping_kart"
+      android:name=".ui.shopping.ShoppingKartActivity"
       android:theme="@style/AppTheme"></activity>
   </application>
 

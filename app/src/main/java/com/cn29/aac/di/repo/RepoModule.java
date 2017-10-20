@@ -1,4 +1,4 @@
-package com.cn29.aac.di;
+package com.cn29.aac.di.repo;
 
 import dagger.Module;
 

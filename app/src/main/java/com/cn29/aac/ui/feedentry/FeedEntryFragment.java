@@ -39,11 +39,10 @@ public class FeedEntryFragment extends BaseFragment {
   @Inject
   FeedEntryListViewModel viewModel;
 
-
-  Mode mode = LIST;
-
   @Inject
   FragmentFeedentryListBinding binding;
+
+  Mode mode = LIST;
 
   private FeedEntryAdapter adapter;
 

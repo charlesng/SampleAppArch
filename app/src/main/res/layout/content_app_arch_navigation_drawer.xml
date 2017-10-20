@@ -8,4 +8,13 @@
   tools:context="com.cn29.aac.ui.main.AppArchNavigationDrawer"
   tools:showIn="@layout/app_bar_app_arch_navigation_drawer">
 
+  <TextView
+    android:id="@+id/textView4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/md_keylines"
+    android:layout_marginStart="@dimen/md_keylines"
+    android:text="Hello World"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

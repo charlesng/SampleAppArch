@@ -1,4 +1,4 @@
-package com.cn29.aac.di;
+package com.cn29.aac.di.datasources.remote;
 
 import android.app.Application;
 import com.cn29.aac.datasource.auth.remote.FacebookAuth;
