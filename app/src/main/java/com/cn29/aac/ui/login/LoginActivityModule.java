@@ -29,12 +29,17 @@ public class LoginActivityModule {
 
   @Provides
   LoginBean provideDefaultLoginBean() {
-    return new LoginBean("com.cn29.acc@example.com", "MyCompany");
+    LoginBean loginBean = new LoginBean("com.cn29.acc@example.com", "MyCompany");
+    loginBean.setPassword("HelloWorld");
+    return loginBean;
   }
 
   @Provides
-  ActivityLoginBinding provideBinding(LoginActivity activity) {
-    return DataBindingUtil.setContentView(activity, R.layout.activity_login);
+  ActivityLoginBinding provideBinding(LoginBean loginBean, LoginActivity activity) {
+    ActivityLoginBinding activityLoginBinding = DataBindingUtil
+        .setContentView(activity, R.layout.activity_login);
+    activityLoginBinding.setLoginBean(loginBean);
+    return activityLoginBinding;
   }
 
   @Provides

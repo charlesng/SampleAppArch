@@ -54,6 +54,21 @@ public class LocationFragment extends BaseFragment {
     // Inflate the layout for this fragment
     binding.setConverter(new CustomConverter());
     binding.btnLocation.setOnClickListener(view -> {
+      lastLocationViewModel.getSearchResult("jack+johnson").observe(LocationFragment.this, result ->
+      {
+        switch (result.status) {
+          case SUCCESS:
+            progressDialogComponent.hideLoading();
+            break;
+          case ERROR:
+            progressDialogComponent.hideLoading();
+            break;
+          case LOADING:
+            progressDialogComponent.showLoading();
+            break;
+        }
+      });
+
       Location location = binding.getLocation();
       if (location != null) {
         Toast.makeText(getActivity(),

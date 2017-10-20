@@ -1,0 +1,81 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "51c4c5efbc4d410c6f0015cf4894456c",
+    "entities": [
+      {
+        "tableName": "Artist",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`artistId` INTEGER NOT NULL, `trackId` INTEGER NOT NULL, `artistName` TEXT, `trackName` TEXT, `artworkUrl100` TEXT, `createDate` TEXT, PRIMARY KEY(`artistId`, `trackId`))",
+        "fields": [
+          {
+            "fieldPath": "artistId",
+            "columnName": "artistId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trackId",
+            "columnName": "trackId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistName",
+            "columnName": "artistName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "trackName",
+            "columnName": "trackName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "artworkUrl100",
+            "columnName": "artworkUrl100",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createDate",
+            "columnName": "createDate",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "artistId",
+            "trackId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Artist_artistId",
+            "unique": false,
+            "columnNames": [
+              "artistId"
+            ],
+            "createSql": "CREATE  INDEX `index_Artist_artistId` ON `${TABLE_NAME}` (`artistId`)"
+          },
+          {
+            "name": "index_Artist_trackId",
+            "unique": false,
+            "columnNames": [
+              "trackId"
+            ],
+            "createSql": "CREATE  INDEX `index_Artist_trackId` ON `${TABLE_NAME}` (`trackId`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"51c4c5efbc4d410c6f0015cf4894456c\")"
+    ]
+  }
+}

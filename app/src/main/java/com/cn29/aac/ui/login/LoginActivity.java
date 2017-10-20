@@ -92,7 +92,7 @@ public class LoginActivity extends BaseAppCompatActivity implements OnConnection
         .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
         .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
         .build();
-    init();
+    initUI();
     if (loginViewModel.isLogin()) {
       showProgress(true);
       Single.timer(3, TimeUnit.SECONDS)
@@ -145,6 +145,7 @@ public class LoginActivity extends BaseAppCompatActivity implements OnConnection
             switch (loginBeanResource.status) {
               case SUCCESS:
                 showProgress(false);
+                finish();
                 startActivity(new Intent(LoginActivity.this, AppArchNavigationDrawer.class));
                 break;
               case ERROR:
@@ -160,17 +161,17 @@ public class LoginActivity extends BaseAppCompatActivity implements OnConnection
 
   }
 
-  private void init() {
+  /*
+  setup all the ui components first
+   */
+  private void initUI() {
     mEmailView = binding.email;
     mPasswordView = binding.password;
     mLoginFormView = binding.loginForm;
     mProgressView = binding.loginProgress;
-    mEmailView.setText(loginBean.getEmail());
-    mPasswordView.setText("HelloWorld");
     SignInButton signInButton = binding.signInButton;
     signInButton.setSize(SignInButton.SIZE_STANDARD);
     signInButton.setOnClickListener(this);
-
   }
 
 

@@ -2,6 +2,9 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
   <data>
+    <variable
+      name="loginBean"
+      type="com.cn29.aac.repo.user.LoginBean" />
 
   </data>
   <android.support.constraint.ConstraintLayout
@@ -17,9 +20,13 @@
       style="?android:attr/progressBarStyleLarge"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="8dp"
       android:visibility="gone"
-      tools:layout_editor_absoluteX="192dp"
-      tools:layout_editor_absoluteY="284dp" />
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
       android:id="@+id/login_form"
@@ -40,7 +47,8 @@
 
         <android.support.design.widget.TextInputLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/md_keylines">
 
           <AutoCompleteTextView
             android:id="@+id/email"
@@ -49,13 +57,15 @@
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:text="@={loginBean.email}" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/md_keylines">
 
           <EditText
             android:id="@+id/password"
@@ -67,7 +77,8 @@
             android:imeOptions="actionUnspecified"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:text="@={loginBean.password}" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -77,29 +88,22 @@
           android:textStyle="bold"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
+          android:layout_margin="@dimen/md_keylines"
+          android:background="@color/colorAccent"
           android:text="@string/action_mycompany_sign_in" />
 
         <com.google.android.gms.common.SignInButton
           android:id="@+id/sign_in_button"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
-        <Button
-          android:id="@+id/google_sign_in_button"
-          style="?android:textAppearanceSmall"
-          android:textStyle="bold"
-          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
-          android:text="@string/action_google_sign_in" />
-
+          android:layout_margin="@dimen/md_keylines" />
         <Button
           android:id="@+id/facebook_sign_in_button"
           style="?android:textAppearanceSmall"
           android:textStyle="bold"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
+          android:layout_margin="@dimen/md_keylines"
           android:text="@string/action_facebook_sign_in" />
 
       </LinearLayout>

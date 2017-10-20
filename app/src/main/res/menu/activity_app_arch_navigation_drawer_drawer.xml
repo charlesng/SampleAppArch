@@ -22,6 +22,19 @@
       android:title="Location" />
 
     <item
+      android:id="@+id/nav_shopping"
+      android:icon="@drawable/ic_shopping_cart_black_24dp"
+      android:title="Shopping !" />
+    <item
+      android:id="@+id/nav_ordering"
+      android:icon="@drawable/ic_reorder_black_24dp"
+      android:title="Ordering" />
+
+    <item
+      android:id="@+id/nav_shopping_history"
+      android:icon="@drawable/ic_history_black_24dp"
+      android:title="History" />
+    <item
       android:id="@+id/nav_logout"
       android:icon="@drawable/ic_exit_to_app_grey_700_24dp"
       android:title="Logout" />

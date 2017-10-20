@@ -21,6 +21,8 @@ public class LoginBean {
   @SerializedName("isLogin")
   private int isLogin = 0;
 
+  private String password;
+
   public LoginBean(@NonNull String email, String authType) {
     this.email = email;
   }
@@ -48,5 +50,13 @@ public class LoginBean {
 
   public void setIsLogin(int isLogin) {
     this.isLogin = isLogin;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 }
