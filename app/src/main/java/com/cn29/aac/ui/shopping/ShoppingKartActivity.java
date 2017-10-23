@@ -33,6 +33,10 @@ public class ShoppingKartActivity extends BaseAppCompatActivity {
   };
 
 
+  /*
+  TODO
+  Bind the view pager and the bottom navigation bar
+   */
   private void setupViewPager(ViewPager viewPager) {
     Adapter adapter = new Adapter(getSupportFragmentManager());
     adapter.addFragment("Artists");

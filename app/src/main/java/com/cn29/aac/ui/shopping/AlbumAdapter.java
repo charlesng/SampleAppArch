@@ -1,7 +1,7 @@
 package com.cn29.aac.ui.shopping;
 
 import com.cn29.aac.R;
-import com.cn29.aac.databinding.ItemAlbumCardBinding;
+import com.cn29.aac.databinding.ItemAlbumListBinding;
 import com.cn29.aac.repo.itunes.Album;
 import com.cn29.aac.ui.common.BaseRecyclerViewAdapter;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Charles Ng on 20/10/2017.
  */
 
-public class AlbumAdapter extends BaseRecyclerViewAdapter<Album, ItemAlbumCardBinding> {
+public class AlbumAdapter extends BaseRecyclerViewAdapter<Album, ItemAlbumListBinding> {
 
   private List<Album> values;
 
@@ -26,11 +26,11 @@ public class AlbumAdapter extends BaseRecyclerViewAdapter<Album, ItemAlbumCardBi
 
   @Override
   protected int getLayoutIdForPosition(int position) {
-    return R.layout.item_album_card;
+    return R.layout.item_album_list;
   }
 
   @Override
-  protected void bind(ItemAlbumCardBinding binding, Album item) {
+  protected void bind(ItemAlbumListBinding binding, Album item) {
     binding
         .setAlbum(item);
   }

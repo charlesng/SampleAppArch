@@ -112,4 +112,6 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$picasso_version"
     // for Google Sign in dependency
     implementation 'com.google.android.gms:play-services-auth:9.0.0'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
 }

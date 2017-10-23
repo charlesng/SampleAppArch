@@ -20,46 +20,38 @@
     android:theme="@style/AppTheme">
     <activity
       android:label="@string/title_activity_app_arch_navigation_drawer"
-      android:name=".ui.main.AppArchNavigationDrawer"
-      android:theme="@style/AppTheme.NoActionBar" />
+      android:name=".ui.main.AppArchNavigationDrawer" />
     <activity
       android:exported="true"
       android:label="@string/title_activity_feed"
-      android:name=".ui.feedentry.FeedActivity"
-      android:theme="@style/AppTheme.NoActionBar" />
+      android:name=".ui.feedentry.FeedActivity" />
     <activity
       android:label="@string/title_activity_feed_entry_detail"
-      android:name=".ui.feedentrydetail.FeedEntryDetailActivity"
-      android:theme="@style/AppTheme.NoActionBar">
+      android:name=".ui.feedentrydetail.FeedEntryDetailActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".ui.feedentry.FeedActivity" />
     </activity>
     <activity
       android:label="@string/title_simple_list"
-      android:name=".ui.masterdetail.SimpleListActivity"
-      android:theme="@style/AppTheme.NoActionBar" />
+      android:name=".ui.masterdetail.SimpleListActivity" />
     <activity
       android:label="@string/title_simple_detail"
       android:name=".ui.masterdetail.SimpleDetailActivity"
-      android:parentActivityName=".ui.masterdetail.SimpleListActivity"
-      android:theme="@style/AppTheme.NoActionBar">
+      android:parentActivityName=".ui.masterdetail.SimpleListActivity">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value=".ui.masterdetail.SimpleListActivity" />
     </activity>
     <activity
       android:label="Pager Activity "
-      android:name=".ui.viewpager.PagerActivity"
-      android:theme="@style/AppTheme.NoActionBar" />
+      android:name=".ui.viewpager.PagerActivity" />
     <activity
       android:label="Location Activity"
-      android:name=".ui.location.LocationActivity"
-      android:theme="@style/AppTheme.NoActionBar" />
+      android:name=".ui.location.LocationActivity" />
     <activity
       android:label="@string/title_activity_login"
-      android:name=".ui.login.LoginActivity"
-      android:theme="@style/AppTheme.NoActionBar">
+      android:name=".ui.login.LoginActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -68,12 +60,10 @@
     </activity>
     <activity
       android:label="@string/title_activity_settings"
-      android:name=".ui.setting.SettingsActivity"
-      android:theme="@style/AppTheme" />
+      android:name=".ui.setting.SettingsActivity" />
     <activity
       android:label="@string/title_activity_shopping_kart"
-      android:name=".ui.shopping.ShoppingKartActivity"
-      android:theme="@style/AppTheme"></activity>
+      android:name=".ui.shopping.ShoppingKartActivity" />
   </application>
 
 </manifest>
