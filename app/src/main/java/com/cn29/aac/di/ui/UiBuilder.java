@@ -23,10 +23,14 @@ import com.cn29.aac.ui.masterdetail.SimpleListActivity;
 import com.cn29.aac.ui.masterdetail.SimpleListActivityModule;
 import com.cn29.aac.ui.shopping.AlbumFragment;
 import com.cn29.aac.ui.shopping.AlbumFragmentModule;
+import com.cn29.aac.ui.shopping.ArtistDetailActivity;
+import com.cn29.aac.ui.shopping.ArtistDetailActivityModule;
 import com.cn29.aac.ui.shopping.ArtistFragment;
 import com.cn29.aac.ui.shopping.ArtistFragmentModule;
-import com.cn29.aac.ui.shopping.ShoppingKartActivity;
-import com.cn29.aac.ui.shopping.ShoppingKartActivityModule;
+import com.cn29.aac.ui.shopping.ShoppingActivity;
+import com.cn29.aac.ui.shopping.ShoppingActivityModule;
+import com.cn29.aac.ui.shoppingkart.ShoppingKartActivity;
+import com.cn29.aac.ui.shoppingkart.ShoppingKartActivityModule;
 import com.cn29.aac.ui.viewpager.BlankFragmentA;
 import com.cn29.aac.ui.viewpager.BlankFragmentAModule;
 import com.cn29.aac.ui.viewpager.BlankFragmentB;
@@ -90,14 +94,21 @@ public abstract class UiBuilder {
   @ContributesAndroidInjector(modules = SimpleDetailFragmentModule.class)
   abstract SimpleDetailFragment bindSimpleDetailFragment();
 
-  //shoppingKart
+
+  // Shopping
+  @ContributesAndroidInjector(modules = ShoppingActivityModule.class)
+  abstract ShoppingActivity bindShoppingActivity();
+
+  @ContributesAndroidInjector(modules = ArtistDetailActivityModule.class)
+  abstract ArtistDetailActivity bindArtistDetailActivity();
+
+  @ContributesAndroidInjector(modules = AlbumFragmentModule.class)
+  abstract AlbumFragment bindAlbumFragment();
 
   @ContributesAndroidInjector(modules = ArtistFragmentModule.class)
   abstract ArtistFragment bindArtistFragment();
 
+  // Shopping Kart
   @ContributesAndroidInjector(modules = ShoppingKartActivityModule.class)
   abstract ShoppingKartActivity bindShoppingKartActivity();
-
-  @ContributesAndroidInjector(modules = AlbumFragmentModule.class)
-  abstract AlbumFragment bindAlbumFragment();
 }

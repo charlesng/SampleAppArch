@@ -23,12 +23,17 @@
 
     <item
       android:id="@+id/nav_shopping"
-      android:icon="@drawable/ic_shopping_cart_black_24dp"
-      android:title="Shopping !" />
+      android:icon="@drawable/ic_album_black_24dp"
+      android:title="Itunes Shopping!" />
     <item
       android:id="@+id/nav_ordering"
       android:icon="@drawable/ic_reorder_black_24dp"
       android:title="Ordering" />
+
+    <item
+      android:id="@+id/nav_shopping_kart"
+      android:icon="@drawable/ic_shopping_cart_black_24dp"
+      android:title="View Karts" />
 
     <item
       android:id="@+id/nav_shopping_history"

@@ -6,6 +6,7 @@ import com.cn29.aac.R;
 import com.cn29.aac.databinding.FragmentAlbumBinding;
 import com.cn29.aac.ui.shopping.vm.AlbumFragmentViewModel;
 import com.cn29.aac.ui.shopping.vm.AlbumFragmentViewModelFactory;
+import com.cn29.aac.ui.shopping.vm.ShoppingActivityViewModel;
 import dagger.Module;
 import dagger.Provides;
 
@@ -23,6 +24,13 @@ public class AlbumFragmentModule {
     return ViewModelProviders.of(artistFragment.getActivity(), factory)
         .get(AlbumFragmentViewModel.class);
   }
+
+  @Provides
+  ShoppingActivityViewModel getShoppingKartActivityViewModel(AlbumFragment albumFragment) {
+    return ViewModelProviders.of(albumFragment.getActivity())
+        .get(ShoppingActivityViewModel.class);
+  }
+
 
   @Provides
   FragmentAlbumBinding provideBinding(AlbumFragment artistFragment) {

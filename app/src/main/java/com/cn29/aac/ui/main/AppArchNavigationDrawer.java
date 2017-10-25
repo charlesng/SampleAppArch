@@ -20,7 +20,8 @@ import com.cn29.aac.ui.login.LoginActivity;
 import com.cn29.aac.ui.main.vm.AppArchNavViewModel;
 import com.cn29.aac.ui.masterdetail.SimpleListActivity;
 import com.cn29.aac.ui.setting.SettingsActivity;
-import com.cn29.aac.ui.shopping.ShoppingKartActivity;
+import com.cn29.aac.ui.shopping.ShoppingActivity;
+import com.cn29.aac.ui.shoppingkart.ShoppingKartActivity;
 import com.cn29.aac.ui.viewpager.PagerActivity;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -66,7 +67,6 @@ public class AppArchNavigationDrawer extends BaseAppCompatActivity
   }
 
 
-
   @SuppressWarnings("StatementWithEmptyBody")
   @Override
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -86,6 +86,9 @@ public class AppArchNavigationDrawer extends BaseAppCompatActivity
         startActivity(new Intent(this, LocationActivity.class));
         break;
       case R.id.nav_shopping:
+        startActivity(new Intent(this, ShoppingActivity.class));
+        break;
+      case R.id.nav_shopping_kart:
         startActivity(new Intent(this, ShoppingKartActivity.class));
         break;
       case R.id.nav_shopping_history:

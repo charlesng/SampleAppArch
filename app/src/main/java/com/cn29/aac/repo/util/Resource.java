@@ -16,6 +16,7 @@
 
 package com.cn29.aac.repo.util;
 
+import static com.cn29.aac.repo.util.Status.CHECKING;
 import static com.cn29.aac.repo.util.Status.ERROR;
 import static com.cn29.aac.repo.util.Status.LOADING;
 import static com.cn29.aac.repo.util.Status.SUCCESS;
@@ -53,6 +54,10 @@ public class Resource<T> {
 
   public static <T> Resource<T> loading(@Nullable T data) {
     return new Resource<>(LOADING, data, null);
+  }
+
+  public static <T> Resource<T> checking(@Nullable T data) {
+    return new Resource<>(CHECKING, data, null);
   }
 
   @Override

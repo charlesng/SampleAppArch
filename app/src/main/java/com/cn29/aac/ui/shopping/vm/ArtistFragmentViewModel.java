@@ -2,7 +2,9 @@ package com.cn29.aac.ui.shopping.vm;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.repo.itunes.Artist;
+import com.cn29.aac.repo.itunes.ArtistSearchResult;
 import com.cn29.aac.repo.itunes.ItunesRepository;
 import com.cn29.aac.repo.util.Resource;
 import java.util.List;
@@ -19,11 +21,15 @@ public class ArtistFragmentViewModel extends ViewModel {
     this.itunesRepository = itunesRepository;
   }
 
-  public LiveData<Resource<List<Artist>>> getArtist(String term) {
-    return itunesRepository.getArtistResult(term);
+  public LiveData<ApiResponse<ArtistSearchResult>> getArtistSearchResult(String term) {
+    return itunesRepository.getArtistSearchResult(term);
   }
 
   public int starArtist(Artist artist) {
     return itunesRepository.starArtist(artist);
+  }
+
+  public LiveData<Resource<List<Artist>>> getArtist(String term) {
+    return itunesRepository.getArtistResult(term);
   }
 }

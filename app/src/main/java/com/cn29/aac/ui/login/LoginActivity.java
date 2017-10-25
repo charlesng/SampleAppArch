@@ -94,7 +94,7 @@ public class LoginActivity extends BaseAppCompatActivity implements OnConnection
     initUI();
     if (loginViewModel.isLogin()) {
       showProgress(true);
-      Single.timer(3, TimeUnit.SECONDS)
+      Single.timer(1, TimeUnit.SECONDS)
           .subscribeOn(Schedulers.newThread())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(s -> {

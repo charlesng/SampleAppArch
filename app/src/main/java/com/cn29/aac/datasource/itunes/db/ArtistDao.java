@@ -19,8 +19,12 @@ public abstract class ArtistDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   public abstract void insert(Artist... artists);
 
-  @Query("SELECT * FROM artist")
-  public abstract LiveData<List<Artist>> getAll();
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  public abstract void insert(List<Artist> artists);
+
+  @Query("SELECT * FROM artist WHERE artistName like '%' || :query  || '%'")
+  public abstract LiveData<List<Artist>> getArtists(String query);
+
 
   @Update
   public abstract int update(Artist artist);

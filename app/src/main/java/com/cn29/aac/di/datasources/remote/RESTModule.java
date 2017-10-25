@@ -1,12 +1,15 @@
 package com.cn29.aac.di.datasources.remote;
 
+import android.support.annotation.NonNull;
 import com.cn29.aac.datasource.api.LiveDataCallAdapterFactory;
 import com.cn29.aac.datasource.github.remote.GithubService;
 import com.cn29.aac.datasource.itunes.remote.ItunesService;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -21,14 +24,16 @@ public class RESTModule {
   @Provides
   @Named("Github")
   @Singleton
-  Retrofit provideGithubRetrofit() {
+  Retrofit provideGithubRetrofit(OkHttpClient okHttpClient) {
     Retrofit retrofit = new Retrofit.Builder()
+        .client(okHttpClient)
         .baseUrl("https://api.github.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(new LiveDataCallAdapterFactory())
         .build();
     return retrofit;
   }
+
 
   //RESTful service
   @Provides
@@ -41,8 +46,9 @@ public class RESTModule {
   @Provides
   @Named("itunes")
   @Singleton
-  Retrofit provideItunesRetrofit() {
+  Retrofit provideItunesRetrofit(OkHttpClient okHttpClient) {
     Retrofit retrofit = new Retrofit.Builder()
+        .client(okHttpClient)
         .baseUrl("https://itunes.apple.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(new LiveDataCallAdapterFactory())
@@ -55,5 +61,14 @@ public class RESTModule {
   ItunesService provideItunesService(@Named("itunes") Retrofit retrofit) {
     ItunesService service = retrofit.create(ItunesService.class);
     return service;
+  }
+
+  @NonNull
+  @Provides
+  @Singleton
+  OkHttpClient provideOKHttpClient() {
+    return new OkHttpClient.Builder()
+        .addNetworkInterceptor(new StethoInterceptor())
+        .build();
   }
 }

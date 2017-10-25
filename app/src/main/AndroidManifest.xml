@@ -18,6 +18,10 @@
     android:roundIcon="@mipmap/ic_launcher"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
+    <provider
+      android:authorities="com.cn29.aac.ArtistsSearchRecentSuggestionsProvider"
+      android:name=".ui.shopping.ArtistsSearchRecentSuggestionsProvider" />
+
     <activity
       android:label="@string/title_activity_app_arch_navigation_drawer"
       android:name=".ui.main.AppArchNavigationDrawer" />
@@ -63,7 +67,30 @@
       android:name=".ui.setting.SettingsActivity" />
     <activity
       android:label="@string/title_activity_shopping_kart"
-      android:name=".ui.shopping.ShoppingKartActivity" />
+      android:launchMode="singleTop"
+      android:name=".ui.shopping.ShoppingActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.SEARCH" />
+      </intent-filter>
+
+      <meta-data
+        android:name="android.app.searchable"
+        android:resource="@xml/searchable" />
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".ui.main.AppArchNavigationDrawer" />
+    </activity>
+    <activity
+      android:label="@string/title_activity_artist_detail"
+      android:name=".ui.shopping.ArtistDetailActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".ui.shopping.ShoppingActivity" />
+    </activity>
+    <activity
+      android:label="@string/title_activity_shopping_kart"
+      android:name=".ui.shoppingkart.ShoppingKartActivity"
+      android:theme="@style/AppTheme"></activity>
   </application>
 
 </manifest>

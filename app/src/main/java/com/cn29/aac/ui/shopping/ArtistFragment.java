@@ -1,61 +1,78 @@
 package com.cn29.aac.ui.shopping;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import com.cn29.aac.databinding.FragmentArtistBinding;
+import com.cn29.aac.di.scope.AndroidDataBinding;
+import com.cn29.aac.di.scope.ViewModel;
 import com.cn29.aac.repo.itunes.Artist;
 import com.cn29.aac.ui.base.BaseFragment;
 import com.cn29.aac.ui.common.BaseRecyclerViewAdapter.OnItemClickListener;
 import com.cn29.aac.ui.shopping.vm.ArtistFragmentViewModel;
+import com.cn29.aac.ui.shopping.vm.ShoppingActivityViewModel;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 
 public class ArtistFragment extends BaseFragment {
 
   @Inject
+  @ViewModel
   ArtistFragmentViewModel viewModel;
 
   @Inject
-  FragmentArtistBinding binding;
+  @ViewModel
+  ShoppingActivityViewModel shoppingActivityViewModel;
 
+  @Inject
+  @AndroidDataBinding
+  FragmentArtistBinding binding;
 
   private ArtistAdapter adapter;
 
+  private List<Artist> list = new ArrayList<>();
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    viewModel.getArtist("jackson").observe(this, response ->
-    {
-      switch (response.status) {
-        case SUCCESS:
-          if (adapter == null) {
-            OnItemClickListener<Artist> feedEntryOnItemClickListener = getFeedEntryOnItemClickListener();
-            adapter = new ArtistAdapter(response.data,
-                feedEntryOnItemClickListener);
-            binding.list.setAdapter(adapter);
-          } else {
-            adapter.notifyDataSetChanged();
-          }
-          break;
-        case ERROR:
-          break;
-        case LOADING:
-          break;
-      }
 
-    });
+    shoppingActivityViewModel.getQueryData().observe(this, query -> {
+          viewModel.getArtist(query).observe(this, response -> {
+            switch (response.status) {
+              case CHECKING:
+                break;
+              case SUCCESS:
+                progressDialogComponent.hideLoading();
+                list = response.data;
+                OnItemClickListener<Artist> feedEntryOnItemClickListener = getFeedEntryOnItemClickListener();
+                adapter = new ArtistAdapter(list,
+                    feedEntryOnItemClickListener);
+                binding.list.setAdapter(adapter);
+                break;
+              case ERROR:
+                progressDialogComponent.hideLoading();
+                break;
+              case LOADING:
+                progressDialogComponent.showLoading();
+                break;
+            }
+          });
+        }
+    );
   }
 
   private OnItemClickListener<Artist> getFeedEntryOnItemClickListener() {
     return item ->
     {
       //open the artist detail
-      Toast.makeText(getActivity(), "Testing", Toast.LENGTH_SHORT).show();
+      Intent intent = new Intent(ArtistFragment.this.getActivity(), ArtistDetailActivity.class);
+      intent.putExtra("artist", item);
+      startActivity(intent);
     };
   }
 

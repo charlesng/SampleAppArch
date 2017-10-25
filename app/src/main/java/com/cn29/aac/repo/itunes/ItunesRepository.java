@@ -1,16 +1,16 @@
 package com.cn29.aac.repo.itunes;
 
 import android.arch.lifecycle.LiveData;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import com.cn29.aac.AppExecutors;
 import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.datasource.itunes.db.AlbumDao;
 import com.cn29.aac.datasource.itunes.db.ArtistDao;
 import com.cn29.aac.datasource.itunes.remote.ItunesService;
-import com.cn29.aac.repo.util.NetworkBoundResource;
+import com.cn29.aac.repo.util.GenericNetworkBoundResourceBuilder;
+import com.cn29.aac.repo.util.RateLimiter;
 import com.cn29.aac.repo.util.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -32,6 +32,8 @@ public class ItunesRepository {
 
   private AppExecutors appExecutors;
 
+  private RateLimiter<String> repoListRateLimit = new RateLimiter<>(10, TimeUnit.SECONDS);
+
   @Inject
   public ItunesRepository(
       ArtistDao artistDao, AlbumDao albumDao,
@@ -43,58 +45,42 @@ public class ItunesRepository {
     this.appExecutors = appExecutors;
   }
 
+  public LiveData<ApiResponse<ArtistSearchResult>> getArtistSearchResult(String searchTerm) {
+    return service.getArtistSearchResult(searchTerm);
+  }
 
+  public LiveData<ApiResponse<AlbumSearchResult>> getAlbumSearchResult(int artistId,
+      String entity) {
+    return service.getAlbumSearchResult(artistId, entity);
+  }
+
+  //The following can provide the offline and online record
   public LiveData<Resource<List<Artist>>> getArtistResult(String searchTerm) {
-    return new NetworkBoundResource<List<Artist>, ArtistSearchResult>(appExecutors) {
-
-      @Override
-      protected void saveCallResult(@NonNull ArtistSearchResult item) {
-        artistDao.insert(item.getResults().toArray(new Artist[item.getResults().size()]));
-      }
-
-      @Override
-      protected boolean shouldFetch(@Nullable List<Artist> data) {
-        return data == null || data.size() == 0;
-      }
-
-      @NonNull
-      @Override
-      protected LiveData<List<Artist>> loadFromDb() {
-        return artistDao.getAll();
-      }
-
-      @NonNull
-      @Override
-      protected LiveData<ApiResponse<ArtistSearchResult>> createCall() {
-        return service.getArtistSearchResult(searchTerm);
-      }
-    }.asLiveData();
+    return new GenericNetworkBoundResourceBuilder<List<Artist>, ArtistSearchResult>()
+        .setAppExecutors(appExecutors)
+        .setDbSource(artistDao.getArtists(searchTerm))
+        .setNetworkSource(service
+            .getArtistSearchResult(searchTerm))
+        .setResultTypeShouldFetch(
+            data -> data == null || data.isEmpty() || repoListRateLimit.shouldFetch(searchTerm))
+        .setNetworkRequestTypeWritetToDb(data -> artistDao.insert(data.getResults()))
+        .setFetchFailed(() -> repoListRateLimit.reset(searchTerm))
+        .createGenericNetworkBoundResource().asLiveData();
   }
 
   public LiveData<Resource<List<Album>>> getAlbumResult(int artistId, String entity) {
-    return new NetworkBoundResource<List<Album>, AlbumSearchResult>(appExecutors) {
-      @Override
-      protected void saveCallResult(@NonNull AlbumSearchResult item) {
-        albumDao.insert(item.getResults().toArray(new Album[item.getResults().size()]));
-      }
-
-      @Override
-      protected boolean shouldFetch(@Nullable List<Album> data) {
-        return data == null || data.size() == 0;
-      }
-
-      @NonNull
-      @Override
-      protected LiveData<List<Album>> loadFromDb() {
-        return albumDao.getAll();
-      }
-
-      @NonNull
-      @Override
-      protected LiveData<ApiResponse<AlbumSearchResult>> createCall() {
-        return service.getAlbumSearchResult(artistId, entity);
-      }
-    }.asLiveData();
+    return new GenericNetworkBoundResourceBuilder<List<Album>, AlbumSearchResult>()
+        .setAppExecutors(appExecutors)
+        .setDbSource(albumDao.get(artistId))
+        .setNetworkSource(service.getAlbumSearchResult(artistId, entity))
+        .setNetworkRequestTypeWritetToDb(
+            item -> albumDao.insert(item.getResults()))
+        .setResultTypeShouldFetch(data -> data == null || data.isEmpty() || repoListRateLimit
+            .shouldFetch(artistId + entity))
+        .setFetchFailed(() -> {
+          repoListRateLimit.reset(artistId + entity);
+        })
+        .createGenericNetworkBoundResource().asLiveData();
   }
 
 

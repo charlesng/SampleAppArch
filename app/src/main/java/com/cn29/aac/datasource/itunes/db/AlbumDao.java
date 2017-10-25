@@ -19,8 +19,14 @@ public abstract class AlbumDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   public abstract void insert(Album... artists);
 
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  public abstract void insert(List<Album> artists);
+
   @Query("SELECT * FROM album")
   public abstract LiveData<List<Album>> getAll();
+
+  @Query("SELECT * FROM album WHERE artistId = :artistId ")
+  public abstract LiveData<List<Album>> get(int artistId);
 
   @Update
   public abstract int update(Album artist);
