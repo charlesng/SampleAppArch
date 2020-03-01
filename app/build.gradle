@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -69,6 +71,10 @@ android {
         // heap size to enable dex-in-process. To learm more, read the next section.
         // javaMaxHeapSize "2048m"
     }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
@@ -114,6 +120,12 @@ dependencies {
     // for Google Sign in dependency
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation "androidx.core:core-ktx:1.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
+}
+repositories {
+    mavenCentral()
 }
