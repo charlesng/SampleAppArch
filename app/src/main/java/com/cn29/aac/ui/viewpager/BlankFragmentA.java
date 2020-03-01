@@ -47,7 +47,7 @@ public class BlankFragmentA extends DaggerFragment {
     super.onActivityCreated(savedInstanceState);
     //setup the listener for the fragment A
     Observer<String> observer = msg -> textView.setText(msg);
-    pagerAgentViewModel.getMessageContainerA().observe(this, observer);
+    pagerAgentViewModel.getMessageContainerA().observe(getViewLifecycleOwner(), observer);
 
   }
 

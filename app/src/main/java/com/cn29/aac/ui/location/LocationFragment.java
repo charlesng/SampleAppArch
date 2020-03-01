@@ -49,7 +49,7 @@ public class LocationFragment extends BaseFragment {
     super.onActivityCreated(savedInstanceState);
     //get the viewmodel from activity
     lastLocationViewModel.getLastKnowLocation()
-        .observe(this, location -> binding.setLocation(location));
+            .observe(getViewLifecycleOwner(), location -> binding.setLocation(location));
   }
 
   @Override
@@ -58,7 +58,7 @@ public class LocationFragment extends BaseFragment {
     // Inflate the layout for this fragment
     binding.setConverter(new CustomConverter());
     binding.btnLocation.setOnClickListener(view -> {
-      lastLocationViewModel.getSearchResult("jack+johnson").observe(LocationFragment.this, result ->
+      lastLocationViewModel.getSearchResult("jack+johnson").observe(getViewLifecycleOwner(), result ->
       {
         switch (result.status) {
           case SUCCESS:

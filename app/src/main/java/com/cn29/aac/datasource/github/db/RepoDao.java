@@ -53,9 +53,6 @@ public abstract class RepoDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   public abstract void insert(RepoSearchResult result);
 
-  @Query("SELECT * FROM RepoSearchResult WHERE query = :query")
-  public abstract LiveData<RepoSearchResult> search(String query);
-
   public LiveData<List<Repo>> loadOrdered(List<Integer> repoIds) {
     SparseIntArray order = new SparseIntArray();
     int index = 0;
@@ -75,7 +72,5 @@ public abstract class RepoDao {
   @Query("SELECT * FROM Repo WHERE id in (:repoIds)")
   protected abstract LiveData<List<Repo>> loadById(List<Integer> repoIds);
 
-  @Query("SELECT * FROM RepoSearchResult WHERE query = :query")
-  public abstract RepoSearchResult findSearchResult(String query);
 }
 
