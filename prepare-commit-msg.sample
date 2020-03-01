@@ -1,0 +1,13 @@
+# Reference :https://medium.com/better-programming/how-to-automatically-add-the-ticket-number-in-git-commit-message-bda5426ded05
+# Reference :https://gist.github.com/bartoszmajsak/1396344
+
+#!/bin/bash
+FILE=$1
+MESSAGE=$(cat $FILE)
+#BRANCH_NAME=$(git branch | grep '*' | sed 's/* //')
+TICKET=[$(git rev-parse --abbrev-ref HEAD | grep -Eo '^(\w+/)?(\w+[-_])?[0-9]+' | grep -Eo '(\w+[-])?[0-9]+' | tr "[:lower:]" "[:upper:]")]
+if [[ $TICKET == "[]" || "$MESSAGE" == "$TICKET"* ]];then
+  exit 0;
+fi
+
+echo "$TICKET $MESSAGE" > $FILE
