@@ -1,20 +1,20 @@
 package com.cn29.aac.ui.feedentry;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
+
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.DialogFeedentryBinding;
 import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModelFactory;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
 
 
 @Module
-@Singleton
 public class FeedActivityModule {
 
   /**

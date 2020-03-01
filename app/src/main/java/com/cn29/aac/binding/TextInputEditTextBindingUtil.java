@@ -1,10 +1,12 @@
 package com.cn29.aac.binding;
 
-import android.databinding.BindingAdapter;
-import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+
+import com.google.android.material.textfield.TextInputLayout;
+
+import androidx.databinding.BindingAdapter;
 
 /**
  * Created by Charles Ng on 7/9/2017.

@@ -1,13 +1,15 @@
 package com.cn29.aac.ui.shopping.vm;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
 import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.repo.itunes.Album;
 import com.cn29.aac.repo.itunes.AlbumSearchResult;
 import com.cn29.aac.repo.itunes.ItunesRepository;
 import com.cn29.aac.repo.util.Resource;
+
 import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 /**
  * Created by Charles Ng on 20/10/2017.

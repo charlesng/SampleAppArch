@@ -1,8 +1,8 @@
 package com.cn29.aac.repo.itunes;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Index;
 
 /**
  * Created by Charles Ng on 20/10/2017.

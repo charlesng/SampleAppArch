@@ -1,10 +1,12 @@
 package com.cn29.aac.ui.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
 import com.cn29.aac.ui.common.AlertDialogComponent;
 import com.cn29.aac.ui.common.FragmentPermissionComponent.PermissionCallback;
 import com.cn29.aac.ui.common.ProgressDialogComponent;
+
+import androidx.annotation.Nullable;
 import dagger.android.support.DaggerFragment;
 
 /**

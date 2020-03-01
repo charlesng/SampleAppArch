@@ -1,8 +1,10 @@
 package com.cn29.aac.binding;
 
-import android.databinding.BindingAdapter;
 import android.widget.ImageView;
+
 import com.squareup.picasso.Picasso;
+
+import androidx.databinding.BindingAdapter;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**

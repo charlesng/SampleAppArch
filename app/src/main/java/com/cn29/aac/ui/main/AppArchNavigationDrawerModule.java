@@ -1,11 +1,12 @@
 package com.cn29.aac.ui.main;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ActivityAppArchNavigationDrawerBinding;
 import com.cn29.aac.ui.main.vm.AppArchNavViewModel;
 import com.cn29.aac.ui.main.vm.AppArchNavViewModelFactory;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
 

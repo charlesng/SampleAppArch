@@ -1,14 +1,16 @@
 package com.cn29.aac.ui.feedentry.vm;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableField;
 import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.repo.feedentry.FeedEntryRepository;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 
 /**

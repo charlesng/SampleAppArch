@@ -1,7 +1,8 @@
 package com.cn29.aac.binding;
 
-import android.databinding.InverseMethod;
 import android.widget.EditText;
+
+import androidx.databinding.InverseMethod;
 
 /**
  * Created by Charles Ng on 7/9/2017.

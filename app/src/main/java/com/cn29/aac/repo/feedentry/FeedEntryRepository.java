@@ -1,13 +1,17 @@
 package com.cn29.aac.repo.feedentry;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
 import android.content.Context;
+
 import com.cn29.aac.datasource.feedentry.db.AppDatabase;
 import com.cn29.aac.datasource.feedentry.db.FeedEntryDAO;
+
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import androidx.lifecycle.LiveData;
 
 /**
  * Created by Charles Ng on 6/9/2017.

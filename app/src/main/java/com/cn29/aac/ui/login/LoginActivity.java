@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +13,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ActivityLoginBinding;
 import com.cn29.aac.repo.user.AuthRepository.AuthMode;
@@ -31,11 +31,15 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import java.util.concurrent.TimeUnit;
-import javax.inject.Inject;
 
 
 /**

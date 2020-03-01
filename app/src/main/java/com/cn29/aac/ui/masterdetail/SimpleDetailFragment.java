@@ -2,14 +2,16 @@ package com.cn29.aac.ui.masterdetail;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.cn29.aac.R;
 import com.cn29.aac.ui.base.BaseFragment;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+
 import javax.inject.Inject;
 
 

@@ -1,11 +1,12 @@
 package com.cn29.aac.ui.shoppingkart;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ActivityShoppingKartBinding;
 import com.cn29.aac.ui.shoppingkart.vm.ShoppingKartActivityViewModel;
 import com.cn29.aac.ui.shoppingkart.vm.ShoppingKartActivityViewModelFactory;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
 

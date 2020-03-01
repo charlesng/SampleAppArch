@@ -15,11 +15,14 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
 import com.cn29.aac.R;
+
 import java.util.List;
+
+import androidx.appcompat.app.ActionBar;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

@@ -1,8 +1,9 @@
 package com.cn29.aac.datasource.auth.db;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
 import com.cn29.aac.repo.user.LoginBean;
+
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 /**
  * Created by Charles Ng on 13/10/2017.

@@ -1,9 +1,10 @@
 package com.cn29.aac.ui.shopping.vm;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.NonNull;
 import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * Created by Charles Ng on 23/10/2017.

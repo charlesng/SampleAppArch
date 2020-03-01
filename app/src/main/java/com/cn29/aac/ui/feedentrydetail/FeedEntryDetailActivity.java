@@ -2,16 +2,19 @@ package com.cn29.aac.ui.feedentrydetail;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog.Builder;
+
 import com.cn29.aac.databinding.ActivityFeedEntryDetailBinding;
 import com.cn29.aac.databinding.DialogFeedentryBinding;
 import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.feedentrydetail.vm.FeedEntryDetailViewModel;
+
+import javax.inject.Inject;
+
+import androidx.appcompat.app.AlertDialog.Builder;
 import dagger.android.support.DaggerAppCompatActivity;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import javax.inject.Inject;
 
 
 public class FeedEntryDetailActivity extends DaggerAppCompatActivity {

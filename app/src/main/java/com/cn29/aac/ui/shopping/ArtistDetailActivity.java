@@ -1,18 +1,21 @@
 package com.cn29.aac.ui.shopping;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.cn29.aac.databinding.ActivityArtistDetailBinding;
 import com.cn29.aac.di.scope.AndroidDataBinding;
 import com.cn29.aac.di.scope.ViewModel;
 import com.cn29.aac.repo.itunes.Artist;
 import com.cn29.aac.ui.base.BaseAppCompatActivity;
 import com.cn29.aac.ui.shopping.vm.ArtistDetailActivityViewModel;
+import com.google.android.material.snackbar.Snackbar;
+
 import javax.inject.Inject;
+
+import androidx.core.app.NavUtils;
+import androidx.fragment.app.FragmentManager;
 
 public class ArtistDetailActivity extends BaseAppCompatActivity {
 

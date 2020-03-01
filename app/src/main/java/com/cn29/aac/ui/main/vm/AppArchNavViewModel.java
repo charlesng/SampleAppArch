@@ -1,7 +1,8 @@
 package com.cn29.aac.ui.main.vm;
 
-import android.arch.lifecycle.ViewModel;
 import android.content.SharedPreferences;
+
+import androidx.lifecycle.ViewModel;
 
 /**
  * Created by Charles Ng on 13/10/2017.

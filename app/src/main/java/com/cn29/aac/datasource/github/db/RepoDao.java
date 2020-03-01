@@ -1,18 +1,21 @@
 package com.cn29.aac.datasource.github.db;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Transformations;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
-import android.arch.persistence.room.RoomWarnings;
 import android.util.SparseIntArray;
+
 import com.cn29.aac.repo.github.Contributor;
 import com.cn29.aac.repo.github.Repo;
 import com.cn29.aac.repo.github.RepoSearchResult;
+
 import java.util.Collections;
 import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.RoomWarnings;
 
 /**
  * Created by Charles Ng on 9/10/2017.

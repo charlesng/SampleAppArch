@@ -1,8 +1,7 @@
 package com.cn29.aac.ui.feedentrydetail;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
+
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ActivityFeedEntryDetailBinding;
 import com.cn29.aac.databinding.DialogFeedentryBinding;
@@ -10,13 +9,14 @@ import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.repo.feedentry.FeedEntryRepository;
 import com.cn29.aac.ui.feedentrydetail.vm.FeedEntryDetailViewModel;
 import com.cn29.aac.ui.feedentrydetail.vm.FeedEntryDetailViewModelFactory;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
 
 
 @Module
-@Singleton
 public class FeedEntryDetailActivityModule {
 
 

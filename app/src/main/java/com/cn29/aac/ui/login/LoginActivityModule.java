@@ -1,8 +1,7 @@
 package com.cn29.aac.ui.login;
 
 import android.Manifest.permission;
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
+
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ActivityLoginBinding;
 import com.cn29.aac.repo.user.LoginBean;
@@ -11,6 +10,9 @@ import com.cn29.aac.ui.common.ActivityPermissionComponentBuilder;
 import com.cn29.aac.ui.common.FragmentPermissionComponent.PermissionCallback;
 import com.cn29.aac.ui.login.vm.LoginViewModel;
 import com.cn29.aac.ui.login.vm.LoginViewModelFactory;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
 

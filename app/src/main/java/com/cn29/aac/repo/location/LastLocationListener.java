@@ -1,16 +1,18 @@
 package com.cn29.aac.repo.location;
 
 import android.Manifest.permission;
-import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+
 import javax.inject.Inject;
+
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.LiveData;
 
 /**
  * Created by Charles Ng on 5/9/2017.

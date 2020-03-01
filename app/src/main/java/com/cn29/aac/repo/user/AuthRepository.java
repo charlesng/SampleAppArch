@@ -1,9 +1,7 @@
 package com.cn29.aac.repo.user;
 
-import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
 import com.cn29.aac.AppExecutors;
 import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.datasource.auth.db.AuthDao;
@@ -13,9 +11,15 @@ import com.cn29.aac.datasource.auth.remote.MyCompanyAuth;
 import com.cn29.aac.repo.util.NetworkBoundResource;
 import com.cn29.aac.repo.util.RateLimiter;
 import com.cn29.aac.repo.util.Resource;
+
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 /**
  * Created by Charles Ng on 13/10/2017.

@@ -17,12 +17,13 @@
 package com.cn29.aac.datasource.github.db;
 
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
 import com.cn29.aac.repo.github.Contributor;
 import com.cn29.aac.repo.github.Repo;
 import com.cn29.aac.repo.github.RepoSearchResult;
 import com.cn29.aac.repo.github.User;
+
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 /**
  * Main database description.

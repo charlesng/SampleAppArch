@@ -4,9 +4,10 @@ package com.cn29.aac.repo.user;
  * Created by Charles Ng on 13/10/2017.
  */
 
-import android.arch.persistence.room.Entity;
-import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
 
 @Entity(tableName = "Auth",
     primaryKeys = {"email"})

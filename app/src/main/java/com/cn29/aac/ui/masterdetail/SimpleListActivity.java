@@ -3,13 +3,16 @@ package com.cn29.aac.ui.masterdetail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
 import com.cn29.aac.R;
 import com.cn29.aac.ui.base.BaseAppCompatActivity;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import javax.inject.Inject;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**

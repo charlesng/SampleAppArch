@@ -1,9 +1,10 @@
 package com.cn29.aac.datasource.itunes.remote;
 
-import android.arch.lifecycle.LiveData;
 import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.repo.itunes.AlbumSearchResult;
 import com.cn29.aac.repo.itunes.ArtistSearchResult;
+
+import androidx.lifecycle.LiveData;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 

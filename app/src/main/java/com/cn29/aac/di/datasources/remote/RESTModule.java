@@ -1,14 +1,16 @@
 package com.cn29.aac.di.datasources.remote;
 
-import android.support.annotation.NonNull;
 import com.cn29.aac.datasource.api.LiveDataCallAdapterFactory;
 import com.cn29.aac.datasource.github.remote.GithubService;
 import com.cn29.aac.datasource.itunes.remote.ItunesService;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import dagger.Module;
-import dagger.Provides;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
+
+import androidx.annotation.NonNull;
+import dagger.Module;
+import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

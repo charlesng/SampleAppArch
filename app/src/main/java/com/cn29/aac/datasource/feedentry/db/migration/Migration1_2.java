@@ -1,7 +1,7 @@
 package com.cn29.aac.datasource.feedentry.db.migration;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.migration.Migration;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
  * Created by Charles Ng on 11/9/2017.

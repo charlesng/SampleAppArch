@@ -1,11 +1,14 @@
 package com.cn29.aac.ui.location;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+
 import com.cn29.aac.R;
 import com.cn29.aac.ui.base.BaseAppCompatActivity;
 import com.cn29.aac.ui.location.vm.LastLocationViewModel;
+
 import javax.inject.Inject;
+
+import androidx.appcompat.widget.Toolbar;
 
 public class LocationActivity extends BaseAppCompatActivity {
 

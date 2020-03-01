@@ -1,7 +1,8 @@
 package com.cn29.aac.ui.viewpager;
 
-import android.arch.lifecycle.ViewModelProviders;
 import com.cn29.aac.ui.viewpager.vm.PagerAgentViewModel;
+
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
 

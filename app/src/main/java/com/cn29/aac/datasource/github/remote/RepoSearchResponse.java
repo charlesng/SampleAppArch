@@ -4,11 +4,13 @@ package com.cn29.aac.datasource.github.remote;
  * Created by Charles Ng on 3/10/2017.
  */
 
-import android.support.annotation.NonNull;
 import com.cn29.aac.repo.github.Repo;
 import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * POJO to hold repo search responses. This is different from the Entity in the database because

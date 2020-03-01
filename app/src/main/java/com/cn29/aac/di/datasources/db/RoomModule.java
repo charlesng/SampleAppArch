@@ -1,7 +1,7 @@
 package com.cn29.aac.di.datasources.db;
 
 import android.app.Application;
-import android.arch.persistence.room.Room;
+
 import com.cn29.aac.datasource.auth.db.AuthDao;
 import com.cn29.aac.datasource.auth.db.AuthDb;
 import com.cn29.aac.datasource.github.db.GithubDb;
@@ -10,9 +10,12 @@ import com.cn29.aac.datasource.github.db.UserDao;
 import com.cn29.aac.datasource.itunes.db.AlbumDao;
 import com.cn29.aac.datasource.itunes.db.ArtistDao;
 import com.cn29.aac.datasource.itunes.db.ItunesDb;
+
+import javax.inject.Singleton;
+
+import androidx.room.Room;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
 
 /**
  * Created by Charles Ng on 16/10/2017.

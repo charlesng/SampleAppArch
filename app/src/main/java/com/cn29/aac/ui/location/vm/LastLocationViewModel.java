@@ -1,13 +1,16 @@
 package com.cn29.aac.ui.location.vm;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
 import android.location.Location;
+
 import com.cn29.aac.repo.itunes.Artist;
 import com.cn29.aac.repo.itunes.ItunesRepository;
 import com.cn29.aac.repo.location.LastLocationListener;
 import com.cn29.aac.repo.util.Resource;
+
 import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 
 /**

@@ -1,10 +1,11 @@
 package com.cn29.aac.repo.util;
 
-import android.arch.persistence.room.TypeConverter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.room.TypeConverter;
 
 /**
  * Created by Charles Ng on 19/10/2017.

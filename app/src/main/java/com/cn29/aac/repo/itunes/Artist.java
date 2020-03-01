@@ -1,12 +1,15 @@
 package com.cn29.aac.repo.itunes;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
-import android.support.annotation.NonNull;
+
 import com.cn29.aac.repo.util.TypeConvertor;
+
 import java.util.Date;
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.TypeConverters;
 
 /**
  * Created by Charles Ng on 16/10/2017.

@@ -2,15 +2,8 @@ package com.cn29.aac.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ActivityAppArchNavigationDrawerBinding;
 import com.cn29.aac.ui.base.BaseAppCompatActivity;
@@ -23,11 +16,22 @@ import com.cn29.aac.ui.setting.SettingsActivity;
 import com.cn29.aac.ui.shopping.ShoppingActivity;
 import com.cn29.aac.ui.shoppingkart.ShoppingKartActivity;
 import com.cn29.aac.ui.viewpager.PagerActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import java.util.concurrent.TimeUnit;
-import javax.inject.Inject;
 
 public class AppArchNavigationDrawer extends BaseAppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {

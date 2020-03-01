@@ -1,6 +1,6 @@
 package com.cn29.aac.binding;
 
-import android.databinding.InverseMethod;
+import androidx.databinding.InverseMethod;
 
 /**
  * Created by Charles Ng on 8/9/2017. From @George Mount answer https://stackoverflow.com/questions/44769054/android-two-way-databinding-for-methods-with-parameters/44782542#44782542

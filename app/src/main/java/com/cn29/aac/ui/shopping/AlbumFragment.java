@@ -2,11 +2,11 @@ package com.cn29.aac.ui.shopping;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.cn29.aac.databinding.FragmentAlbumBinding;
 import com.cn29.aac.di.scope.AndroidDataBinding;
 import com.cn29.aac.di.scope.ViewModel;
@@ -15,8 +15,12 @@ import com.cn29.aac.ui.base.BaseFragment;
 import com.cn29.aac.ui.common.BaseRecyclerViewAdapter.OnItemClickListener;
 import com.cn29.aac.ui.shopping.vm.AlbumFragmentViewModel;
 import com.cn29.aac.ui.shopping.vm.ShoppingActivityViewModel;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
 
 public class AlbumFragment extends BaseFragment {
 

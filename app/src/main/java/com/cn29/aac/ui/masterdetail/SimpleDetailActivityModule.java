@@ -1,8 +1,9 @@
 package com.cn29.aac.ui.masterdetail;
 
-import android.arch.lifecycle.ViewModelProviders;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel;
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModelFactory;
+
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
 

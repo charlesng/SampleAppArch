@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/MyProjects-SampleAppArch.iml" filepath="$PROJECT_DIR$/MyProjects-SampleAppArch.iml" group="SampleAppArch" />
       <module fileurl="file://$PROJECT_DIR$/SampleAppArch.iml" filepath="$PROJECT_DIR$/SampleAppArch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/SampleAppArch-app.iml" filepath="$PROJECT_DIR$/app/SampleAppArch-app.iml" group="SampleAppArch/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

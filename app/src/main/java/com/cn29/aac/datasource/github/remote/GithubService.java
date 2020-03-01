@@ -4,12 +4,14 @@ package com.cn29.aac.datasource.github.remote;
  * Created by Charles Ng on 3/10/2017.
  */
 
-import android.arch.lifecycle.LiveData;
 import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.repo.github.Contributor;
 import com.cn29.aac.repo.github.Repo;
 import com.cn29.aac.repo.github.User;
+
 import java.util.List;
+
+import androidx.lifecycle.LiveData;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

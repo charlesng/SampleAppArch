@@ -2,14 +2,16 @@ package com.cn29.aac.ui.feedentry;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
 import android.view.MenuItem;
+
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.ItemFeedentryCardBinding;
 import com.cn29.aac.repo.feedentry.FeedEntry;
 import com.cn29.aac.ui.common.BaseRecyclerViewAdapter;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel.CompositeModel;
+
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**

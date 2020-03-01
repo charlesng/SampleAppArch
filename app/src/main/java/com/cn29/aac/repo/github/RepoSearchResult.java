@@ -17,12 +17,14 @@
 package com.cn29.aac.repo.github;
 
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.TypeConverters;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import com.cn29.aac.datasource.github.remote.GithubTypeConverters;
+
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.room.Entity;
+import androidx.room.TypeConverters;
 
 
 @Entity(primaryKeys = {"query"})

@@ -1,12 +1,14 @@
 package com.cn29.aac.datasource.feedentry.db;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+
 import com.cn29.aac.datasource.feedentry.db.migration.Migration1_2;
 import com.cn29.aac.datasource.feedentry.db.migration.Migration2_3;
 import com.cn29.aac.repo.feedentry.FeedEntry;
+
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 /**
  * Created by Charles Ng on 5/9/2017.

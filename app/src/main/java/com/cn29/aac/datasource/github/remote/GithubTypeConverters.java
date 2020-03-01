@@ -16,10 +16,11 @@
 
 package com.cn29.aac.datasource.github.remote;
 
-import android.arch.persistence.room.TypeConverter;
-import android.arch.persistence.room.util.StringUtil;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.room.TypeConverter;
+import androidx.room.util.StringUtil;
 
 public class GithubTypeConverters {
 

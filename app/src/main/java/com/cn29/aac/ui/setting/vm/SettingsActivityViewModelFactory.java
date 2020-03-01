@@ -1,8 +1,9 @@
 package com.cn29.aac.ui.setting.vm;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import javax.inject.Inject;
+
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * Created by Charles Ng on 13/10/2017.

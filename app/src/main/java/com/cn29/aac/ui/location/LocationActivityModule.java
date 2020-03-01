@@ -1,8 +1,9 @@
 package com.cn29.aac.ui.location;
 
-import android.arch.lifecycle.ViewModelProviders;
 import com.cn29.aac.ui.location.vm.LastLocationViewModel;
 import com.cn29.aac.ui.location.vm.LastLocationViewModelFactory;
+
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
 

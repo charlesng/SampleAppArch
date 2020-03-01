@@ -1,9 +1,10 @@
 package com.cn29.aac.repo.github;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
 
 /**
  * Created by Charles Ng on 3/10/2017.

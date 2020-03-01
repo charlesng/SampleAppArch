@@ -4,11 +4,12 @@ package com.cn29.aac.repo.github;
  * Created by Charles Ng on 3/10/2017.
  */
 
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
-import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
+
+import androidx.annotation.NonNull;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.Index;
 
 /**
  * Using name/owner_login as primary key instead of id since name/owner_login is always available

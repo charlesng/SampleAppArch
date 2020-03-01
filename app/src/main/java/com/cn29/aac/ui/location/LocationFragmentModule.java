@@ -1,11 +1,10 @@
 package com.cn29.aac.ui.location;
 
 import android.Manifest.permission;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.widget.Toast;
+
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.FragmentLocationBinding;
 import com.cn29.aac.ui.common.FragmentPermissionComponent;
@@ -13,6 +12,9 @@ import com.cn29.aac.ui.common.FragmentPermissionComponent.PermissionCallback;
 import com.cn29.aac.ui.common.PermissionComponentBuilder;
 import com.cn29.aac.ui.location.vm.LastLocationViewModel;
 import com.cn29.aac.ui.location.vm.LastLocationViewModelFactory;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
 

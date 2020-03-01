@@ -1,19 +1,22 @@
 package com.cn29.aac.ui.viewpager;
 
 
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.cn29.aac.R;
 import com.cn29.aac.ui.viewpager.vm.PagerAgentViewModel;
-import dagger.android.support.DaggerFragment;
+
 import javax.inject.Inject;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import dagger.android.support.DaggerFragment;
 
 
 /**

@@ -1,9 +1,10 @@
 package com.cn29.aac.datasource.itunes.db;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
 import com.cn29.aac.repo.itunes.Album;
 import com.cn29.aac.repo.itunes.Artist;
+
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 /**
  * Created by Charles Ng on 19/10/2017.

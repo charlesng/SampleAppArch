@@ -16,13 +16,13 @@
 
 package com.cn29.aac.repo.util;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import static com.cn29.aac.repo.util.Status.CHECKING;
 import static com.cn29.aac.repo.util.Status.ERROR;
 import static com.cn29.aac.repo.util.Status.LOADING;
 import static com.cn29.aac.repo.util.Status.SUCCESS;
-
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 /**
  * A generic class that holds a value with its loading status.

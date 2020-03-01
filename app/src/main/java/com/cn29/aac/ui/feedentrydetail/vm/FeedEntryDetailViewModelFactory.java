@@ -1,8 +1,9 @@
 package com.cn29.aac.ui.feedentrydetail.vm;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import com.cn29.aac.repo.feedentry.FeedEntryRepository;
+
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 
 /**

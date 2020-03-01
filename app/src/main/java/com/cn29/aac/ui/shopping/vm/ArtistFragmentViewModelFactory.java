@@ -1,9 +1,11 @@
 package com.cn29.aac.ui.shopping.vm;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import com.cn29.aac.repo.itunes.ItunesRepository;
+
 import javax.inject.Inject;
+
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * Created by Charles Ng on 20/10/2017.

@@ -17,8 +17,10 @@
 package com.cn29.aac.repo.util;
 
 import android.os.SystemClock;
-import android.support.v4.util.ArrayMap;
+
 import java.util.concurrent.TimeUnit;
+
+import androidx.collection.ArrayMap;
 
 /**
  * Utility class that decides whether we should fetch some data or not.

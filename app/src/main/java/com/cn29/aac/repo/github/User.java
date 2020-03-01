@@ -1,8 +1,9 @@
 package com.cn29.aac.repo.github;
 
-import android.arch.persistence.room.Entity;
-import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
 
 
 /**

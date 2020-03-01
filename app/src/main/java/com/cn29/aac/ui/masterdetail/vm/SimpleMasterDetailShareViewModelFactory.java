@@ -1,9 +1,11 @@
 package com.cn29.aac.ui.masterdetail.vm;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import com.cn29.aac.repo.github.GitRepoRepository;
+
 import javax.inject.Inject;
+
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * Created by Charles Ng on 9/10/2017.

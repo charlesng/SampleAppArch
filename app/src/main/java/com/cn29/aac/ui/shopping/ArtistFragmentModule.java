@@ -1,12 +1,13 @@
 package com.cn29.aac.ui.shopping;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.FragmentArtistBinding;
 import com.cn29.aac.ui.shopping.vm.ArtistFragmentViewModel;
 import com.cn29.aac.ui.shopping.vm.ArtistFragmentViewModelFactory;
 import com.cn29.aac.ui.shopping.vm.ShoppingActivityViewModel;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import dagger.Module;
 import dagger.Provides;
 

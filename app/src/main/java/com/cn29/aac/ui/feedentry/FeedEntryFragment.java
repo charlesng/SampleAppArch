@@ -1,19 +1,13 @@
 package com.cn29.aac.ui.feedentry;
 
 
-import static com.cn29.aac.ui.feedentry.FeedEntryFragment.Mode.LIST;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.cn29.aac.R;
 import com.cn29.aac.databinding.FragmentFeedentryListBinding;
 import com.cn29.aac.repo.feedentry.FeedEntry;
@@ -22,10 +16,19 @@ import com.cn29.aac.ui.common.BaseRecyclerViewAdapter.OnItemClickListener;
 import com.cn29.aac.ui.feedentry.FeedEntryAdapter.MyMenuItemClickListener;
 import com.cn29.aac.ui.feedentry.vm.FeedEntryListViewModel;
 import com.cn29.aac.ui.feedentrydetail.FeedEntryDetailActivity;
+
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import javax.inject.Inject;
+
+import static com.cn29.aac.ui.feedentry.FeedEntryFragment.Mode.LIST;
 
 
 /**
