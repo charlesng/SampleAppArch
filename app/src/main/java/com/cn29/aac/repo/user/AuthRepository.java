@@ -76,11 +76,11 @@ public class AuthRepository {
       protected LiveData<ApiResponse<LoginBean>> createCall() {
         switch (mode) {
           case GOOGLE:
-            return googleAuth.getLogin(email, password);
+              return googleAuth.getLogin(email);
           case FACEBOOK:
-            return facebookAuth.getLogin(email, password);
+              return facebookAuth.getLogin(email);
           case MYCOMPANY:
-            return myCompanyAuth.getLogin(email, password);
+              return myCompanyAuth.getLogin(email);
         }
         return null;
       }

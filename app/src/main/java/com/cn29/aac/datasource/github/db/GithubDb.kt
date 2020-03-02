@@ -13,27 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.cn29.aac.datasource.github.db
 
-package com.cn29.aac.datasource.github.db;
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.cn29.aac.repo.github.Contributor
+import com.cn29.aac.repo.github.Repo
+import com.cn29.aac.repo.github.RepoSearchResult
+import com.cn29.aac.repo.github.User
 
-
-import com.cn29.aac.repo.github.User;
-
-import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-
-/**
- * Interface for database access for User related operations.
- */
-@Dao
-public interface UserDao {
-
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
-  void insert(User user);
-
-  @Query("SELECT * FROM user WHERE login = :login")
-  LiveData<User> findByLogin(String login);
+@Database(entities = [User::class, Repo::class, Contributor::class, RepoSearchResult::class], version = 3)
+abstract class GithubDb : RoomDatabase() {
+    abstract fun userDao(): UserDao?
+    abstract fun repoDao(): RepoDao?
 }

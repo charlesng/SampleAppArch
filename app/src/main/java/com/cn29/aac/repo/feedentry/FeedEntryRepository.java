@@ -28,11 +28,6 @@ public class FeedEntryRepository extends LiveData<List<FeedEntry>> implements Fe
   public FeedEntryRepository(Application application) {
     init(application);
   }
-//  public static FeedEntryRepository getInstance(Context context) {
-//    FeedEntryRepository feedEntryRepository = new FeedEntryRepository();
-//    feedEntryRepository.init(context);
-//    return feedEntryRepository;
-//  }
 
   public void init(Context context) {
     AppDatabase db = AppDatabase.getDb(context);
