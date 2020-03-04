@@ -10,7 +10,7 @@ import com.cn29.aac.repo.feedentry.FeedEntry
 
 @Database(entities = [FeedEntry::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun feedEntryDao(): FeedEntryDAO?
+    abstract fun feedEntryDao(): FeedEntryDAO
 
     companion object {
         private var appDatabase: AppDatabase? = null

@@ -45,18 +45,18 @@ public class FeedEntryFragment extends BaseFragment {
   @Inject
   FragmentFeedentryListBinding binding;
 
-  Mode mode = LIST;
+  private Mode mode = LIST;
 
   private FeedEntryAdapter adapter;
 
-  public void setMode(Mode mode) {
+  void setMode(Mode mode) {
     this.mode = mode;
   }
 
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    viewModel.getCompositeEntrys().observe(this, entries -> {
+    viewModel.getCompositeEntrys().observe(getViewLifecycleOwner(), entries -> {
       //update the data
       if (adapter == null) {
         OnItemClickListener<FeedEntry> feedEntryOnItemClickListener = getFeedEntryOnItemClickListener();
@@ -105,15 +105,15 @@ public class FeedEntryFragment extends BaseFragment {
   private OnItemClickListener<FeedEntry> getFeedEntryOnItemClickListener() {
     return item -> {
       Intent intent = new Intent(getActivity(), FeedEntryDetailActivity.class);
-      intent.putExtra(FeedEntryDetailActivity.EXTRA_POSITION, item.getUid());
+      intent.putExtra(FeedEntryDetailActivity.EXTRA_POSITION, item.uid);
       startActivity(intent);
     };
   }
 
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
     // Set the adapter
     switch (mode) {
       case GRID:

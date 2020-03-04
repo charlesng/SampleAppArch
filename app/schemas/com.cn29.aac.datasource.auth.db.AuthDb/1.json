@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0ea8fdfbb15da07b25dc3c9fc3aec170",
+    "identityHash": "dd6a782bd70fde5c019b71e71a155f4e",
     "entities": [
       {
         "tableName": "Auth",
@@ -43,9 +43,10 @@
         "foreignKeys": []
       }
     ],
+    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0ea8fdfbb15da07b25dc3c9fc3aec170\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dd6a782bd70fde5c019b71e71a155f4e')"
     ]
   }
 }

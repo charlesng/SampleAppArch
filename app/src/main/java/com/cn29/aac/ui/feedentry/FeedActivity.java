@@ -57,7 +57,7 @@ public class FeedActivity extends BaseAppCompatActivity {
     fab.setOnClickListener(view -> {
       //insert sample data by button click
       FeedEntry feedEntry = new FeedEntry("", "");
-      feedEntry.setImageUrl("http://i.imgur.com/DvpvklR.png");
+      feedEntry.imageUrl = "http://i.imgur.com/DvpvklR.png";
       dialogFeedEntryBinding.setFeedEntry(feedEntry);
       final Dialog dialog = getDialog();
       dialog.show();
@@ -66,14 +66,14 @@ public class FeedActivity extends BaseAppCompatActivity {
 
   @NonNull
   private Dialog getDialog() {
-    final Dialog dialog = new AlertDialog.Builder(FeedActivity.this)
+    final AlertDialog dialog = new AlertDialog.Builder(FeedActivity.this)
         .setTitle("Create a new Feed Entry")
         .setView(dialogFeedEntryBinding.getRoot())
         .setPositiveButton("Submit", null)
         .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss())
         .create();
     dialog.setOnShowListener(dialogInterface -> {
-      Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+      Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
       button.setOnClickListener(view1 -> {
         // TODO Do something
         //to trigger auto error enable
@@ -89,6 +89,7 @@ public class FeedActivity extends BaseAppCompatActivity {
         for (Boolean validation : validations) {
           if (validation) {
             isValid = false;
+            break;
           }
         }
         //insert the record
@@ -146,9 +147,10 @@ public class FeedActivity extends BaseAppCompatActivity {
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
     Adapter(FragmentManager manager) {
-      super(manager);
+      super(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
       switch (position) {

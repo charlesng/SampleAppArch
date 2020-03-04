@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.cn29.aac.repo.github
 
-package com.cn29.aac.repo.util;
+import androidx.room.Entity
+import androidx.room.TypeConverters
+import com.cn29.aac.datasource.github.remote.GithubTypeConverters
 
-/**
- * Status of a resource that is provided to the UI.
- * <p>
- * These are usually created by the Repository classes where they return
- * {@code LiveData<Resource<T>>} to pass back the latest data to the UI with its fetch status.
- */
-public enum Status {
-  CHECKING,
-  SUCCESS,
-  ERROR,
-  LOADING
-}
+@Entity(primaryKeys = ["query"])
+@TypeConverters(GithubTypeConverters::class)
+class RepoSearchResult(val query: String,
+                       val repoIds: List<Int>,
+                       val totalCount: Int,
+                       val next: Int?)

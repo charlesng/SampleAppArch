@@ -19,5 +19,5 @@ interface FeedEntryDAO {
     fun delete(feedEntry: FeedEntry?)
 
     @Update
-    fun update(feedEntry: FeedEntry?): Int
+    fun update(feedEntry: FeedEntry?): Int?
 }
