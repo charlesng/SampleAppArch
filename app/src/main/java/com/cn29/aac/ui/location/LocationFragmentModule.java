@@ -28,50 +28,43 @@ public class LocationFragmentModule {
 
   @Provides
   LastLocationViewModel provideLastLocationVM(LastLocationViewModelFactory factory,
-      LocationFragment locationFragment) {
+                                              LocationFragment locationFragment) {
     return ViewModelProviders.of(locationFragment.getActivity(), factory)
-        .get(LastLocationViewModel.class);
+            .get(LastLocationViewModel.class);
   }
 
   @Provides
   FragmentLocationBinding provideBinding(LocationFragment locationFragment) {
     return DataBindingUtil
-        .inflate(LayoutInflater.from(locationFragment.getActivity()), R.layout.fragment_location,
-            null, false);
+            .inflate(LayoutInflater.from(locationFragment.getActivity()), R.layout.fragment_location,
+                    null, false);
   }
 
   @Provides
   FragmentPermissionComponent providePermissionComponent(LocationFragment locationFragment) {
     return new PermissionComponentBuilder(locationFragment)
-        .setPermissions(new String[]{
-            permission.ACCESS_COARSE_LOCATION})
-        .setRequestCode(200).createPermissionComponent();
+            .setPermissions(new String[]{
+                    permission.ACCESS_COARSE_LOCATION})
+            .setRequestCode(200).createPermissionComponent();
   }
 
   @Provides
   PermissionCallback permissionCallback(LocationFragment locationFragment) {
-    locationFragment.setPermissionCallback((requestCode, permissions, grantResults) -> {
-      switch (requestCode) {
-        case 200: {
-          // If request is cancelled, the result arrays are empty.
-          if (grantResults.length > 0
-              && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(locationFragment.getActivity(), "Rights Granted", Toast.LENGTH_SHORT)
-                .show();
-            // permission was granted, yay! Do the
-            // contacts-related task you need to do.
-          } else {
-            // permission denied, boo! Disable the
-            // functionality that depends on this permission.
-          }
-          return;
+    locationFragment.permissionCallback = (requestCode, permissions, grantResults) -> {
+      if (requestCode == 200) {// If request is cancelled, the result arrays are empty.
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+          Toast.makeText(locationFragment.getActivity(), "Rights Granted", Toast.LENGTH_SHORT)
+                  .show();
+          // permission was granted, yay! Do the
+          // contacts-related task you need to do.
         }
 
         // other 'case' lines to check for other
         // permissions this app might request
       }
-    });
-    return locationFragment.getPermissionCallback();
+    };
+    return locationFragment.permissionCallback;
   }
 
 

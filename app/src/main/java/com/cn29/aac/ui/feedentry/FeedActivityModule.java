@@ -27,7 +27,7 @@ public class FeedActivityModule {
       FeedEntryListViewModelFactory factory) {
     FeedEntryListViewModel viewModel = ViewModelProviders.of(feedActivity, factory)
         .get(FeedEntryListViewModel.class);
-    viewModel.getFeedEntry().set(feedEntry);
+    viewModel.feedEntry.set(feedEntry);
     return viewModel;
   }
 
@@ -37,7 +37,7 @@ public class FeedActivityModule {
       FeedEntryListViewModel feedEntryListViewModel) {
     DialogFeedentryBinding binding = DataBindingUtil
         .inflate(LayoutInflater.from(activity), R.layout.dialog_feedentry, null, false);
-    binding.setFeedEntry(feedEntryListViewModel.getFeedEntry().get());
+    binding.setFeedEntry(feedEntryListViewModel.feedEntry.get());
     return binding;
   }
 

@@ -35,12 +35,12 @@ public class FeedEntryAdapter extends
 
   @Override
   protected FeedEntry getItemForPosition(int position) {
-    return mValues.getFeedEntries().get(position);
+    return mValues.feedEntries.get(position);
   }
 
   @Override
   public int getItemCount() {
-    return mValues.getFeedEntries().size();
+    return mValues.feedEntries.size();
   }
 
   @Override
@@ -52,7 +52,7 @@ public class FeedEntryAdapter extends
   protected void bind(ItemFeedentryCardBinding binding, FeedEntry item) {
     binding.setFeedEntry(item);
     binding.setImageUrl("http://i.imgur.com/DvpvklR.png");//default value
-    binding.setUserId(mValues.getUserId());
+    binding.setUserId(mValues.userId);
     binding.toolbar.getMenu().clear();
     binding.toolbar.inflateMenu(R.menu.menu_feed_item_card);
 

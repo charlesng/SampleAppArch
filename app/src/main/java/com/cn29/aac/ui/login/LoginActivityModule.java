@@ -53,14 +53,8 @@ public class LoginActivityModule {
 
   @Provides
   PermissionCallback providePermissionCallBack(LoginActivity activity) {
-    activity.setPermissionCallback((requestCode, permissions, grantResults) -> {
-      switch (requestCode) {
-        case 200:
-          break;
-        default:
-          break;
-      }
-    });
-    return activity.getPermissionCallback();
+    activity.permissionCallback = (requestCode, permissions, grantResults) -> {
+    };
+    return activity.permissionCallback;
   }
 }
