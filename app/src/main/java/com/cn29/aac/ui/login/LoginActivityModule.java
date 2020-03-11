@@ -31,8 +31,8 @@ public class LoginActivityModule {
 
   @Provides
   LoginBean provideDefaultLoginBean() {
-    LoginBean loginBean = new LoginBean("com.cn29.acc@example.com", "MyCompany");
-    loginBean.setPassword("HelloWorld");
+      LoginBean loginBean = new LoginBean("com.cn29.acc@example.com", "MyCompany", 0, "Testing1234");
+      loginBean.password = "HelloWorld";
     return loginBean;
   }
 

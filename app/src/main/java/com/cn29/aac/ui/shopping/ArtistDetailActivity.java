@@ -34,7 +34,7 @@ public class ArtistDetailActivity extends BaseAppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    binding.toolbar.setTitle(artist.getArtistName());
+    binding.toolbar.setTitle(artist.artistName);
     setSupportActionBar(binding.toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     binding.setArtist(artist);
@@ -43,7 +43,7 @@ public class ArtistDetailActivity extends BaseAppCompatActivity {
     FragmentManager manager = getSupportFragmentManager();
     AlbumFragment fragment = new AlbumFragment();
     Bundle bundle = new Bundle();
-    bundle.putInt("artistId", (int) artist.getArtistId());
+    bundle.putInt("artistId", (int) artist.artistId);
     bundle.putString("entity", "album");
     fragment.setArguments(bundle);
     manager.beginTransaction()

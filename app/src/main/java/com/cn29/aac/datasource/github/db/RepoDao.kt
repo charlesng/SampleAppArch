@@ -10,35 +10,37 @@ import com.cn29.aac.repo.github.Repo
 import com.cn29.aac.repo.github.RepoSearchResult
 
 @Dao
-abstract class RepoDao {
+interface RepoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(vararg repos: Repo?)
+    fun insert(vararg repos: Repo?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertContributors(contributors: List<Contributor?>?)
+    fun insertContributors(contributors: List<Contributor?>?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertRepos(repositories: List<Repo?>?)
+    fun insertRepos(repositories: List<Repo?>?)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun createRepoIfNotExists(repo: Repo?): Long
+    fun createRepoIfNotExists(repo: Repo?): Long
 
     @Query("SELECT * FROM repo WHERE owner_login = :login AND name = :name")
-    abstract fun load(login: String?, name: String?): LiveData<Repo?>?
+    fun load(login: String?,
+             name: String?): LiveData<Repo>
 
     @Query("SELECT login, avatarUrl,repoName, repoOwner, contributions FROM contributor "
-            + "WHERE repoName = :name AND repoOwner = :owner "
-            + "ORDER BY contributions DESC")
-    abstract fun loadContributors(owner: String?, name: String?): LiveData<List<Contributor?>?>?
+                   + "WHERE repoName = :name AND repoOwner = :owner "
+                   + "ORDER BY contributions DESC")
+    fun loadContributors(owner: String?,
+                         name: String?): LiveData<List<Contributor>>
 
     @Query("SELECT * FROM Repo "
-            + "WHERE owner_login = :owner "
-            + "ORDER BY stars DESC")
-    abstract fun loadRepositories(owner: String?): LiveData<List<Repo?>?>?
+                   + "WHERE owner_login = :owner "
+                   + "ORDER BY stars DESC")
+    fun loadRepositories(owner: String?): LiveData<List<Repo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(result: RepoSearchResult?)
+    fun insert(result: RepoSearchResult?)
 
     @Query("SELECT * FROM Repo WHERE id in (:repoIds)")
-    protected abstract fun loadById(repoIds: List<Int?>?): LiveData<List<Repo?>>?
+    fun loadById(repoIds: List<Int>): LiveData<List<Repo>>
 }

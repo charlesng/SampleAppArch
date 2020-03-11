@@ -5,16 +5,16 @@ import androidx.room.*
 import com.cn29.aac.repo.itunes.Artist
 
 @Dao
-abstract class ArtistDao {
+interface ArtistDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(vararg artists: Artist?)
+    fun insert(vararg artists: Artist?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(artists: List<Artist?>?)
+    fun insert(artists: List<Artist?>?)
 
     @Query("SELECT * FROM artist WHERE artistName like '%' || :query  || '%'")
-    abstract fun getArtists(query: String?): LiveData<List<Artist?>?>?
+    fun getArtists(query: String): LiveData<List<Artist>>
 
     @Update
-    abstract fun update(artist: Artist?): Int
+    fun update(artist: Artist): Int
 }

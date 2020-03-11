@@ -33,7 +33,7 @@ class ApiResponse<T> {
                 } catch (ignored: IOException) {
                 }
             }
-            if (message == null || message.trim { it <= ' ' }.length == 0) {
+            if (!(message != null && message.trim { it <= ' ' }.isNotEmpty())) {
                 message = response.message()
             }
             errorMessage = message
@@ -55,7 +55,7 @@ class ApiResponse<T> {
     }
 
     val isSuccessful: Boolean
-        get() = code >= 200 && code < 300
+        get() = code in 200..299
 
     val nextPage: Int?
         get() {
@@ -70,10 +70,15 @@ class ApiResponse<T> {
             }
         }
 
+
     companion object {
         private val LINK_PATTERN = Pattern
-                .compile("<([^>]*)>[\\s]*;[\\s]*rel=\"([a-zA-Z0-9]+)\"")
+                .compile("([^\\s>]*)>[\\s]*;[\\s]*rel=\"([a-zA-Z0-9]+)\"")
         private val PAGE_PATTERN = Pattern.compile("page=(\\d)+")
         private const val NEXT_LINK = "next"
+    }
+
+    override fun toString(): String {
+        return "ApiResponse(code=$code, body=$body, errorMessage=$errorMessage, links=$links)"
     }
 }

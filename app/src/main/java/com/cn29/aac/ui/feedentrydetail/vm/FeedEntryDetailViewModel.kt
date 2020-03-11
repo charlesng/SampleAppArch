@@ -11,8 +11,8 @@ import com.cn29.aac.repo.feedentry.FeedEntryRepository
 class FeedEntryDetailViewModel(private val feedEntryDBRepository: FeedEntryRepository,
                                uid: Int) :
         ViewModel() {
-    private var feedEntry: LiveData<FeedEntry?>?
-    fun getFeedEntry(uid: Int): LiveData<FeedEntry?>? {
+    private var feedEntry: LiveData<FeedEntry>
+    fun getFeedEntry(uid: Int): LiveData<FeedEntry> {
         feedEntry = feedEntryDBRepository.findByUid(uid)
         return feedEntry
     }

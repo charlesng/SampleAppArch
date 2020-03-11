@@ -13,5 +13,5 @@ interface UserDao {
     fun insert(user: User?)
 
     @Query("SELECT * FROM user WHERE login = :login")
-    fun findByLogin(login: String?): LiveData<User?>?
+    fun findByLogin(login: String?): LiveData<User>
 }

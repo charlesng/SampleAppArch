@@ -7,6 +7,6 @@ import com.cn29.aac.repo.itunes.Artist
 
 @Database(entities = [Artist::class, Album::class], version = 3)
 abstract class ItunesDb : RoomDatabase() {
-    abstract fun artistDao(): ArtistDao?
-    abstract fun albumDao(): AlbumDao?
+    abstract fun artistDao(): ArtistDao
+    abstract fun albumDao(): AlbumDao
 }

@@ -56,7 +56,7 @@ public class FeedActivity extends BaseAppCompatActivity {
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(view -> {
       //insert sample data by button click
-      FeedEntry feedEntry = new FeedEntry("", "");
+        FeedEntry feedEntry = new FeedEntry("", "", false, null, 0);
       feedEntry.imageUrl = "http://i.imgur.com/DvpvklR.png";
       dialogFeedEntryBinding.setFeedEntry(feedEntry);
       final Dialog dialog = getDialog();

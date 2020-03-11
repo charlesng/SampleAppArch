@@ -5,19 +5,19 @@ import androidx.room.*
 import com.cn29.aac.repo.itunes.Album
 
 @Dao
-abstract class AlbumDao {
+interface AlbumDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(vararg artists: Album?)
+    fun insert(vararg artists: Album?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(artists: List<Album?>?)
+    fun insert(artists: List<Album>)
 
-    @get:Query("SELECT * FROM album")
-    abstract val all: LiveData<List<Album?>?>?
+    @Query("SELECT * FROM album")
+    fun getAll(): LiveData<List<Album>>
 
     @Query("SELECT * FROM album WHERE artistId = :artistId ")
-    abstract operator fun get(artistId: Int): LiveData<List<Album?>?>?
+    fun getAlbum(artistId: Long): LiveData<List<Album>>
 
     @Update
-    abstract fun update(artist: Album?): Int
+    fun update(artist: Album): Int
 }

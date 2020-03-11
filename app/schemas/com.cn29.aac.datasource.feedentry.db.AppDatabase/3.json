@@ -6,26 +6,8 @@
     "entities": [
       {
         "tableName": "feedEntrys",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `imageUrl` TEXT, `favourite` INTEGER NOT NULL, `title` TEXT NOT NULL, `subtitle` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `subtitle` TEXT NOT NULL, `favourite` INTEGER NOT NULL, `imageUrl` TEXT, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
-          {
-            "fieldPath": "uid",
-            "columnName": "uid",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "imageUrl",
-            "columnName": "imageUrl",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "isFavourite",
-            "columnName": "favourite",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "title",
             "columnName": "title",
@@ -36,6 +18,24 @@
             "fieldPath": "subTitle",
             "columnName": "subtitle",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavourite",
+            "columnName": "favourite",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],

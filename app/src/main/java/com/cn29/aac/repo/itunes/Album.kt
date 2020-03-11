@@ -8,12 +8,10 @@ import androidx.room.Index
  */
 @Entity(indices = [Index("artistId")],
         primaryKeys = ["artistId", "collectionName"])
-class Album {
-    var artistId = 0
-    var collectionName = ""
-    var collectionPrice = 0.0
-    var primaryGenreName: String? = null
-    var releaseDate: String? = null
-    var artworkUrl100: String? = null
-    var collectionViewUrl: String? = null
-}
+data class Album(var artistId: Long = 0,
+                 var collectionName: String = "",
+                 var collectionPrice: Double = 0.0,
+                 var primaryGenreName: String? = null,
+                 var releaseDate: String? = null,
+                 var artworkUrl100: String? = null,
+                 var collectionViewUrl: String? = null)

@@ -1,19 +1,15 @@
 package com.cn29.aac.datasource.github.remote
 
 import androidx.room.TypeConverter
-import androidx.room.util.StringUtil
 
 object GithubTypeConverters {
     @TypeConverter
-    fun stringToIntList(data: String?): List<Int>? {
-        return if (data == null) {
-            emptyList()
-        } else StringUtil.splitToIntList(data)
-    }
+    fun stringToIntList(data: String): List<Int> =
+            data.split(",").filter { it.toIntOrNull() != null }
+                    .map { it.toInt() }
 
     @JvmStatic
     @TypeConverter
-    fun intListToString(ints: List<Int?>?): String? {
-        return StringUtil.joinIntoString(ints)
-    }
+    fun intListToString(ints: List<Int>): String =
+            ints.joinToString(separator = ",")
 }

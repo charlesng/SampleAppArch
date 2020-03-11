@@ -14,31 +14,30 @@ import javax.inject.Singleton
  */
 @Singleton
 class FeedEntryRepository @Inject constructor(application: Application?) :
-        LiveData<List<FeedEntry?>?>(), FeedEntryDAO {
-    private var feedEntryDAO: FeedEntryDAO? = null
+        FeedEntryDAO {
+    private lateinit var feedEntryDAO: FeedEntryDAO
     fun init(context: Context?) {
         val db = getDb(context)
-        feedEntryDAO = db?.feedEntryDao()
+        feedEntryDAO = db.feedEntryDao()
     }
 
-    override fun getAll(): LiveData<List<FeedEntry?>?>? {
-        return feedEntryDAO?.getAll()
+    override fun getAll(): LiveData<List<FeedEntry>> {
+        return feedEntryDAO.getAll()
     }
 
-    override fun findByUid(uid: Int): LiveData<FeedEntry?>? {
-        return feedEntryDAO?.findByUid(uid)
+    override fun findByUid(uid: Int): LiveData<FeedEntry> {
+        return feedEntryDAO.findByUid(uid)
     }
 
-    override fun insertAll(vararg feedEntries: FeedEntry?) {
-        feedEntryDAO?.insertAll(*feedEntries)
-    }
+    override fun insertAll(vararg feedEntries: FeedEntry?): List<Long> =
+            feedEntryDAO.insertAll(*feedEntries)
 
-    override fun delete(feedEntry: FeedEntry?) {
-        feedEntryDAO?.delete(feedEntry)
+    override fun delete(feedEntry: FeedEntry?): Int? {
+        return feedEntryDAO.delete(feedEntry)
     }
 
     override fun update(feedEntry: FeedEntry?): Int? {
-        return feedEntryDAO?.update(feedEntry)
+        return feedEntryDAO.update(feedEntry)
     }
 
     init {

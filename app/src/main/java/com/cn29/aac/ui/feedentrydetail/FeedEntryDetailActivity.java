@@ -45,7 +45,7 @@ public class FeedEntryDetailActivity extends DaggerAppCompatActivity {
       this.feedEntry = feedEntry;
       binding.setFeedEntry(this.feedEntry);
     });
-    binding.setFeedEntry(new FeedEntry("Testing Feed Title", "Testing Feed Sub Title"));
+      binding.setFeedEntry(new FeedEntry("Testing Feed Title", "Testing Feed Sub Title", false, null, 0));
     binding.setImageUrl("http://i.imgur.com/DvpvklR.png");
     binding.collapsingToolbar.setTitle("Feed Entry Title");
     binding.fab.setOnClickListener(view -> {

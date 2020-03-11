@@ -74,7 +74,7 @@ public class ItunesRepository {
   public LiveData<Resource<List<Album>>> getAlbumResult(int artistId, String entity) {
     return new GenericNetworkBoundResourceBuilder<List<Album>, AlbumSearchResult>()
         .setAppExecutors(appExecutors)
-        .setDbSource(albumDao.get(artistId))
+            .setDbSource(albumDao.getAlbum(artistId))
         .setNetworkSource(service.getAlbumSearchResult(artistId, entity))
         .setNetworkRequestTypeWritetToDb(
             item -> albumDao.insert(item.getResults()))

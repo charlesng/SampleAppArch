@@ -13,15 +13,17 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun feedEntryDao(): FeedEntryDAO
 
     companion object {
-        private var appDatabase: AppDatabase? = null
+        private lateinit var appDatabase: AppDatabase
+
         @JvmStatic
-        fun getDb(context: Context?): AppDatabase? {
-            if (appDatabase == null) {
-                appDatabase = Room.databaseBuilder(context!!, AppDatabase::class.java, "feedentry-db")
-                        .fallbackToDestructiveMigration()
-                        .addMigrations(Migration1_2.newInstance(), Migration2_3.newInstance())
-                        .build()
-            }
+        fun getDb(context: Context?): AppDatabase {
+            appDatabase = Room.databaseBuilder(context!!,
+                                               AppDatabase::class.java,
+                                               "feedentry-db")
+                    .fallbackToDestructiveMigration()
+                    .addMigrations(Migration1_2.newInstance(),
+                                   Migration2_3.newInstance())
+                    .build()
             return appDatabase
         }
     }

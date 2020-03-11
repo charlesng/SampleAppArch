@@ -76,6 +76,11 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+        test.java.srcDirs += 'src/test/java'
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
@@ -101,6 +106,9 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "com.squareup.picasso:picasso:$picasso_version"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
     //junit
     testImplementation "junit:junit:$junit_version"
     //stetho library for debugging
@@ -130,6 +138,11 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
     testImplementation "org.junit.jupiter:junit-jupiter-params:$junit5_version"
 
+    // Optional -- Robolectric environment
+    testImplementation 'androidx.test:core:1.2.0'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:3.1.0'
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
 }
 repositories {
     mavenCentral()

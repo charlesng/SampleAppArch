@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "bd8076e2235a2c0d225395d496ba5e57",
+    "identityHash": "5b625f7728f185d1f04cef94e26ba079",
     "entities": [
       {
         "tableName": "User",
@@ -56,7 +56,7 @@
       },
       {
         "tableName": "Repo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `fullName` TEXT NOT NULL, `description` TEXT NOT NULL, `stars` INTEGER NOT NULL, `owner_login` TEXT NOT NULL, `owner_url` TEXT, PRIMARY KEY(`name`, `owner_login`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `fullName` TEXT NOT NULL, `description` TEXT, `stars` INTEGER NOT NULL, `owner_login` TEXT NOT NULL, `owner_url` TEXT, PRIMARY KEY(`name`, `owner_login`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -80,7 +80,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "stars",
@@ -130,20 +130,8 @@
       },
       {
         "tableName": "Contributor",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`repoName` TEXT NOT NULL, `repoOwner` TEXT NOT NULL, `login` TEXT NOT NULL, `contributions` INTEGER NOT NULL, `avatarUrl` TEXT NOT NULL, PRIMARY KEY(`repoName`, `repoOwner`, `login`), FOREIGN KEY(`repoName`, `repoOwner`) REFERENCES `Repo`(`name`, `owner_login`) ON UPDATE CASCADE ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `contributions` INTEGER NOT NULL, `avatarUrl` TEXT NOT NULL, `repoName` TEXT NOT NULL, `repoOwner` TEXT NOT NULL, PRIMARY KEY(`repoName`, `repoOwner`, `login`), FOREIGN KEY(`repoName`, `repoOwner`) REFERENCES `Repo`(`name`, `owner_login`) ON UPDATE CASCADE ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
-          {
-            "fieldPath": "repoName",
-            "columnName": "repoName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "repoOwner",
-            "columnName": "repoOwner",
-            "affinity": "TEXT",
-            "notNull": true
-          },
           {
             "fieldPath": "login",
             "columnName": "login",
@@ -159,6 +147,18 @@
           {
             "fieldPath": "avatarUrl",
             "columnName": "avatarUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repoName",
+            "columnName": "repoName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repoOwner",
+            "columnName": "repoOwner",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -230,7 +230,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bd8076e2235a2c0d225395d496ba5e57')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5b625f7728f185d1f04cef94e26ba079')"
     ]
   }
 }

@@ -62,7 +62,7 @@ public class AuthRepository {
 
       @Override
       protected boolean shouldFetch(@Nullable LoginBean data) {
-        return data == null || data.getIsLogin() != 0;
+        return data == null || data.isLogin != 0;
       }
 
       @NonNull

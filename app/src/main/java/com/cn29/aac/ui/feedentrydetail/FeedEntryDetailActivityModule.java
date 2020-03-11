@@ -44,7 +44,7 @@ public class FeedEntryDetailActivityModule {
 
   @Provides
   FeedEntry provideDefaultFeedEntry() {
-    return new FeedEntry("", "");
+    return new FeedEntry("", "", false, null, 0);
   }
 
   @Provides

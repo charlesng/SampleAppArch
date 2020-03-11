@@ -1,6 +1,5 @@
 package com.cn29.aac.repo.github
 
-import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import com.google.gson.annotations.SerializedName
@@ -13,11 +12,8 @@ import com.google.gson.annotations.SerializedName
                                   deferred = true)])
 class Contributor(@field:SerializedName("login") val login: String,
                   @field:SerializedName("contributions") val contributions: Int,
-                  @field:SerializedName("avatar_url") val avatarUrl: String) {
-    @NonNull
-    var repoName: String? = null
-
-    @NonNull
-    var repoOwner: String? = null
+                  @field:SerializedName("avatar_url") val avatarUrl: String,
+                  @field:SerializedName("repoName") val repoName: String,
+                  @field:SerializedName("repoOwner") val repoOwner: String) {
 
 }

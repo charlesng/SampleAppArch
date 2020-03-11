@@ -24,6 +24,6 @@ import com.cn29.aac.repo.github.User
 
 @Database(entities = [User::class, Repo::class, Contributor::class, RepoSearchResult::class], version = 3)
 abstract class GithubDb : RoomDatabase() {
-    abstract fun userDao(): UserDao?
-    abstract fun repoDao(): RepoDao?
+    abstract fun userDao(): UserDao
+    abstract fun repoDao(): RepoDao
 }

@@ -18,7 +18,7 @@ class FeedEntryListViewModel(
         ViewModel() {
     //list all your live data here
     @JvmField
-    var feedEntries: LiveData<List<FeedEntry?>?> = MutableLiveData()
+    var feedEntries: LiveData<List<FeedEntry>> = MutableLiveData()
     private val userId = MutableLiveData<String>()
 
     //show your composite model here
@@ -31,13 +31,13 @@ class FeedEntryListViewModel(
         this.userId.value = userId
     }
 
-    val feedEntrys: LiveData<List<FeedEntry?>?>?
+    val feedEntrys: LiveData<List<FeedEntry>>
         get() = feedEntryDBRepository.getAll()
 
     val compositeEntrys: LiveData<CompositeModel?>
         get() = compositeModelLiveData
 
-    fun insert(vararg feedEntries: FeedEntry?): LiveData<List<FeedEntry?>?>? {
+    fun insert(vararg feedEntries: FeedEntry?): LiveData<List<FeedEntry>> {
         feedEntryDBRepository.insertAll(*feedEntries)
         return feedEntryDBRepository.getAll()
     }
@@ -63,7 +63,7 @@ class FeedEntryListViewModel(
     }
 
     init {
-        feedEntries = feedEntryDBRepository.getAll()!!
+        feedEntries = feedEntryDBRepository.getAll()
         compositeModelLiveData = MediatorLiveData()
         compositeModelLiveData.addSource(
                 feedEntries

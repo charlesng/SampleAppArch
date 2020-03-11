@@ -10,7 +10,7 @@ import com.cn29.aac.repo.user.LoginBean
 @Dao
 interface AuthDao {
     @Query("SELECT * FROM Auth Where email = :email limit 1")
-    fun getLogin(email: String?): LiveData<LoginBean?>?
+    fun getLogin(email: String?): LiveData<LoginBean>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(loginBean: LoginBean?): Long
