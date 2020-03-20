@@ -2,29 +2,29 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "f7d71fe97548d81a91c5b733bde7573a",
+    "identityHash": "52d4257970e7ba2b69d0e4f468aad738",
     "entities": [
       {
         "tableName": "feedEntrys",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `subtitle` TEXT, `imageUrl` TEXT, `favourite` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`title` TEXT NOT NULL, `subtitle` TEXT NOT NULL, `favourite` INTEGER NOT NULL, `imageUrl` TEXT, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
-          {
-            "fieldPath": "uid",
-            "columnName": "uid",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "title",
             "columnName": "title",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "subTitle",
             "columnName": "subtitle",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavourite",
+            "columnName": "favourite",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "imageUrl",
@@ -33,8 +33,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "isFavourite",
-            "columnName": "favourite",
+            "fieldPath": "uid",
+            "columnName": "uid",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -49,9 +49,10 @@
         "foreignKeys": []
       }
     ],
+    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f7d71fe97548d81a91c5b733bde7573a\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '52d4257970e7ba2b69d0e4f468aad738')"
     ]
   }
 }

@@ -22,7 +22,7 @@
       type="com.cn29.aac.repo.itunes.Album" />
   </data>
 
-  <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -72,5 +72,5 @@
       app:layout_constraintStart_toStartOf="@+id/card_text"
       app:layout_constraintTop_toBottomOf="@+id/card_text"
       tools:text="User Id : 10232221" />
-  </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

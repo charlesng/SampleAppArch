@@ -7,7 +7,8 @@
       type="com.cn29.aac.repo.user.LoginBean" />
 
   </data>
-  <android.support.constraint.ConstraintLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,7 +46,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.design.widget.TextInputLayout
+          <com.google.android.material.textfield.TextInputLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_margin="@dimen/md_keylines">
@@ -60,9 +61,9 @@
             android:singleLine="true"
             android:text="@={loginBean.email}" />
 
-        </android.support.design.widget.TextInputLayout>
+          </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+          <com.google.android.material.textfield.TextInputLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_margin="@dimen/md_keylines">
@@ -80,7 +81,7 @@
             android:singleLine="true"
             android:text="@={loginBean.password}" />
 
-        </android.support.design.widget.TextInputLayout>
+          </com.google.android.material.textfield.TextInputLayout>
 
         <Button
           android:id="@+id/email_sign_in_button"
@@ -108,5 +109,5 @@
 
       </LinearLayout>
     </ScrollView>
-  </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

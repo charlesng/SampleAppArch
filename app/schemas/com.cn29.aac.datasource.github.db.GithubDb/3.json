@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "f599f601f15ca20a3a7bd4d23d9c1693",
+    "identityHash": "5b625f7728f185d1f04cef94e26ba079",
     "entities": [
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `avatarUrl` TEXT, `name` TEXT, `company` TEXT, `reposUrl` TEXT, `blog` TEXT, PRIMARY KEY(`login`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `name` TEXT NOT NULL, `company` TEXT NOT NULL, `reposUrl` TEXT NOT NULL, `blog` TEXT NOT NULL, PRIMARY KEY(`login`))",
         "fields": [
           {
             "fieldPath": "login",
@@ -18,31 +18,31 @@
             "fieldPath": "avatarUrl",
             "columnName": "avatarUrl",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "name",
             "columnName": "name",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "company",
             "columnName": "company",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "reposUrl",
             "columnName": "reposUrl",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "blog",
             "columnName": "blog",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -56,7 +56,7 @@
       },
       {
         "tableName": "Repo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `fullName` TEXT, `description` TEXT, `stars` INTEGER NOT NULL, `owner_login` TEXT NOT NULL, `owner_url` TEXT, PRIMARY KEY(`name`, `owner_login`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `fullName` TEXT NOT NULL, `description` TEXT, `stars` INTEGER NOT NULL, `owner_login` TEXT NOT NULL, `owner_url` TEXT, PRIMARY KEY(`name`, `owner_login`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -74,7 +74,7 @@
             "fieldPath": "fullName",
             "columnName": "fullName",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "description",
@@ -115,7 +115,7 @@
             "columnNames": [
               "id"
             ],
-            "createSql": "CREATE  INDEX `index_Repo_id` ON `${TABLE_NAME}` (`id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Repo_id` ON `${TABLE_NAME}` (`id`)"
           },
           {
             "name": "index_Repo_owner_login",
@@ -123,14 +123,14 @@
             "columnNames": [
               "owner_login"
             ],
-            "createSql": "CREATE  INDEX `index_Repo_owner_login` ON `${TABLE_NAME}` (`owner_login`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Repo_owner_login` ON `${TABLE_NAME}` (`owner_login`)"
           }
         ],
         "foreignKeys": []
       },
       {
         "tableName": "Contributor",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `contributions` INTEGER NOT NULL, `avatarUrl` TEXT, `repoName` TEXT NOT NULL, `repoOwner` TEXT NOT NULL, PRIMARY KEY(`repoName`, `repoOwner`, `login`), FOREIGN KEY(`repoName`, `repoOwner`) REFERENCES `Repo`(`name`, `owner_login`) ON UPDATE CASCADE ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `contributions` INTEGER NOT NULL, `avatarUrl` TEXT NOT NULL, `repoName` TEXT NOT NULL, `repoOwner` TEXT NOT NULL, PRIMARY KEY(`repoName`, `repoOwner`, `login`), FOREIGN KEY(`repoName`, `repoOwner`) REFERENCES `Repo`(`name`, `owner_login`) ON UPDATE CASCADE ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "login",
@@ -148,7 +148,7 @@
             "fieldPath": "avatarUrl",
             "columnName": "avatarUrl",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "repoName",
@@ -190,7 +190,7 @@
       },
       {
         "tableName": "RepoSearchResult",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`query` TEXT NOT NULL, `repoIds` TEXT, `totalCount` INTEGER NOT NULL, `next` INTEGER, PRIMARY KEY(`query`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`query` TEXT NOT NULL, `repoIds` TEXT NOT NULL, `totalCount` INTEGER NOT NULL, `next` INTEGER, PRIMARY KEY(`query`))",
         "fields": [
           {
             "fieldPath": "query",
@@ -202,7 +202,7 @@
             "fieldPath": "repoIds",
             "columnName": "repoIds",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "totalCount",
@@ -227,9 +227,10 @@
         "foreignKeys": []
       }
     ],
+    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f599f601f15ca20a3a7bd4d23d9c1693\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5b625f7728f185d1f04cef94e26ba079')"
     ]
   }
 }
