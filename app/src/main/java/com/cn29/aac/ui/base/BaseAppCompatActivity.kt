@@ -17,10 +17,10 @@ open class BaseAppCompatActivity : DaggerAppCompatActivity() {
     private var dialogComponent: AlertDialogComponent? = null
 
     //permission callback
-    var permissionCallback = object : PermissionCallback {
+    protected var permissionCallback = object : PermissionCallback {
         override fun onRequestPermissionsResult(requestCode: Int,
                                                 permissions: Array<String>,
-                                                grantResults: IntArray?) {
+                                                grantResults: IntArray) {
 
         }
     }

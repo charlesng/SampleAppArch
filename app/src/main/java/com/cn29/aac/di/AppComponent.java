@@ -1,17 +1,20 @@
 package com.cn29.aac.di;
 
 import android.app.Application;
+
 import com.cn29.aac.MyApplication;
 import com.cn29.aac.di.datasources.db.RoomModule;
 import com.cn29.aac.di.datasources.remote.AuthModule;
 import com.cn29.aac.di.datasources.remote.RESTModule;
 import com.cn29.aac.di.repo.RepoModule;
 import com.cn29.aac.di.ui.UiBuilder;
+
+import javax.inject.Singleton;
+
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.support.AndroidSupportInjectionModule;
-import javax.inject.Singleton;
 
 
 /**
@@ -30,7 +33,8 @@ import javax.inject.Singleton;
     RoomModule.class,
     AuthModule.class,
     //ui modules
-    UiBuilder.class})
+        UiBuilder.class
+})
 public interface AppComponent {
 
   void inject(MyApplication app);
