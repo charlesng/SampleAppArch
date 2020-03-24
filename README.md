@@ -1,6 +1,22 @@
 # SampleAppArch
 Sample Application using the app archieture
 
+#Getting Started
+- Please install the JDK 1.8 and use the path as JAVA_HOME
+
+#Debugging
+
+## Run All Unit test
+``` bash
+$ ./gradlew testDebugUnitTest
+```
+
+## Run All Android Test
+``` bash
+$ ./gradlew connectedAndroidTest
+```
+
+
 Current Plan
 
 | Implementation  | Description | Type |

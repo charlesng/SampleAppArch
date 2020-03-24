@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: "kotlin-kapt"
 apply plugin: 'de.mannodermaus.android-junit5'
+//apply plugin: 'jacoco-android'
 
 android {
     compileSdkVersion 29
@@ -29,6 +30,11 @@ android {
     dataBinding {
         enabled = true
     }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
     buildTypes {
         debug {
             minifyEnabled false
@@ -39,41 +45,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
-    }
-    flavorDimensions "default"
-    productFlavors {
-        // When building a variant that uses this flavor, the following configurations
-        // override those in the defaultConfig block.
-        dev {
-            // To avoid using legacy multidex when building from the command line,
-            // set minSdkVersion to 21 or higher. When using Android Studio 2.3 or higher,
-            // the build automatically avoids legacy multidex when deploying to a device running
-            // API level 21 or higher—regardless of what you set as your minSdkVersion.
-            minSdkVersion 21
-            // The following configuration limits the "dev" flavor to using
-            // English stringresources and xxhdpi screen-density resources.
-            resConfigs "en", "xxhdpi"
-        }
-
-        prod {
-            // If you've configured the defaultConfig block for the release version of
-            // your app, you can leave this block empty and Gradle uses configurations in
-            // the defaultConfig block instead. You still need to create this flavor.
-            // Otherwise, all variants use the "dev" flavor configurations.
-        }
-    }
-    dexOptions {
-        preDexLibraries true
-        maxProcessCount 8
-        // Instead of setting the heap size for the DEX process, increase Gradle's
-        // heap size to enable dex-in-process. To learm more, read the next section.
-        // javaMaxHeapSize "2048m"
-    }
-
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
@@ -144,6 +115,11 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
 }
-repositories {
-    mavenCentral()
-}
+
+//jacoco {
+//    toolVersion = "0.8.4"
+//}
+
+//tasks.withType(Test) {
+//    jacoco.includeNoLocationClasses = true
+//}
