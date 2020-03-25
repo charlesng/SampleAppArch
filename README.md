@@ -1,6 +1,27 @@
 # SampleAppArch
 Sample Application using the app archieture
 
+#Getting Started
+- Please install the JDK 1.8 and use the path as JAVA_HOME
+
+# Unit Test, Android Test and Code Coverage Report
+
+## Run All Unit test
+``` bash
+$ ./gradlew testDebugUnitTest
+```
+
+## Run All Android Test
+``` bash
+$ ./gradlew connectedAndroidTest
+```
+## Run Jacoco Coverage report including unit test and android Test
+``` bash
+# example ./gradlew jacocoDebugTestReport
+$ ./gradlew jacoco${buildType}TestReport
+```
+
+
 Current Plan
 
 | Implementation  | Description | Type |
