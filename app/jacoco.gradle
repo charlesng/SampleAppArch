@@ -1,0 +1,58 @@
+apply plugin: 'jacoco-android'
+
+jacoco {
+    toolVersion = "0.8.4"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+project.afterEvaluate {
+    android.applicationVariants.all { variant ->
+        def variantName = variant.name
+        def variantNameCap = variant.name.capitalize()
+        tasks.create(name: "jacoco${variantNameCap}TestReport", type: JacocoReport) {
+            group = "Reporting"
+            description = "Generate Jacoco coverage (${variantNameCap}) reports after running all unit tests and android tests."
+            dependsOn "test${variantNameCap}UnitTest"
+            dependsOn "connected${variantNameCap}AndroidTest"
+            reports {
+                xml.enabled = true
+                html.enabled = true
+            }
+            // The lines below make sure we can report against Kotlin and exclude some Android Stuff
+            def excludes = []
+            // Android Data Binding
+            excludes += [
+                    '**/databinding/**',
+                    '**/*DataBinder.*',
+                    '**/*BindingImpl.*',
+                    '**/*Binding.*',
+            ]
+            // Dagger2
+            excludes += [
+                    '**/*_MembersInjector.class',
+                    '**/Dagger*Component.class', // covers component implementations
+                    '**/Dagger*Component$Builder.class', // covers component builders
+                    '**/*Module_*Factory.class'
+            ]
+            // sources
+            sourceDirectories = files([
+                    android.sourceSets.main.java.srcDirs,
+                    "$project.projectDir/src/main/java"
+            ])
+            classDirectories = fileTree(
+                    dir: "$buildDir/intermediates/classes/${variantName}",
+                    excludes: excludes
+            ) + fileTree(
+                    dir: "$buildDir/tmp/kotlin-classes/${variantName}",
+                    excludes: excludes
+            )
+            executionData = fileTree(dir: project.buildDir, includes: [
+                    "jacoco/test${variantName}UnitTest.exec",
+                    "outputs/code_coverage/${variantName}AndroidTest/connected/*coverage.ec"
+            ])
+        }
+    }
+}

@@ -17,7 +17,8 @@ $ ./gradlew connectedAndroidTest
 ```
 ## Run Jacoco Coverage report including unit test and android Test
 ``` bash
-$ ./gradlew jacocoDebugTestReport
+# example ./gradlew jacocoDebugTestReport
+$ ./gradlew jacoco${buildType}TestReport
 ```
 
 

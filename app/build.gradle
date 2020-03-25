@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: "kotlin-kapt"
 apply plugin: 'de.mannodermaus.android-junit5'
-apply plugin: 'jacoco-android'
+apply from: 'jacoco.gradle'
 
 android {
     compileSdkVersion 29
@@ -119,50 +119,3 @@ dependencies {
 
 }
 
-jacoco {
-    toolVersion = "0.8.4"
-}
-
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-}
-
-task jacocoDebugTestReport(type: JacocoReport,dependsOn:['testDebugUnitTest','connectedDebugAndroidTest']) {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports after running all unit tests and android tests."
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-    // The lines below make sure we can report against Kotlin and exclude some Android Stuff
-    def excludes = []
-    // Android Data Binding
-    excludes += [
-            '**/databinding/**',
-            '**/*DataBinder.*',
-            '**/*BindingImpl.*',
-            '**/*Binding.*',
-    ]
-    // Dagger2
-    excludes += [
-            '**/*_MembersInjector.class',
-            '**/Dagger*Component.class', // covers component implementations
-            '**/Dagger*Component$Builder.class', // covers component builders
-            '**/*Module_*Factory.class'
-    ]
-    // sources
-    sourceDirectories = files([
-            android.sourceSets.main.java.srcDirs,
-            "$project.projectDir/src/main/java"
-    ])
-    classDirectories = fileTree(
-            dir: "$buildDir/intermediates/classes/debug",
-            excludes: excludes
-    ) + fileTree(
-            dir: "$buildDir/tmp/kotlin-classes/debug",
-            excludes: excludes
-    )
-    executionData = fileTree(dir: project.buildDir, includes: [
-            'jacoco/testDebugUnitTest.exec', 'outputs/code_coverage/**/connected/*coverage.ec'
-    ])
-}
