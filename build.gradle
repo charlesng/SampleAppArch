@@ -24,14 +24,14 @@ buildscript {
         classpath 'com.google.gms:google-services:4.3.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "de.mannodermaus.gradle.plugins:android-junit5:1.5.2.0"
-//        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.4'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.4'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
-        maven { url 'https://maven.google.com' }
+        google()
     }
 }
 
