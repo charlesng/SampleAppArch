@@ -1,6 +1,5 @@
 package com.cn29.aac.repo.itunes;
 
-import android.arch.lifecycle.LiveData;
 import com.cn29.aac.AppExecutors;
 import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.datasource.itunes.db.AlbumDao;
@@ -9,10 +8,14 @@ import com.cn29.aac.datasource.itunes.remote.ItunesService;
 import com.cn29.aac.repo.util.GenericNetworkBoundResourceBuilder;
 import com.cn29.aac.repo.util.RateLimiter;
 import com.cn29.aac.repo.util.Resource;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import androidx.lifecycle.LiveData;
 
 /**
  * Created by Charles Ng on 16/10/2017.
@@ -71,7 +74,7 @@ public class ItunesRepository {
   public LiveData<Resource<List<Album>>> getAlbumResult(int artistId, String entity) {
     return new GenericNetworkBoundResourceBuilder<List<Album>, AlbumSearchResult>()
         .setAppExecutors(appExecutors)
-        .setDbSource(albumDao.get(artistId))
+            .setDbSource(albumDao.getAlbum(artistId))
         .setNetworkSource(service.getAlbumSearchResult(artistId, entity))
         .setNetworkRequestTypeWritetToDb(
             item -> albumDao.insert(item.getResults()))

@@ -1,11 +1,12 @@
 package com.cn29.aac.repo.util;
 
-import android.arch.lifecycle.LiveData;
 import com.cn29.aac.AppExecutors;
 import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.repo.util.GenericNetworkBoundResource.FetchFailed;
 import com.cn29.aac.repo.util.GenericNetworkBoundResource.ShouldFetch;
 import com.cn29.aac.repo.util.GenericNetworkBoundResource.WritetToDb;
+
+import androidx.lifecycle.LiveData;
 
 public class GenericNetworkBoundResourceBuilder<ResultType, NetworkRequestType> {
 

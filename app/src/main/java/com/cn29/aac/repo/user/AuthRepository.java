@@ -1,9 +1,7 @@
 package com.cn29.aac.repo.user;
 
-import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
 import com.cn29.aac.AppExecutors;
 import com.cn29.aac.datasource.api.ApiResponse;
 import com.cn29.aac.datasource.auth.db.AuthDao;
@@ -13,9 +11,15 @@ import com.cn29.aac.datasource.auth.remote.MyCompanyAuth;
 import com.cn29.aac.repo.util.NetworkBoundResource;
 import com.cn29.aac.repo.util.RateLimiter;
 import com.cn29.aac.repo.util.Resource;
+
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 /**
  * Created by Charles Ng on 13/10/2017.
@@ -58,7 +62,7 @@ public class AuthRepository {
 
       @Override
       protected boolean shouldFetch(@Nullable LoginBean data) {
-        return data == null || data.getIsLogin() != 0;
+        return data == null || data.isLogin != 0;
       }
 
       @NonNull
@@ -72,11 +76,11 @@ public class AuthRepository {
       protected LiveData<ApiResponse<LoginBean>> createCall() {
         switch (mode) {
           case GOOGLE:
-            return googleAuth.getLogin(email, password);
+              return googleAuth.getLogin(email);
           case FACEBOOK:
-            return facebookAuth.getLogin(email, password);
+              return facebookAuth.getLogin(email);
           case MYCOMPANY:
-            return myCompanyAuth.getLogin(email, password);
+              return myCompanyAuth.getLogin(email);
         }
         return null;
       }

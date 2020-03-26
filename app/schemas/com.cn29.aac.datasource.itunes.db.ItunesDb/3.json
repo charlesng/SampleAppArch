@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "3e8e7e08cad54534d5d830a9d8ed8d30",
+    "identityHash": "294a4f3f98ce8b275fde3792c6013e46",
     "entities": [
       {
         "tableName": "Artist",
@@ -65,7 +65,7 @@
             "columnNames": [
               "artistId"
             ],
-            "createSql": "CREATE  INDEX `index_Artist_artistId` ON `${TABLE_NAME}` (`artistId`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Artist_artistId` ON `${TABLE_NAME}` (`artistId`)"
           }
         ],
         "foreignKeys": []
@@ -131,15 +131,16 @@
             "columnNames": [
               "artistId"
             ],
-            "createSql": "CREATE  INDEX `index_Album_artistId` ON `${TABLE_NAME}` (`artistId`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Album_artistId` ON `${TABLE_NAME}` (`artistId`)"
           }
         ],
         "foreignKeys": []
       }
     ],
+    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3e8e7e08cad54534d5d830a9d8ed8d30\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '294a4f3f98ce8b275fde3792c6013e46')"
     ]
   }
 }
