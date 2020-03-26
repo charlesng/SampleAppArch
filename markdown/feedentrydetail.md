@@ -65,8 +65,8 @@ public interface FeedEntryDAO {
 
 
 <p>
-<img src="https://user-images.githubusercontent.com/5112837/30317424-aca50e60-97dc-11e7-89a3-ea5d4ff097f0.png" width="250">
-<img src="https://user-images.githubusercontent.com/5112837/30267290-a21cf7f0-9714-11e7-9bd8-5ca6b07acabc.png" width="250">
-<img src="https://user-images.githubusercontent.com/5112837/30317423-aca26c64-97dc-11e7-8fbb-047ef7df27d3.png" width="250">
-<img src="https://user-images.githubusercontent.com/5112837/30267309-ae590838-9714-11e7-92a9-387a64b26552.png" width="250">
+    <img src="img/feed_entry_1.png" width="250">
+    <img src="img/feed_entry_4.png" width="250">
+    <img src="img/feed_entry_2.png" width="250">
+    <img src="img/feed_entry_3.png" width="250">
 </p>
