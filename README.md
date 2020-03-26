@@ -1,7 +1,7 @@
 # SampleAppArch
 Sample Application using the app archieture
 
-#Getting Started
+# Getting Started
 - Please install the JDK 1.8 and use the path as JAVA_HOME
 
 # Unit Test, Android Test and Code Coverage Report
@@ -22,6 +22,9 @@ $ ./gradlew jacoco${buildType}TestReport
 ```
 
 
+## Detailed Implementation of different UI
+- The detailed implementation of different UI can be found in [here](markdown)
+
 Current Plan
 
 | Implementation  | Description | Type |
@@ -40,20 +43,20 @@ Current Plan
 Activity
 - [Fragment Communication](app/src/main/java/com/cn29/aac/ui/masterdetail)
   <p>
-  <img src="https://user-images.githubusercontent.com/5112837/30728470-02f6b93e-9f8b-11e7-83f2-28d3dd4bf61f.png" width="150">
-  <img src="https://user-images.githubusercontent.com/5112837/30728643-0769e634-9f8c-11e7-8206-fe57dd63b5d4.png" width="150">
-  <img src="https://user-images.githubusercontent.com/5112837/30728677-42590202-9f8c-11e7-88a9-1dc31b6e8894.png" width="150">
+  <img src="markdown/img/fragment_communication_1.png" width="150">
+  <img src="markdown/img/fragment_communication_2.png" width="150">
+  <img src="markdown/img/fragment_communication_3.png" width="150">
   </p>
   
 - [Feed Entry](app/src/main/java/com/cn29/aac/ui/feedentry)
   <p>
-  <img src="https://user-images.githubusercontent.com/5112837/30317424-aca50e60-97dc-11e7-89a3-ea5d4ff097f0.png" width="150">
-  <img src="https://user-images.githubusercontent.com/5112837/30317423-aca26c64-97dc-11e7-8fbb-047ef7df27d3.png" width="150">
-  <img src="https://user-images.githubusercontent.com/5112837/30267309-ae590838-9714-11e7-92a9-387a64b26552.png" width="150">
+  <img src="markdown/img/feed_entry_1.png" width="150">
+  <img src="markdown/img/feed_entry_2.png" width="150">
+  <img src="markdown/img/feed_entry_3.png" width="150">
   </p>
 - [Location](app/src/main/java/com/cn29/aac/ui/location)
   <p>
-  <img src="https://user-images.githubusercontent.com/5112837/30799289-f985eba0-a20e-11e7-8c9c-ef36044cc663.png" width="150">
+  <img src="markdown/img/location_1.png" width="150">
   </p>
 
 
