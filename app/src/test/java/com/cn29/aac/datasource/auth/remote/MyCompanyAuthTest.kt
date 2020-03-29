@@ -1,6 +1,6 @@
 package com.cn29.aac.datasource.auth.remote
 
-import com.cn29.aac.utils.InstantExecutorExtension
+import com.cn29.aac.util.InstantExecutorExtension
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

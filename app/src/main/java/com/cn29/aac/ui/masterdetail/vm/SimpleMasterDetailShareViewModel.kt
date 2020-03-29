@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.cn29.aac.repo.github.GitRepoRepository
 import com.cn29.aac.repo.github.Repo
 import com.cn29.aac.repo.util.Resource
+import com.cn29.aac.util.Result
 
 /**
  * Created by charlesng0209 on 25/6/2017.
@@ -12,12 +13,10 @@ import com.cn29.aac.repo.util.Resource
 class SimpleMasterDetailShareViewModel(private val gitRepoRepository: GitRepoRepository) :
         ViewModel() {
     fun loadRepos(owner: String?,
-                  name: String?): LiveData<Resource<Repo>> {
-        return gitRepoRepository.loadRepo(owner, name)
-    }
+                  name: String?): LiveData<Resource<Repo>> =
+            gitRepoRepository.loadRepo(owner, name)
 
-    fun loadRepos(owner: String?): LiveData<Resource<List<Repo>>> {
-        return gitRepoRepository.loadRepos(owner)
-    }
+    fun loadRepos(owner: String?): LiveData<Result<List<Repo>>> =
+            gitRepoRepository.loadRepo(owner!!)
 
 }
