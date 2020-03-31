@@ -1,25 +1,28 @@
 package com.cn29.aac.util
 
 import androidx.lifecycle.MutableLiveData
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
-import org.mockito.Mockito.*
+import org.mockito.BDDMockito
 
-class TestRepositoryLiveData {
-    suspend fun remoteResult(): Result<String> = Result.Success("Testing")
-    suspend fun saveResult(s: String): Unit = Unit
-    fun localResult(): MutableLiveData<String> = MutableLiveData<String>()
-    fun shouldFetch(): Boolean = true
+interface Delegation {
+    suspend fun remoteResult(): Result<String>
+    suspend fun saveResult(s: String)
+    fun localResult(): MutableLiveData<String>
+    fun shouldFetch(): Boolean
 }
+
+fun <T> givenSuspended(block: suspend () -> T) = BDDMockito.given(runBlocking { block() })
 
 @ExperimentalCoroutinesApi
 @ExtendWith(InstantExecutorExtension::class)
-internal class CoroutineUtilKtTest {
+class CoroutineUtilKtTest {
     // Set the main coroutines dispatcher for unit testing
     companion object {
         @JvmField
@@ -27,46 +30,93 @@ internal class CoroutineUtilKtTest {
         var coroutinesRule = CoroutinesTestExtension()
     }
 
-
-    private lateinit var testRepositoryLiveData: TestRepositoryLiveData
-
+    val delegation: Delegation = mock()
+    private val LOCAL_RESULT = "Local Result Fetch"
+    private val REMOTE_RESULT = "Remote Result Fetch"
+    private val REMOTE_CRASH = "Remote Result Crash"
 
     @BeforeEach
     fun setUp() {
-        testRepositoryLiveData = mock(TestRepositoryLiveData::class.java)
+        given { delegation.shouldFetch() }
+                .willReturn(true)
+        given { delegation.localResult() }
+                .willReturn(MutableLiveData(LOCAL_RESULT))
+        givenSuspended { delegation.remoteResult() }
+                .willReturn(Result.Success(REMOTE_RESULT))
     }
 
     @Test
-    internal fun `should call local result only`() = coroutinesRule.runBlocking {
+    fun `should call local result only if the remote result should not fetch`() = coroutinesRule.runBlocking {
         //given
+        given { delegation.shouldFetch() }.willReturn(false)
+
         //when
-        repositoryLiveData<String, Unit>(
-                localResult = { testRepositoryLiveData.localResult() },
-                shouldFetch = { testRepositoryLiveData.shouldFetch() },
+        repositoryLiveData<String, String>(
+                localResult = { delegation.localResult() },
+                remoteResult = { delegation.remoteResult() },
+                shouldFetch = { delegation.shouldFetch() },
                 dispatcher = coroutinesRule.dispatcher
         ).getOrAwaitValue()
         //then
-        verify(testRepositoryLiveData, times(1)).localResult()
-        verify(testRepositoryLiveData, never()).shouldFetch()
+        verify(delegation, times(1)).localResult()
+        verify(delegation, never()).remoteResult()
     }
+
 
     @Test
     fun `should call remote result and then save result`() = coroutinesRule.runBlocking {
-        //given
-        `when`(testRepositoryLiveData.remoteResult()).thenReturn(Result.Success(
-                "Testing"))
-        `when`(testRepositoryLiveData.shouldFetch()).thenReturn(true)
         //when
         repositoryLiveData<String, String>(
-                shouldFetch = { testRepositoryLiveData.shouldFetch() },
-                remoteResult = { testRepositoryLiveData.remoteResult() },
-                saveFetchResult = { s -> testRepositoryLiveData.saveResult(s) },
+                shouldFetch = { delegation.shouldFetch() },
+                remoteResult = { delegation.remoteResult() },
+                saveFetchResult = { s -> delegation.saveResult(s) },
                 dispatcher = coroutinesRule.dispatcher
         ).getOrAwaitValue()
         //then
-        verify(testRepositoryLiveData, times(1)).remoteResult()
-        verify(testRepositoryLiveData,
-               times(1)).saveResult("Testing")
+        verify(delegation, times(1)).remoteResult()
+        verify(delegation,
+               times(1)).saveResult(REMOTE_RESULT)
+    }
+
+    @Test
+    fun `should emit Loading, Success, Finish Status when we fetch local and then remote`() = coroutinesRule.runBlocking {
+        //when
+        val ld = repositoryLiveData<String, String>(
+                localResult = { delegation.localResult() },
+                shouldFetch = { delegation.shouldFetch() },
+                remoteResult = { delegation.remoteResult() },
+                saveFetchResult = { delegation.shouldFetch() },
+                dispatcher = coroutinesRule.dispatcher
+        )
+        //then
+        ld.captureValues {
+            assertEquals(arrayListOf(Result.Loading,
+                                     Result.Success(LOCAL_RESULT),
+                                     Result.Finish), values)
+        }
+    }
+
+    @Test
+    fun `should emit Loading,Success, Error, Success, Finish Status when we fetch remote but fail`() = coroutinesRule.runBlocking {
+        givenSuspended { delegation.remoteResult() }
+                .willThrow(RuntimeException(REMOTE_CRASH))
+        //when
+        val ld = repositoryLiveData<String, String>(
+                localResult = { delegation.localResult() },
+                shouldFetch = { delegation.shouldFetch() },
+                remoteResult = { delegation.remoteResult() },
+                saveFetchResult = { delegation.shouldFetch() },
+                dispatcher = coroutinesRule.dispatcher
+        )
+        //then
+        ld.captureValues {
+            assertEquals(arrayListOf(Result.Loading,
+                                     Result.Success(LOCAL_RESULT),
+                                     Result.Error(REMOTE_CRASH),
+                                     Result.Success(LOCAL_RESULT),
+                                     Result.Finish
+            ), values)
+        }
     }
 
 

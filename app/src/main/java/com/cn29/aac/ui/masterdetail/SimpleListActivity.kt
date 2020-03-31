@@ -50,7 +50,7 @@ class SimpleListActivity : BaseAppCompatActivity() {
     private fun loadRepos(ownerName: String) {
         masterDetailShareViewModel
                 .loadRepos(ownerName)
-                .observe(this, Observer { it ->
+                .observe(this, Observer {
                     when (it) {
                         Result.Loading -> {
                             progressDialogComponent?.showLoading()

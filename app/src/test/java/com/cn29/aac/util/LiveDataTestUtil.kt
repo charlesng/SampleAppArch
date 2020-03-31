@@ -6,25 +6,6 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
-object LiveDataTestUtil2 {
-    // @Throws(InterruptedException::class)
-    fun <T> getValue(liveData: LiveData<T>): T {
-        val data = arrayOfNulls<Any>(1)
-        val latch = CountDownLatch(1)
-        val observer = object : Observer<T> {
-            override fun onChanged(o: T?) {
-                data[0] = o
-                latch.countDown()
-                liveData.removeObserver(this)
-            }
-        }
-        liveData.observeForever(observer)
-        latch.await(2, TimeUnit.SECONDS)
-
-        return data[0] as T
-    }
-}
-
 fun <T> LiveData<T>.getOrAwaitValue(
         time: Long = 2,
         timeUnit: TimeUnit = TimeUnit.SECONDS,
@@ -51,4 +32,32 @@ fun <T> LiveData<T>.getOrAwaitValue(
 
     @Suppress("UNCHECKED_CAST")
     return data as T
+}
+
+class LiveDataValueCapture<T> {
+
+    val lock = Any()
+
+    private val _values = mutableListOf<T?>()
+    val values: List<T?>
+        get() = synchronized(lock) {
+            _values.toList() // copy to avoid returning reference to mutable list
+        }
+
+    fun addValue(value: T?) = synchronized(lock) {
+        _values += value
+    }
+}
+
+inline fun <T> LiveData<T>.captureValues(block: LiveDataValueCapture<T>.() -> Unit) {
+    val capture = LiveDataValueCapture<T>()
+    val observer = Observer<T> {
+        capture.addValue(it)
+    }
+    observeForever(observer)
+    try {
+        capture.block()
+    } finally {
+        removeObserver(observer)
+    }
 }

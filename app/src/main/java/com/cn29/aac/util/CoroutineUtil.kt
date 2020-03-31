@@ -15,8 +15,7 @@ sealed class Result<out R> {
     object Finish : Result<Nothing>()
 }
 
-
-fun <T, A> repositoryLiveData(localResult: (() -> LiveData<T>) = { MutableLiveData() },
+fun <T, A> repositoryLiveData(localResult: (suspend () -> LiveData<T>) = { MutableLiveData() },
                               remoteResult: (suspend () -> Result<A>)? = null,
                               saveFetchResult: suspend (A) -> Unit = { Unit },
                               dispatcher: CoroutineDispatcher = Dispatchers.IO,
@@ -27,24 +26,29 @@ fun <T, A> repositoryLiveData(localResult: (() -> LiveData<T>) = { MutableLiveDa
             val source: LiveData<Result<T>> = localResult.invoke()
                     .map { Result.Success(it) }
             emitSource(source)
-            remoteResult?.let {
-                if (shouldFetch.invoke()) {
-                    when (val response = it.invoke()) {
-                        is Result.Success -> {
-                            saveFetchResult(response.data)
-                        }
-                        is Result.Error -> {
-                            emit(Result.Error<T>(response.message))
-                            emitSource((source))
-                        }
-                        else -> {
+            try {
+                remoteResult?.let {
+                    if (shouldFetch.invoke()) {
+                        when (val response = it.invoke()) {
+                            is Result.Success -> {
+                                saveFetchResult(response.data)
+                            }
+                            is Result.Error -> {
+                                emit(Result.Error<T>(response.message))
+                                emitSource(source)
+                            }
+                            else -> {
+                            }
                         }
                     }
                 }
+            } catch (e: Exception) {
+                emit(Result.Error<T>(e.message.toString()))
+                emitSource(source)
+            } finally {
+                emit(Result.Finish)
             }
-            emit(Result.Finish)
         }
-
 
 suspend fun <T> transformResult(call: suspend () -> Response<T>): Result<T> {
     try {

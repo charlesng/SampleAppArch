@@ -20,7 +20,7 @@ interface GithubService {
 
     @GET("repos/{owner}/{name}")
     fun getRepo(@Path("owner") owner: String?,
-                @Path("name") name: String?): LiveData<ApiResponse<Repo>>
+                @Path("name") name: String?): Response<Repo>
 
     @GET("repos/{owner}/{name}/contributors")
     fun getContributors(@Path("owner") owner: String?,

@@ -24,8 +24,8 @@ interface RepoDao {
     fun createRepoIfNotExists(repo: Repo?): Long
 
     @Query("SELECT * FROM repo WHERE owner_login = :login AND name = :name")
-    fun load(login: String?,
-             name: String?): LiveData<Repo>
+    suspend fun load(login: String?,
+                     name: String?): LiveData<Repo>
 
     @Query("SELECT login, avatarUrl,repoName, repoOwner, contributions FROM contributor "
                    + "WHERE repoName = :name AND repoOwner = :owner "
@@ -36,7 +36,7 @@ interface RepoDao {
     @Query("SELECT * FROM Repo "
                    + "WHERE owner_login = :owner "
                    + "ORDER BY stars DESC")
-    fun loadRepositories(owner: String?): LiveData<List<Repo>>
+    suspend fun loadRepositories(owner: String?): LiveData<List<Repo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(result: RepoSearchResult?)

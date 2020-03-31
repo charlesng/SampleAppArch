@@ -9,6 +9,8 @@ import com.cn29.aac.util.InstantExecutorExtension
 import com.cn29.aac.util.getOrAwaitValue
 import com.cn29.aac.util.runBlocking
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,7 +30,6 @@ class GitRepoRepositoryTest {
         @RegisterExtension
         var coroutinesRule = CoroutinesTestExtension()
     }
-
 
     private lateinit var appExecutors: AppExecutors
     private lateinit var repoDao: RepoDao
@@ -50,18 +51,33 @@ class GitRepoRepositoryTest {
     }
 
     @Test
-    internal fun `should call network to fetch result and insert to db if the response is not empty`() = coroutinesRule.runBlocking {
+    fun `should not call network to fetch result if the process in rate limiter is not valid`() = coroutinesRule.runBlocking {
         //given
         val owner = "Tom"
         val response = Response.success(listOf(Repo(), Repo()))
         `when`(githubService.getRepo(anyString())).thenReturn(
                 response)
-        `when`(rateLimiter.shouldFetch(anyString())).thenReturn(true)
+        `when`(rateLimiter.shouldFetch(anyString())).thenReturn(false)
         //when
-        val orAwaitValue = gitRepoRepository.loadRepo(owner).getOrAwaitValue()
+        gitRepoRepository.loadRepo(owner).getOrAwaitValue()
         //then
-        verify(githubService).getRepo(owner)
-        verify(repoDao).insertRepos(anyList())
+        verify(githubService, never()).getRepo(owner)
+        verify(repoDao, never()).insertRepos(anyList())
     }
 
+    @Test
+    fun `should reset ratelimiter if the network response contains error`() = coroutinesRule.runBlocking {
+        //given
+        val owner = "Tom"
+        val response = Response.error<List<Repo>>(500,
+                                                  "Test Server Error".toResponseBody(
+                                                          "text/plain".toMediaTypeOrNull()))
+        `when`(githubService.getRepo(anyString())).thenReturn(
+                response)
+        `when`(rateLimiter.shouldFetch(anyString())).thenReturn(true)
+        //when
+        gitRepoRepository.loadRepo(owner).getOrAwaitValue()
+        //then
+        verify(rateLimiter, times(1)).reset(owner)
+    }
 }
