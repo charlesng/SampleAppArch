@@ -1,6 +1,5 @@
 package com.cn29.aac.util
 
-import androidx.lifecycle.MutableLiveData
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -14,7 +13,7 @@ import org.mockito.BDDMockito
 interface Delegation {
     suspend fun remoteResult(): Result<String>
     suspend fun saveResult(s: String)
-    fun localResult(): MutableLiveData<String>
+    suspend fun localResult(): String
     fun shouldFetch(): Boolean
 }
 
@@ -39,8 +38,8 @@ class CoroutineUtilKtTest {
     fun setUp() {
         given { delegation.shouldFetch() }
                 .willReturn(true)
-        given { delegation.localResult() }
-                .willReturn(MutableLiveData(LOCAL_RESULT))
+        givenSuspended { delegation.localResult() }
+                .willReturn(LOCAL_RESULT)
         givenSuspended { delegation.remoteResult() }
                 .willReturn(Result.Success(REMOTE_RESULT))
     }

@@ -1,9 +1,7 @@
 package com.cn29.aac.util
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
@@ -15,17 +13,18 @@ sealed class Result<out R> {
     object Finish : Result<Nothing>()
 }
 
-fun <T, A> repositoryLiveData(localResult: (suspend () -> LiveData<T>) = { MutableLiveData() },
+fun <T, A> repositoryLiveData(localResult: (suspend () -> T)? = null,
                               remoteResult: (suspend () -> Result<A>)? = null,
-                              saveFetchResult: suspend (A) -> Unit = { Unit },
+                              saveFetchResult: suspend (A) -> Unit = { },
                               dispatcher: CoroutineDispatcher = Dispatchers.IO,
                               shouldFetch: () -> Boolean = { true }
 ): LiveData<Result<T>> =
         liveData(dispatcher) {
             emit(Result.Loading)
-            val source: LiveData<Result<T>> = localResult.invoke()
-                    .map { Result.Success(it) }
-            emitSource(source)
+            val localData = localResult?.invoke()
+            localData?.also {
+                emit(Result.Success(it))
+            }
             try {
                 remoteResult?.let {
                     if (shouldFetch.invoke()) {
@@ -35,7 +34,9 @@ fun <T, A> repositoryLiveData(localResult: (suspend () -> LiveData<T>) = { Mutab
                             }
                             is Result.Error -> {
                                 emit(Result.Error<T>(response.message))
-                                emitSource(source)
+                                localData?.also { data ->
+                                    emit(Result.Success(data))
+                                }
                             }
                             else -> {
                             }
@@ -44,7 +45,9 @@ fun <T, A> repositoryLiveData(localResult: (suspend () -> LiveData<T>) = { Mutab
                 }
             } catch (e: Exception) {
                 emit(Result.Error<T>(e.message.toString()))
-                emitSource(source)
+                localData?.also {
+                    emit(Result.Success(it))
+                }
             } finally {
                 emit(Result.Finish)
             }
