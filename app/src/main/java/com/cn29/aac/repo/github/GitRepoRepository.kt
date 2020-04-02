@@ -1,7 +1,6 @@
 package com.cn29.aac.repo.github
 
 import androidx.lifecycle.LiveData
-import com.cn29.aac.AppExecutors
 import com.cn29.aac.datasource.github.db.RepoDao
 import com.cn29.aac.datasource.github.remote.GithubService
 import com.cn29.aac.repo.util.RateLimiter
@@ -18,8 +17,7 @@ import javax.inject.Singleton
  * Created by Charles Ng on 3/10/2017.
  */
 @Singleton
-class GitRepoRepository @Inject constructor(private val appExecutors: AppExecutors,
-                                            private val repoDao: RepoDao,
+class GitRepoRepository @Inject constructor(private val repoDao: RepoDao,
                                             private val githubService: GithubService,
                                             private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
                                             private val repoListRateLimit: RateLimiter<String> = RateLimiter(
@@ -38,11 +36,11 @@ class GitRepoRepository @Inject constructor(private val appExecutors: AppExecuto
             },
             shouldFetch = { repoListRateLimit.shouldFetch(owner) },
             saveFetchResult = { repoDao.insertRepos(it) },
-            dispatcher = this.dispatcher
+            dispatcher = dispatcher
     )
 
-    fun loadRepo(owner: String?,
-                 name: String?): LiveData<Result<Repo>> = repositoryLiveData(
+    fun loadRepo(owner: String,
+                 name: String): LiveData<Result<Repo>> = repositoryLiveData(
             localResult = { repoDao.load(owner, name) },
             remoteResult = {
                 transformResult {
@@ -51,6 +49,7 @@ class GitRepoRepository @Inject constructor(private val appExecutors: AppExecuto
                 }
             },
             saveFetchResult = { repoDao.insert(it) },
-            dispatcher = this.dispatcher
+            shouldFetch = { repoListRateLimit.shouldFetch("$owner$name") },
+            dispatcher = dispatcher
     )
 }

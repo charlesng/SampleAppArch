@@ -11,8 +11,8 @@ import com.cn29.aac.util.Result
  */
 class SimpleMasterDetailShareViewModel(private val gitRepoRepository: GitRepoRepository) :
         ViewModel() {
-    fun loadRepos(owner: String?,
-                  name: String?): LiveData<Result<Repo>> =
+    fun loadRepos(owner: String,
+                  name: String): LiveData<Result<Repo>> =
             gitRepoRepository.loadRepo(owner, name)
 
     fun loadRepos(owner: String?): LiveData<Result<List<Repo>>> =

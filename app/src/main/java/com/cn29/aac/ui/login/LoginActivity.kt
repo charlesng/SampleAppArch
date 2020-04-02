@@ -19,12 +19,11 @@ import com.cn29.aac.R
 import com.cn29.aac.databinding.ActivityLoginBinding
 import com.cn29.aac.repo.user.AuthRepository.AuthMode
 import com.cn29.aac.repo.user.LoginBean
-import com.cn29.aac.repo.util.Resource
-import com.cn29.aac.repo.util.Status
 import com.cn29.aac.ui.base.BaseAppCompatActivity
 import com.cn29.aac.ui.common.ActivityPermissionComponent
 import com.cn29.aac.ui.login.vm.LoginViewModel
 import com.cn29.aac.ui.main.AppArchNavigationDrawer
+import com.cn29.aac.util.Result
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
@@ -67,7 +66,7 @@ class LoginActivity : BaseAppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val gso = GoogleSignInOptions.Builder(
-                        GoogleSignInOptions.DEFAULT_SIGN_IN)
+                GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build()
         mGoogleApiClient = GoogleApiClient.Builder(this)
@@ -96,26 +95,24 @@ class LoginActivity : BaseAppCompatActivity(),
         // Set up the login form.
         mPasswordView!!.setOnEditorActionListener { _: TextView?, id: Int, _: KeyEvent? ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                loginViewModel.login(
-                                AuthMode.MYCOMPANY,
-                                email,
-                                password)
+                loginViewModel.login(AuthMode.MYCOMPANY, email!!, password!!)
                         .observe(
                                 this@LoginActivity,
-                                Observer<Resource<LoginBean>> { loginBeanResource: Resource<LoginBean> ->
-                                    when (loginBeanResource.status) {
-                                        Status.SUCCESS -> {
+                                Observer { loginBeanResource: Result<LoginBean> ->
+                                    when (loginBeanResource) {
+                                        is Result.Success -> {
                                             showProgress(
                                                     false)
                                             startActivity(
                                                     Intent(this@LoginActivity,
                                                            AppArchNavigationDrawer::class.java))
                                         }
-                                        Status.ERROR -> showProgress(
-                                                false)
-                                        Status.LOADING -> showProgress(
-                                                true)
-                                        else -> Unit
+                                        is Result.Error -> {
+                                            showProgress(false)
+                                        }
+                                        is Result.Loading -> {
+                                            showProgress(true)
+                                        }
                                     }
                                 })
                 return@setOnEditorActionListener true
@@ -127,20 +124,20 @@ class LoginActivity : BaseAppCompatActivity(),
         mEmailSignInButton.setOnClickListener { _: View? ->
             email = mEmailView!!.editableText.toString()
             password = mEmailView!!.editableText.toString()
-            loginViewModel.login(AuthMode.MYCOMPANY, email, password)
+            loginViewModel.login(AuthMode.MYCOMPANY, email!!, password!!)
                     .observe(this@LoginActivity,
-                             Observer<Resource<LoginBean>> { loginBeanResource: Resource<LoginBean> ->
-                                 when (loginBeanResource.status) {
-                                     Status.SUCCESS -> {
+                             Observer { loginBeanResource: Result<LoginBean> ->
+                                 when (loginBeanResource) {
+                                     is Result.Success -> {
                                          showProgress(false)
                                          finish()
                                          startActivity(Intent(
                                                  this@LoginActivity,
                                                  AppArchNavigationDrawer::class.java))
                                      }
-                                     Status.ERROR -> showProgress(
+                                     is Result.Error -> showProgress(
                                              false)
-                                     Status.LOADING -> showProgress(
+                                     is Result.Loading -> showProgress(
                                              true)
                                      else -> Unit
                                  }
@@ -227,19 +224,19 @@ class LoginActivity : BaseAppCompatActivity(),
         if (result.isSuccess) {
             // Signed in successfully, show authenticated UI.
             val acct = result.signInAccount
-            loginViewModel.login(AuthMode.GOOGLE, acct!!.email, password)
+            loginViewModel.login(AuthMode.GOOGLE, acct?.email!!, password!!)
                     .observe(this@LoginActivity,
-                             Observer { loginBeanResource: Resource<LoginBean> ->
-                                 when (loginBeanResource.status) {
-                                     Status.SUCCESS -> {
+                             Observer { loginBeanResource: Result<LoginBean> ->
+                                 when (loginBeanResource) {
+                                     is Result.Success -> {
                                          showProgress(false)
                                          finish()
                                          startActivity(Intent(this@LoginActivity,
                                                               AppArchNavigationDrawer::class.java))
                                      }
-                                     Status.ERROR -> showProgress(
+                                     is Result.Error -> showProgress(
                                              false)
-                                     Status.LOADING -> showProgress(
+                                     is Result.Loading -> showProgress(
                                              true)
                                      else -> Unit
                                  }

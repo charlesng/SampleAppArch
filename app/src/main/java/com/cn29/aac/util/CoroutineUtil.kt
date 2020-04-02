@@ -13,11 +13,11 @@ sealed class Result<out R> {
     object Finish : Result<Nothing>()
 }
 
-fun <T, A> repositoryLiveData(localResult: (suspend () -> T)? = null,
-                              remoteResult: (suspend () -> Result<A>)? = null,
+fun <T, A> repositoryLiveData(localResult: (suspend () -> T?)? = null,
+                              remoteResult: (suspend () -> Result<A>?)? = null,
                               saveFetchResult: suspend (A) -> Unit = { },
                               dispatcher: CoroutineDispatcher = Dispatchers.IO,
-                              shouldFetch: () -> Boolean = { true }
+                              shouldFetch: (localData: T?) -> Boolean = { true }
 ): LiveData<Result<T>> =
         liveData(dispatcher) {
             emit(Result.Loading)
@@ -26,8 +26,8 @@ fun <T, A> repositoryLiveData(localResult: (suspend () -> T)? = null,
                 emit(Result.Success(it))
             }
             try {
-                remoteResult?.let {
-                    if (shouldFetch.invoke()) {
+                if (shouldFetch.invoke(localData)) {
+                    remoteResult?.let {
                         when (val response = it.invoke()) {
                             is Result.Success -> {
                                 saveFetchResult(response.data)

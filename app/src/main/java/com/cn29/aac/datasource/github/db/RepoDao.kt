@@ -42,5 +42,5 @@ interface RepoDao {
     fun insert(result: RepoSearchResult?)
 
     @Query("SELECT * FROM Repo WHERE id in (:repoIds)")
-    fun loadById(repoIds: List<Int>): LiveData<List<Repo>>
+    suspend fun loadById(repoIds: List<Int>): List<Repo>
 }

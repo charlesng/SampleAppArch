@@ -1,12 +1,11 @@
 package com.cn29.aac.datasource.auth.db
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.room.Room
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cn29.aac.repo.user.LoginBean
-import com.cn29.aac.utils.LiveDataTestUtil
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -20,7 +19,7 @@ internal class AuthDaoTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
     private lateinit var authDb: AuthDb
     private lateinit var authDao: AuthDao
-    private lateinit var getLoginLiveData: LiveData<LoginBean>
+    private lateinit var loginBeanFromDao: LoginBean
 
     @Before
     fun setUp() {
@@ -35,13 +34,12 @@ internal class AuthDaoTest {
     }
 
     @Test
-    fun should_insert_login_and_fetch() {
+    fun should_insert_login_and_fetch() = runBlocking {
         val loginBean = generateDummyLoginBean()
         givenLoginBeanInserted(loginBean)
         whenGetLoginByEmail(email = "charlesng0209@gmail.com")
         thenFetchedLoginBeanShouldBe(expect = loginBean,
-                                     actual = LiveDataTestUtil.getValue(
-                                             getLoginLiveData))
+                                     actual = loginBeanFromDao)
     }
 
     private fun thenFetchedLoginBeanShouldBe(expect: LoginBean,
@@ -49,11 +47,11 @@ internal class AuthDaoTest {
         assertEquals(expect, actual)
     }
 
-    private fun whenGetLoginByEmail(email: String) {
-        getLoginLiveData = authDao.getLogin(email)
+    private suspend fun whenGetLoginByEmail(email: String) {
+        loginBeanFromDao = authDao.getLogin(email)
     }
 
-    private fun givenLoginBeanInserted(loginBean: LoginBean) {
+    private suspend fun givenLoginBeanInserted(loginBean: LoginBean) {
         authDao.insert(loginBean)
     }
 

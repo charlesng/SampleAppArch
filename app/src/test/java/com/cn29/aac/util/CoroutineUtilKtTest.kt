@@ -21,13 +21,16 @@ fun <T> givenSuspended(block: suspend () -> T) = BDDMockito.given(runBlocking { 
 
 @ExperimentalCoroutinesApi
 @ExtendWith(InstantExecutorExtension::class)
-class CoroutineUtilKtTest {
-    // Set the main coroutines dispatcher for unit testing
+open class BaseCoroutineUtilKtTest {
     companion object {
         @JvmField
         @RegisterExtension
         var coroutinesRule = CoroutinesTestExtension()
     }
+}
+
+@ExperimentalCoroutinesApi
+class CoroutineUtilKtTest : BaseCoroutineUtilKtTest() {
 
     val delegation: Delegation = mock()
     private val LOCAL_RESULT = "Local Result Fetch"

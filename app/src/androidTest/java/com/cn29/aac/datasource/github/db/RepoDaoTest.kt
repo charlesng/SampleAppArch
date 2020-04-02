@@ -9,6 +9,7 @@ import com.cn29.aac.repo.github.Contributor
 import com.cn29.aac.repo.github.Repo
 import com.cn29.aac.repo.github.RepoSearchResult
 import com.cn29.aac.utils.LiveDataTestUtil
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -19,8 +20,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 internal class RepoDaoTest {
     private lateinit var loadContributors: LiveData<List<Contributor>>
-    private lateinit var loadRepoList: LiveData<List<Repo>>
-    private lateinit var loadRepo: LiveData<Repo>
+    private lateinit var loadRepoList: List<Repo>
+    private lateinit var loadRepo: Repo
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -41,23 +42,23 @@ internal class RepoDaoTest {
     }
 
     @Test
-    fun should_insert_1_repo() {
+    fun should_insert_1_repo() = runBlocking {
         val repo = generateDummyRepo()
         givenRepoInserted(*repo.toTypedArray())
         whenLoadRepositories("charlesng0209")
         thenRepoListSizeShouldBe(1)
         thenRepoShouldBe(repo[0],
-                         LiveDataTestUtil.getValue(loadRepoList)[0])
+                         loadRepoList[0])
     }
 
     @Test
-    fun should_insert_1_repo_empty_desc() {
+    fun should_insert_1_repo_empty_desc() = runBlocking {
         val repo = generateDummyRepo(description = null)
         givenRepoInserted(*repo.toTypedArray())
         whenLoadRepositories("charlesng0209")
         thenRepoListSizeShouldBe(1)
         thenRepoShouldBe(repo[0],
-                         LiveDataTestUtil.getValue(loadRepoList)[0])
+                         loadRepoList[0])
     }
 
     @Test
@@ -71,7 +72,7 @@ internal class RepoDaoTest {
     }
 
     @Test
-    fun should_insert_repos_list() {
+    fun should_insert_repos_list() = runBlocking {
         val repo = generateDummyRepo(3)
         givenRepoInserted(*repo.toTypedArray())
         whenLoadRepositories("charlesng0209")
@@ -80,12 +81,12 @@ internal class RepoDaoTest {
 
 
     @Test
-    fun should_load_repo_with_login_and_name() {
+    fun should_load_repo_with_login_and_name() = runBlocking {
         val repo = generateDummyRepo(1)
         givenRepoInserted(*repo.toTypedArray())
         whenLoad(login = "charlesng0209", name = "Testing1")
         thenRepoShouldBe(expect = repo[0],
-                         actual = LiveDataTestUtil.getValue(loadRepo))
+                         actual = loadRepo)
     }
 
     @Test
@@ -95,14 +96,14 @@ internal class RepoDaoTest {
     }
 
     @Test
-    fun should_return_2_repos() {
+    fun should_return_2_repos() = runBlocking {
         val repos = generateDummyRepo(3)
         givenRepoInserted(*repos.toTypedArray())
         whenRepoLoadById(1, 2, 3)
         thenRepoListSizeShouldBe(3)
     }
 
-    private fun whenRepoLoadById(vararg repoIds: Int) {
+    private suspend fun whenRepoLoadById(vararg repoIds: Int) {
         loadRepoList = repoDao.loadById(repoIds.toList())
     }
 
@@ -116,8 +117,8 @@ internal class RepoDaoTest {
                              totalCount = 4,
                              next = 3)
 
-    private fun whenLoad(login: String,
-                         name: String) {
+    private suspend fun whenLoad(login: String,
+                                 name: String) {
         loadRepo = repoDao.load(login, name)
     }
 
@@ -143,10 +144,10 @@ internal class RepoDaoTest {
     }
 
     private fun thenRepoListSizeShouldBe(size: Int) {
-        assertEquals(size, LiveDataTestUtil.getValue(loadRepoList).size)
+        assertEquals(size, loadRepoList.size)
     }
 
-    private fun whenLoadRepositories(owner: String) {
+    private suspend fun whenLoadRepositories(owner: String) {
         this.loadRepoList = repoDao.loadRepositories(owner = owner)
     }
 

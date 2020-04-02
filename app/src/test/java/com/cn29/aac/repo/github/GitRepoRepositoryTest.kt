@@ -4,8 +4,7 @@ import com.cn29.aac.AppExecutors
 import com.cn29.aac.datasource.github.db.RepoDao
 import com.cn29.aac.datasource.github.remote.GithubService
 import com.cn29.aac.repo.util.RateLimiter
-import com.cn29.aac.util.CoroutinesTestExtension
-import com.cn29.aac.util.InstantExecutorExtension
+import com.cn29.aac.util.BaseCoroutineUtilKtTest
 import com.cn29.aac.util.getOrAwaitValue
 import com.cn29.aac.util.runBlocking
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,23 +12,12 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.extension.RegisterExtension
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.*
 import retrofit2.Response
 
-
 @ExperimentalCoroutinesApi
-@ExtendWith(InstantExecutorExtension::class)
-class GitRepoRepositoryTest {
-
-    // Set the main coroutines dispatcher for unit testing
-    companion object {
-        @JvmField
-        @RegisterExtension
-        var coroutinesRule = CoroutinesTestExtension()
-    }
+class GitRepoRepositoryTest : BaseCoroutineUtilKtTest() {
 
     private lateinit var appExecutors: AppExecutors
     private lateinit var repoDao: RepoDao
@@ -43,8 +31,7 @@ class GitRepoRepositoryTest {
         repoDao = mock(RepoDao::class.java)
         githubService = mock(GithubService::class.java)
         rateLimiter = mock(RateLimiter::class.java) as RateLimiter<String>
-        gitRepoRepository = GitRepoRepository(appExecutors,
-                                              repoDao,
+        gitRepoRepository = GitRepoRepository(repoDao,
                                               githubService,
                                               coroutinesRule.dispatcher,
                                               rateLimiter)
