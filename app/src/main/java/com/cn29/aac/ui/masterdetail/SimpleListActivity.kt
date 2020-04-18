@@ -4,16 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.cn29.aac.R
 import com.cn29.aac.repo.github.Repo
-import com.cn29.aac.repo.util.Resource
-import com.cn29.aac.repo.util.Status
 import com.cn29.aac.ui.base.BaseAppCompatActivity
 import com.cn29.aac.ui.common.BaseRecyclerViewAdapter.OnItemClickListener
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel
+import com.cn29.aac.util.Result
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import javax.inject.Inject
 
@@ -50,21 +50,24 @@ class SimpleListActivity : BaseAppCompatActivity() {
     private fun loadRepos(ownerName: String) {
         masterDetailShareViewModel
                 .loadRepos(ownerName)
-                .observe(this@SimpleListActivity,
-                         Observer<Resource<List<Repo>>> { repos: Resource<List<Repo>> ->
-                             when (repos.status) {
-                                 Status.SUCCESS -> {
-                                     progressDialogComponent!!.hideLoading()
-                                     repos.data?.let {
-                                         githubRepoAdapter.setRepos(it)
-                                     }
-                                 }
-                                 Status.ERROR -> progressDialogComponent!!.hideLoading()
-                                 Status.LOADING -> progressDialogComponent!!.showLoading()
-                                 else -> Unit
-                             }
-                             githubRepoAdapter.notifyDataSetChanged()
-                         })
+                .observe(this, Observer {
+                    when (it) {
+                        Result.Loading -> {
+                            progressDialogComponent?.showLoading()
+                            Toast.makeText(this, "Loading", Toast.LENGTH_SHORT)
+                                    .show()
+                        }
+                        is Result.Success -> {
+                            progressDialogComponent?.hideLoading()
+                            githubRepoAdapter.setRepos(it.data)
+                            Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
+                                    .show()
+                        }
+                        is Result.Error -> progressDialogComponent?.hideLoading()
+                        else -> progressDialogComponent?.hideLoading()
+                    }
+                    githubRepoAdapter.notifyDataSetChanged()
+                })
     }
 
     private fun setupAdapter() {

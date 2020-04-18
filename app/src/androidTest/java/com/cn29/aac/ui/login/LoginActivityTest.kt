@@ -1,5 +1,4 @@
-package com.cn29.aac.ui.feedentry
-
+package com.cn29.aac.ui.login
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -10,11 +9,11 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class FeedActivityTest {
+internal class LoginActivityTest {
 
     @get:Rule
-    var activityRule: ActivityTestRule<FeedActivity> = ActivityTestRule(
-            FeedActivity::class.java)
+    var activityRule: ActivityTestRule<LoginActivity> = ActivityTestRule(
+            LoginActivity::class.java)
 
     @Test
     fun should_open_page() {

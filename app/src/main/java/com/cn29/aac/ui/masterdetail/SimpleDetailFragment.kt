@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.cn29.aac.R
-import com.cn29.aac.repo.github.Repo
-import com.cn29.aac.repo.util.Resource
-import com.cn29.aac.repo.util.Status
 import com.cn29.aac.ui.base.BaseFragment
 import com.cn29.aac.ui.masterdetail.vm.SimpleMasterDetailShareViewModel
+import com.cn29.aac.util.Result
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import javax.inject.Inject
 
@@ -34,27 +32,25 @@ class SimpleDetailFragment
             ownerName = arguments?.getString(OWNER_NAME).toString()
         }
         masterDetailShareViewModel.loadRepos(ownerName, repoName)
-                .observe(this,
-                         Observer { repoResource: Resource<Repo> ->
-                             val activity: Activity = requireActivity()
-                             val appBarLayout: CollapsingToolbarLayout = activity
-                                     .findViewById(
-                                             R.id.toolbar_layout)
-                             val titleView = rootView
-                                     .findViewById<TextView>(
-                                             R.id.feedentry_detail)
-                             when (repoResource.status) {
-                                 Status.SUCCESS -> {
-                                     progressDialogComponent!!.hideLoading()
-                                     assert(repoResource.data != null)
-                                     appBarLayout.title = repoResource.data!!.name
-                                     titleView.text = repoResource.data.fullName
-                                 }
-                                 Status.ERROR -> progressDialogComponent!!.hideLoading()
-                                 Status.LOADING -> progressDialogComponent!!.showLoading()
-                                 else -> Unit
-                             }
-                         })
+                .observe(this, Observer {
+                    val activity: Activity = requireActivity()
+                    val appBarLayout: CollapsingToolbarLayout = activity
+                            .findViewById(
+                                    R.id.toolbar_layout)
+                    val titleView = rootView
+                            .findViewById<TextView>(
+                                    R.id.feedentry_detail)
+                    when (it) {
+                        is Result.Success -> {
+                            progressDialogComponent?.hideLoading()
+                            appBarLayout.title = it.data.name
+                            titleView.text = it.data.fullName
+                        }
+                        is Result.Error -> progressDialogComponent?.hideLoading()
+                        is Result.Loading -> progressDialogComponent?.showLoading()
+                        else -> Unit
+                    }
+                })
     }
 
     override fun onCreateView(inflater: LayoutInflater,

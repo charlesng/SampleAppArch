@@ -1,4 +1,4 @@
-package com.cn29.aac.utils
+package com.cn29.aac.util
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor

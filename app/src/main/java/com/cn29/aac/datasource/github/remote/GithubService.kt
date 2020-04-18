@@ -6,6 +6,7 @@ import com.cn29.aac.repo.github.Contributor
 import com.cn29.aac.repo.github.Repo
 import com.cn29.aac.repo.github.User
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -15,10 +16,11 @@ interface GithubService {
     fun getUser(@Path("login") login: String?): LiveData<ApiResponse<User?>?>?
 
     @GET("users/{login}/repos")
-    fun getRepos(@Path("login") login: String?): LiveData<ApiResponse<List<Repo?>?>?>?
+    suspend fun getRepo(@Path("login") login: String): Response<List<Repo>>
 
     @GET("repos/{owner}/{name}")
-    fun getRepo(@Path("owner") owner: String?, @Path("name") name: String?): LiveData<ApiResponse<Repo?>?>?
+    fun getRepo(@Path("owner") owner: String?,
+                @Path("name") name: String?): Response<Repo>
 
     @GET("repos/{owner}/{name}/contributors")
     fun getContributors(@Path("owner") owner: String?,
